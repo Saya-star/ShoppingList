@@ -1,0 +1,44 @@
+header {
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: 20px 40px;
+	background: #eee;
+	box-sizing: border-box;
+}
+
+.header-logo {
+	float: left;
+}
+
+.header-contents {
+	float: right;
+	display: flex;
+}
+
+.header-contents li {
+	padding: 0 10px
+}
+
+li {
+	list-style: none;
+}
+
+main {
+	padding: 100px 80px;
+}
+
+.contents-item {
+	float: left;
+}
+
+.contents-item img {
+	width: 250px;
+	height: 250px;
+}
+
+.contents-item p {
+	text-align: center;
+}
