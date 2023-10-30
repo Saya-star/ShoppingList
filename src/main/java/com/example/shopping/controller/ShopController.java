@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.shopping.entity.Shop;
 import com.example.shopping.repository.ShopRepository;
@@ -21,6 +22,7 @@ public class ShopController {
 	@Autowired
 	ShopRepository shopRepository;
 
+	//店名の一覧の表示
 	@RequestMapping(value = "/shop")
 	public String index(@ModelAttribute("formModel") Shop shop, Model model) {
 		model.addAttribute("title", "お店リスト");
@@ -29,6 +31,7 @@ public class ShopController {
 		return "shop";
 	}
 
+	//リストに店名を追加するメソッド
 	@RequestMapping(value = "/shop", method = RequestMethod.POST)
 	@Transactional
 	public String form(@ModelAttribute("formModel") Shop shop, Model model) {
@@ -36,12 +39,10 @@ public class ShopController {
 		return "redirect:/shop";
 	}
 	
-	//deleteメソッドを書きたい
-	//@RequestMapping(value = "/shops/delete", method = RequestMethod.POST)
-	//@Transactional
-	//public String delete(Model model) {
-		//repository.deleteById();
-		//return "redirect:/shops";
-	//}
-
+	//店名の削除メソッド
+	@RequestMapping(value = "/shop/delete", method = RequestMethod.POST)
+	public String delete(@RequestParam long id) {
+		shopRepository.deleteByShopId(id);
+		return "redirect:/shop";
+	}
 }
