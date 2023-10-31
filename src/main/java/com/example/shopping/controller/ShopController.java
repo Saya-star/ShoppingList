@@ -24,7 +24,7 @@ public class ShopController {
 
 	//店名の一覧の表示
 	@RequestMapping(value = "/shop")
-	public String index(@ModelAttribute("formModel") Shop shop, Model model) {
+	public String get(@ModelAttribute("formModel") Shop shop, Model model) {
 		model.addAttribute("title", "お店リスト");
 		List<Shop> list = shopRepository.findAll();
 		model.addAttribute("data", list);
@@ -34,15 +34,15 @@ public class ShopController {
 	//リストに店名を追加するメソッド
 	@RequestMapping(value = "/shop", method = RequestMethod.POST)
 	@Transactional
-	public String form(@ModelAttribute("formModel") Shop shop, Model model) {
+	public String add(@ModelAttribute("formModel") Shop shop, Model model) {
 		shopRepository.saveAndFlush(shop);
 		return "redirect:/shop";
 	}
 	
 	//店名の削除メソッド
 	@RequestMapping(value = "/shop/delete", method = RequestMethod.POST)
-	public String delete(@RequestParam long id) {
-		shopRepository.deleteByShopId(id);
+	public String delete(@RequestParam("id") long id) {
+		shopRepository.deleteById(id);
 		return "redirect:/shop";
 	}
 }

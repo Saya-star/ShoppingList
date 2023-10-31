@@ -10,7 +10,4 @@ import com.example.shopping.entity.Shop;
 @Repository
 public interface ShopRepository extends JpaRepository<Shop, Long> {
 
-	//削除メソッド
-	public void deleteByShopId(long shopId);
-	
 }

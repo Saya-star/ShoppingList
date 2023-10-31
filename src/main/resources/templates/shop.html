@@ -18,23 +18,24 @@
 				<p>追加する店名を入力してください</p>
 				<input type="text" name="shopName" th:value="*{shopName}" />
 				<input type="submit" value="保存">
-				<table class="table">
-					<thead>
-						<th>登録したお店</th>
-					</thead>
-					<tbody>
-						<tr th:each="item: ${data}">
-							<td th:text="${item.shopName}"></td>
-							<td>
-								<form th:action="@{/shop/delete}" method="post">
-									<input type="hidden" name="id" th:value="${item.shopId}">
-									<input type="submit" class="btn delete" value="削除">
-								</form>
-							</td>
-						</tr>
-					</tbody>
-				</table>
 			</form>
+			<table class="table">
+				<thead>
+					<th>登録したお店</th>
+				</thead>
+				<tbody>
+					<tr th:each="item: ${data}">
+						<td th:text="${item.shopName}"></td>
+						<td>
+							<form th:action="@{/shop/delete}" method="post">
+								<input type="hidden" name="id" th:value="${item.shopId}">
+								<input type="submit" class="btn delete" value="削除">
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
 	</main>
 	<footer th:replace="layouts/common.html :: footer"></footer>
 </body>
