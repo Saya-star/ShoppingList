@@ -12,6 +12,7 @@ public class DishController {
 	
 	@GetMapping
 	public String get(Model model) {
+		model.addAttribute("title", "料理の登録");
 		return "dish";
 	}
 }

@@ -13,10 +13,12 @@
 	<header th:replace="layouts/common.html :: header"></header>
 	<main>
 		<div class="container">
-			<h1>料理の登録</h1>
-			<p>料理の名前</p>
-			<form method="post" action="/dish">
-				<input type="text" name="dishName"/>
+			<h1 class="title" th:text="${title}"></h1>
+			<form method="post" action="/dish" >
+				<div class="">
+					<label for="name" class="form-label">料理名</label>
+					<input type="text" class="form-control" name="dishName" th:value="*{dishName}" />
+				</div>
 			</form>
 		</div>
 
