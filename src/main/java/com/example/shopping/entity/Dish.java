@@ -15,16 +15,16 @@ public class Dish {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
 	private long dishId;
-	
+
 	@Column
 	private long appUserId;
-	
+
 	@Column
 	private String dishName;
-	
+
 	@Column
 	private LocalDate createdDate;
-	
+
 	@Column
 	private LocalDate updatedDate;
 

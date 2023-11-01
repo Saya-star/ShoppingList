@@ -1,0 +1,27 @@
+<!-- 料理の登録ページ-->
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<header th:replace="layouts/common.html :: header"></header>
+	<main>
+		<div class="container">
+			<h1>料理の登録</h1>
+			<p>料理の名前</p>
+			<form method="post" action="/dish">
+				<input type="text" name="dishName"/>
+			</form>
+		</div>
+
+	</main>
+	<footer th:replace="layouts/common.html :: footer"></footer>
+</body>
+
+</html>
