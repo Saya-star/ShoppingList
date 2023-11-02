@@ -28,6 +28,18 @@ public class Dish {
 	@Column
 	private LocalDate updatedDate;
 
+	// 料理の材料Id
+	@Column
+	private long ingredientId;
+
+	// 料理の材料名
+	@Column
+	private String ingredientName;
+
+	// 材料の分量
+	@Column
+	private String quantity;
+
 	public long getDishId() {
 		return dishId;
 	}
@@ -66,5 +78,29 @@ public class Dish {
 
 	public void setUpdatedDate(LocalDate updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	public long getIngredientId() {
+		return ingredientId;
+	}
+
+	public void setIngredientId(long ingredientId) {
+		this.ingredientId = ingredientId;
+	}
+
+	public String getIngredientName() {
+		return ingredientName;
+	}
+
+	public void setIngredientName(String ingredientName) {
+		this.ingredientName = ingredientName;
+	}
+
+	public String getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
 	}
 }

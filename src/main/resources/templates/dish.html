@@ -7,6 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -14,16 +15,62 @@
 	<main>
 		<div class="container">
 			<h1 class="title" th:text="${title}"></h1>
-			<form method="post" action="/dish" >
-				<div class="">
+			<form method="post" action="/dish"　th:object="${Form}">
+				<div id="dish-name">
 					<label for="name" class="form-label">料理名</label>
 					<input type="text" class="form-control" name="dishName" th:value="*{dishName}" />
 				</div>
+				<div id="ingredients_input_fields">
+					<p>材料の登録</p>
+					<div class="input_field">
+						<label for="name" class="form-label">材料</label>
+						<input type="text" class="form-control" name="ingredientName" th:value="*{ingredientName}" />
+						<label for="name" class="form-label">分量</label>
+						<input type="text" class="form-control" name="quantity" th:value="*{quantity}" />
+						<button class="remove">削除</button>
+					</div>
+				</div>
+				<button id="add_ingredients">材料を追加</button>
+				<br>
+				<input type="submit" class="btn" value="保存" />
 			</form>
 		</div>
-
+		<!-- 入力された材料を確認する用　あとで別ファイルにする-->
+		<table class="table">
+			<thead>
+				<th>test:登録した材料の表示</th>
+			</thead>
+			<tbody>
+				<tr th:each="item: ${data}">
+					<td th:text="${item.ingredientName}"></td>
+					<td th:text=${item.quantity}></td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- ここまでをあとで別ファイルに書く -->
 	</main>
 	<footer th:replace="layouts/common.html :: footer"></footer>
 </body>
+<script>
+	$(document).ready(function () {
+		var max_fields = 20;
+		var wrapper = $("#ingredients_input_fields");
+		var add_button = $("#add_ingredients");
+
+		var n = 1;
+		$(add_button).click(function () {
+			if (n < max_fields) {
+				n++;
+				$(wrapper).append('<div class="input_field"><label for="name" class="form-label">材料</label><input type="text" class="form-control" name="ingredientName" th:value="*{ingredientName}" /><label for="name" class="form-label">分量</label><input type="text" class="form-control" name="quantity" th:value="*{quantity}" /><button class="remove">削除</button></div>')
+			}
+		});
+		
+		//削除ボタンが押されたときに列ごと削除するメソッド
+		//$(wrapper).on("click", "remove", function(){
+			//$(this).parent('div').remove();
+			//n--;
+		//});
+	});
+</script>
 
 </html>
