@@ -33,14 +33,14 @@ public class ShopController {
 	public String get(@ModelAttribute("formModel") Shop shop, Model model) {
 		model.addAttribute("title", "お店リスト");
 		//List<Shop> list = shopRepository.findAll();をサービスクラスから呼び出し
-		List<?> list = shopService.get(shop);
+		List<Shop> list = shopService.get(shop);
 		model.addAttribute("data", list);
 		return "shop";
 	}
 
 	//リストに店名を追加するメソッド
 	@PostMapping
-	@Transactional
+	@Transactional //いる？
 	public String add(@ModelAttribute("formModel") Shop shop, Model model) {
 		shopRepository.saveAndFlush(shop);
 		return "redirect:/shop";

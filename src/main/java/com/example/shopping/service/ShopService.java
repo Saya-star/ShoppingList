@@ -15,7 +15,7 @@ public class ShopService {
 	@Autowired
 	ShopRepository shopRepository;
 	
-	public List<Shop> get(@ModelAttribute("formModel") Shop shop) {
+	public List<Shop> get(Shop shop) {
 		List<Shop> list = shopRepository.findAll();
 		return list;
 	}

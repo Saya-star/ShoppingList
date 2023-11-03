@@ -11,17 +11,16 @@
 </head>
 
 <body>
-	<header th:replace="layouts/common.html :: header"></header>
+	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
 		<div class="container">
 			<h1 class="title" th:text="${title}"></h1>
-			<form method="post" action="/dish"　th:object="${Form}">
+			<form method="post" action="/dish" 　th:object="${Form}">
 				<div id="dish-name">
 					<label for="name" class="form-label">料理名</label>
 					<input type="text" class="form-control" name="dishName" th:value="*{dishName}" />
 				</div>
 				<div id="ingredients_input_fields">
-					<p>材料の登録</p>
 					<div class="input_field">
 						<label for="name" class="form-label">材料</label>
 						<input type="text" class="form-control" name="ingredientName" th:value="*{ingredientName}" />
@@ -30,10 +29,11 @@
 						<button class="remove">削除</button>
 					</div>
 				</div>
-				<button id="add_ingredients">材料を追加</button>
+
 				<br>
 				<input type="submit" class="btn" value="保存" />
 			</form>
+			<button id="add_ingredient">材料を追加</button>
 		</div>
 		<!-- 入力された材料を確認する用　あとで別ファイルにする-->
 		<table class="table">
@@ -49,26 +49,30 @@
 		</table>
 		<!-- ここまでをあとで別ファイルに書く -->
 	</main>
-	<footer th:replace="layouts/common.html :: footer"></footer>
+	<footer th:replace="~{layouts/common.html :: footer}"></footer>
 </body>
 <script>
 	$(document).ready(function () {
-		var max_fields = 20;
-		var wrapper = $("#ingredients_input_fields");
-		var add_button = $("#add_ingredients");
-
+		//材料の入力欄を増やすメソッド
+		var max_fields = 20;//材料は20個まで入力可
 		var n = 1;
-		$(add_button).click(function () {
+		$("#add_ingredient").click(function () {
 			if (n < max_fields) {
 				n++;
-				$(wrapper).append('<div class="input_field"><label for="name" class="form-label">材料</label><input type="text" class="form-control" name="ingredientName" th:value="*{ingredientName}" /><label for="name" class="form-label">分量</label><input type="text" class="form-control" name="quantity" th:value="*{quantity}" /><button class="remove">削除</button></div>')
+				var element = $(".input_field").clone(true);//材料の入力エリアのクローンを作成
+				//初期化の処理
+				var inputList = element[0].querySelectorAll('input[type="text"]');
+				for (var i = 0; i < inputList.length; i++) {
+					inputList[i].value = "";
+				}
+				$("#ingredients_input_fields").append(element[0]);
 			}
 		});
-		
+
 		//削除ボタンが押されたときに列ごと削除するメソッド
 		//$(wrapper).on("click", "remove", function(){
-			//$(this).parent('div').remove();
-			//n--;
+		//$(this).parent('div').remove();
+		//n--;
 		//});
 	});
 </script>
