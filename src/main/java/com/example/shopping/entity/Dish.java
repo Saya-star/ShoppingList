@@ -39,6 +39,12 @@ public class Dish {
 	// 材料の分量
 	@Column
 	private String quantity;
+	
+	//調味料のId
+	private long seasoningId;
+	
+	//調味料名
+	private String seasoningName;
 
 	public long getDishId() {
 		return dishId;
@@ -102,5 +108,21 @@ public class Dish {
 
 	public void setQuantity(String quantity) {
 		this.quantity = quantity;
+	}
+
+	public long getSeasoningId() {
+		return seasoningId;
+	}
+
+	public void setSeasoningId(long seasoningId) {
+		this.seasoningId = seasoningId;
+	}
+
+	public String getSeasoningName() {
+		return seasoningName;
+	}
+
+	public void setSeasoningName(String seasoningName) {
+		this.seasoningName = seasoningName;
 	}
 }

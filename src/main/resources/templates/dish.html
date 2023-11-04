@@ -21,18 +21,29 @@
 					<input type="text" class="form-control" name="dishName" th:value="*{dishName}" />
 				</div>
 				<div id="ingredients_input_fields">
-					<div class="input_field">
+					<div class="ingredient_input_field">
 						<label for="name" class="form-label">材料</label>
 						<input type="text" class="form-control" name="ingredientName" th:value="*{ingredientName}" />
 						<label for="name" class="form-label">分量</label>
 						<input type="text" class="form-control" name="quantity" th:value="*{quantity}" />
-						<button class="remove">削除</button>
+						<button class="remove_ingredient" type="button">削除</button>
 					</div>
 				</div>
 				<div class="add_button">
 					<button id="add_ingredient" type="button">材料を追加</button>
 				</div>
-				<br>
+				<br> <!-- brあとで消す -->
+				<div id="seasonings_input_fields">
+					<div class="seasoning_input_field">
+						<label for="name" class="form-label">調味料</label>
+						<input type="text" class="form-control" name="seasoningName" th:value="*{seasoningName}" />
+						<button class="remove_seasoning" type="button">削除</button>
+					</div>
+				</div>
+				<div class="add_button">
+					<button id="add_seasoning" type="button">調味料を追加</button>
+				</div>
+				<br> <!-- brあとで消す -->
 				<input type="submit" class="btn" value="保存" />
 			</form>
 
@@ -46,6 +57,7 @@
 				<tr th:each="item: ${data}">
 					<td th:text="${item.ingredientName}"></td>
 					<td th:text=${item.quantity}></td>
+					<td th:text=${item.seasoningName}></td>
 				</tr>
 			</tbody>
 		</table>
@@ -55,14 +67,15 @@
 </body>
 <script>
 	$(document).ready(function () {
-		//材料の入力欄を増やすメソッド
 		var max_fields = 20;//材料は20個まで入力可
+		var min_fields = 1;//最小値は1個
 		var n = 1;
+		//材料の入力欄を増やす
 		$("#add_ingredient").click(function () {
 			if (n < max_fields) {
 				n++;
-				var element = $(".input_field").clone(true);//材料の入力エリアのクローンを作成
-				//初期化の処理
+				var element = $(".ingredient_input_field").clone(true);//材料の入力エリアのクローンを作成
+				//入力エリアの初期化の処理
 				var inputList = element[0].querySelectorAll('input[type="text"]');
 				for (var i = 0; i < inputList.length; i++) {
 					inputList[i].value = "";
@@ -70,12 +83,37 @@
 				$("#ingredients_input_fields").append(element[0]);
 			}
 		});
+		//材料の入力欄を減らす
+		$(".remove_ingredient").click(function(){
+			if (n > min_fields) {
+			$(this).closest(".ingredient_input_field").remove();
+			n--;
+			}
+		});
 
-		//削除ボタンが押されたときに列ごと削除するメソッド
-		//$(wrapper).on("click", "remove", function(){
-		//$(this).parent('div').remove();
-		//n--;
-		//});
+		var m = 1;
+		//調味料の入力欄を増やす
+		$("#add_seasoning").click(function () {
+			if (m < max_fields) {
+				m++;
+				var element = $(".seasoning_input_field").clone(true);//入力エリアのクローンを作成
+				//入力エリアの初期化の処理
+				var inputList = element[0].querySelectorAll('input[type="text"]');
+				for (var i = 0; i < inputList.length; i++) {
+					inputList[i].value = "";
+				}
+				$("#seasonings_input_fields").append(element[0]);
+			}
+		});
+		
+		//調味料の入力欄を減らす
+		$(".remove_seasoning").click(function(){
+			if (m > min_fields) {
+			$(this).closest(".seasoning_input_field").remove();
+			m--;
+			}
+		});
+		
 	});
 </script>
 
