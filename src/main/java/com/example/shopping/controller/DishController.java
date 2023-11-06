@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.shopping.entity.Dish;
 import com.example.shopping.repository.DishRepository;
@@ -15,24 +16,27 @@ import com.example.shopping.repository.DishRepository;
 import org.springframework.ui.Model;
 
 @Controller
-@RequestMapping(value = "/dish")
+//@RequestMapping(value = "/dish")
 public class DishController {
-	
+
 	@Autowired
 	DishRepository dishRepository;
-	
-	@GetMapping
-	public String get(@ModelAttribute("Form") Dish dish,Model model) {
+
+	@RequestMapping(method=RequestMethod.GET,value = "/dish")//変更
+	public String get(@ModelAttribute("Form") Dish dish, Model model) {
 		model.addAttribute("title", "料理の登録");
-		//あとでサービスクラスに書きかえる
+		// あとでサービスクラスに書きかえる
 		List<Dish> list = dishRepository.findAll();
-		model.addAttribute("data",list);
+		model.addAttribute("data", list);
 		return "dish";
 	}
-	//メモ：材料と分量をそれぞれ表示するには？
-	@PostMapping
-	public String add(@ModelAttribute("Form")Dish dish, Model model) {
+
+	@RequestMapping(method=RequestMethod.POST,value = "/dish-details")
+	public String add(@ModelAttribute("Form") Dish dish, Model model) {
 		dishRepository.saveAndFlush(dish);
-		return "redirect:/dish";
+		List<Dish> list = dishRepository.findAll();// 変更点
+		model.addAttribute("data", list);// 変更点
+		System.out.println("add");// あとで消す
+		return "dish-details";// 変更点
 	}
 }

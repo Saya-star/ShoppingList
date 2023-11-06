@@ -15,7 +15,7 @@
 	<main>
 		<div class="container">
 			<h1 class="title" th:text="${title}"></h1>
-			<form method="post" action="/dish" 　th:object="${Form}">
+			<form method="post" action="/dish-details" 　th:object="${Form}">
 				<div id="dish-name">
 					<label for="name" class="form-label">料理名</label>
 					<input type="text" class="form-control" name="dishName" th:value="*{dishName}" />
@@ -46,22 +46,7 @@
 				<br> <!-- brあとで消す -->
 				<input type="submit" class="btn" value="保存" />
 			</form>
-
 		</div>
-		<!-- 入力された材料を確認する用　あとで別ファイルにする-->
-		<table class="table">
-			<thead>
-				<th>test:登録した材料の表示</th>
-			</thead>
-			<tbody>
-				<tr th:each="item: ${data}">
-					<td th:text="${item.ingredientName}"></td>
-					<td th:text=${item.quantity}></td>
-					<td th:text=${item.seasoningName}></td>
-				</tr>
-			</tbody>
-		</table>
-		<!-- ここまでをあとで別ファイルに書く -->
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
 </body>
@@ -84,10 +69,10 @@
 			}
 		});
 		//材料の入力欄を減らす
-		$(".remove_ingredient").click(function(){
+		$(".remove_ingredient").click(function () {
 			if (n > min_fields) {
-			$(this).closest(".ingredient_input_field").remove();
-			n--;
+				$(this).closest(".ingredient_input_field").remove();
+				n--;
 			}
 		});
 
@@ -105,15 +90,15 @@
 				$("#seasonings_input_fields").append(element[0]);
 			}
 		});
-		
+
 		//調味料の入力欄を減らす
-		$(".remove_seasoning").click(function(){
+		$(".remove_seasoning").click(function () {
 			if (m > min_fields) {
-			$(this).closest(".seasoning_input_field").remove();
-			m--;
+				$(this).closest(".seasoning_input_field").remove();
+				m--;
 			}
 		});
-		
+
 	});
 </script>
 
