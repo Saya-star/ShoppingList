@@ -22,21 +22,17 @@ public class DishController {
 	@Autowired
 	DishRepository dishRepository;
 
-	@GetMapping(value = "/register")//変更
+	@GetMapping(value = "/register")
 	public String get(@ModelAttribute("Form") Dish dish, Model model) {
 		model.addAttribute("title", "料理の登録");
-		// あとでサービスクラスに書きかえる
-		//List<Dish> list = dishRepository.findAll();
-		//model.addAttribute("data", list);
 		return "dish/register";
 	}
 
 	@PostMapping(value = "/detail")
 	public String add(@ModelAttribute("Form") Dish dish, Model model) {
 		dishRepository.saveAndFlush(dish);
-		List<Dish> list = dishRepository.findAll();// 変更点
-		model.addAttribute("data", list);// 変更点
-		System.out.println("add");// あとで消す
-		return "dish/detail";// 変更点
+		List<Dish> list = dishRepository.findAll();
+		model.addAttribute("data", list);
+		return "dish/detail";
 	}
 }

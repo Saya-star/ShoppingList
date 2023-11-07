@@ -13,23 +13,13 @@
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
 		<div class="container">
-
-			<p>contents</p>
-
-			<table class="table">
-				<thead>
-					<th>登録した材料の表示</th>
-				</thead>
-				<tbody>
-					<tr th:each="item: ${data}">
-						<td th:text="${item.ingredientName}"></td>
-						<td th:text=${item.quantity}></td>
-						<td th:text=${item.seasoningName}></td>
-					</tr>
-				</tbody>
-			</table>
-
-
+			<div class="contents" th:each="item: ${data}">
+				<p th:text="${item.dishId}"></p>
+				<p th:text="${item.dishName}"></p>
+				<p th:text="${item.ingredientName}"></p>
+				<p th:text=${item.quantity}></p>
+				<pd th:text=${item.seasoningName}></pd>
+			</div>
 		</div>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
