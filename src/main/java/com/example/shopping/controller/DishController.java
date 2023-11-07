@@ -16,27 +16,27 @@ import com.example.shopping.repository.DishRepository;
 import org.springframework.ui.Model;
 
 @Controller
-//@RequestMapping(value = "/dish")
+@RequestMapping(value = "/dish")
 public class DishController {
 
 	@Autowired
 	DishRepository dishRepository;
 
-	@RequestMapping(method=RequestMethod.GET,value = "/dish")//変更
+	@GetMapping(value = "/register")//変更
 	public String get(@ModelAttribute("Form") Dish dish, Model model) {
 		model.addAttribute("title", "料理の登録");
 		// あとでサービスクラスに書きかえる
-		List<Dish> list = dishRepository.findAll();
-		model.addAttribute("data", list);
-		return "dish";
+		//List<Dish> list = dishRepository.findAll();
+		//model.addAttribute("data", list);
+		return "dish/register";
 	}
 
-	@RequestMapping(method=RequestMethod.POST,value = "/dish-details")
+	@PostMapping(value = "/detail")
 	public String add(@ModelAttribute("Form") Dish dish, Model model) {
 		dishRepository.saveAndFlush(dish);
 		List<Dish> list = dishRepository.findAll();// 変更点
 		model.addAttribute("data", list);// 変更点
 		System.out.println("add");// あとで消す
-		return "dish-details";// 変更点
+		return "dish/detail";// 変更点
 	}
 }
