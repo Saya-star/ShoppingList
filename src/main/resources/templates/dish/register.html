@@ -15,7 +15,7 @@
 	<main>
 		<div class="container">
 			<h1 class="title" th:text="${title}"></h1>
-			<form method="post" action="/dish/detail" 　th:object="${Form}">
+			<form method="post" th:action="@{/dish/detail}" th:object="${Form}">
 				<div id="dish-name">
 					<label for="name" class="form-label">料理名</label>
 					<input type="text" class="form-control" name="dishName" th:value="*{dishName}" />
