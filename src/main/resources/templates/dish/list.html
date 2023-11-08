@@ -19,14 +19,18 @@
 					<th>登録した料理</th>
 					<th>操作</th><!-- 仮の名前 -->
 				</thead>
-				<tbody>
-					<tr th:each="item: ${data}">
+				<tbody th:each="item: ${data}">
+					<form th:action="@{/dish/detail/__${#strings.toString(item.dishId)}__}">
+					<tr >
+						
 						<td th:text="${item.dishId}"></td>
 						<td th:text=${item.dishName}></td>
 						<td>
-							<button>詳細</button> <!-- ボタンを追加 -->
+							<input type="submit" value="詳細"></input> <!-- ボタンを追加 -->
 						</td>
+						
 					</tr>
+					</form>
 				</tbody>
 			</table>
 

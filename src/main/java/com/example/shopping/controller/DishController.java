@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.shopping.entity.Dish;
 import com.example.shopping.repository.DishRepository;
@@ -43,11 +42,26 @@ public class DishController {
 	//登録した料理の詳細表示
 	@GetMapping(value = "detail/{id}")
 	public String getDetail(@PathVariable("id") long id,Dish dish,Model model) {
-		System.out.println("detail");
 		model.addAttribute("title","料理の詳細");
 		Optional<Dish> data = dishRepository.findById(id);
-		model.addAttribute("detail",data.get());//データを取り出し"form"に代入
+		model.addAttribute("detail",data.get());
 		return "dish/detail";
+	}
+	
+	//料理の内容の編集画面
+	@GetMapping(value = "edit/{id}")
+	public String edit(@PathVariable("id") long id,@ModelAttribute("Form") Dish dish, Model model) {
+		model.addAttribute("title", "料理の編集");
+		Optional<Dish> data = dishRepository.findById(id);
+		model.addAttribute("Form", data.get());
+		return "dish/edit";
+	}
+	
+	//編集内容を登録
+	@PostMapping(value="edit")
+	public String update(@ModelAttribute Dish dish, Model model) {
+		dishRepository.saveAndFlush(dish);
+		return "redirect:/list";
 	}
 	
 }
