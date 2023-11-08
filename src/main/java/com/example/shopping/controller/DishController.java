@@ -29,11 +29,11 @@ public class DishController {
 		return "dish/register";
 	}
 
-	@PostMapping(value = "/detail")
+	@PostMapping(value = "/list")
 	public String add(@ModelAttribute("Form") Dish dish, Model model) {
 		dishRepository.saveAndFlush(dish);
 		List<Dish> list = dishRepository.findAll();
 		model.addAttribute("data", list);
-		return "dish/detail";
+		return "dish/list";
 	}
 }
