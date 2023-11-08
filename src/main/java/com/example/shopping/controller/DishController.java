@@ -1,6 +1,7 @@
 package com.example.shopping.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,12 +24,14 @@ public class DishController {
 	@Autowired
 	DishRepository dishRepository;
 
+	//料理登録画面の表示
 	@GetMapping(value = "/register")
-	public String get(@ModelAttribute("Form") Dish dish, Model model) {
+	public String register(@ModelAttribute("Form") Dish dish, Model model) {
 		model.addAttribute("title", "料理の登録");
 		return "dish/register";
 	}
 
+	//料理の登録
 	@PostMapping(value = "/list")
 	public String add(@ModelAttribute("Form") Dish dish, Model model) {
 		dishRepository.saveAndFlush(dish);
@@ -36,4 +39,15 @@ public class DishController {
 		model.addAttribute("data", list);
 		return "dish/list";
 	}
+	
+	//登録した料理の詳細表示
+	@GetMapping(value = "detail/{id}")
+	public String getDetail(@PathVariable("id") long id,Dish dish,Model model) {
+		System.out.println("detail");
+		model.addAttribute("title","料理の詳細");
+		Optional<Dish> data = dishRepository.findById(id);
+		model.addAttribute("detail",data.get());//データを取り出し"form"に代入
+		return "dish/detail";
+	}
+	
 }

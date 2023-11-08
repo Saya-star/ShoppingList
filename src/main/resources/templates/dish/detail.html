@@ -1,0 +1,42 @@
+<!-- 材料の表示ページ-->
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<header th:replace="~{layouts/common.html :: header}"></header>
+	<main>
+		<div class="container">
+			<h1 class="title" th:text="${title}"></h1>
+			<div class="dish-detail">
+				<p class="name" th:text="${detail.dishName}"></p>
+				<table class="dish-table">
+					
+						<thead>
+							<th>材料名</th>
+							<th>分量</th>
+						</thead>
+						<tbody>
+							<td th:text="${detail.ingredientName}"></td>
+							<td th:text="${detail.quantity}"></td>
+						</tbody>
+				</table>
+				<table class="dish-table">
+					<thead><th>調味料名</th></thead>
+					<tbody>
+						<td th:text="${detail.seasoningName}"></td>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+	<footer th:replace="~{layouts/common.html :: footer}"></footer>
+</body>
+
+</html>
