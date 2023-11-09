@@ -46,6 +46,10 @@
 				<br> <!-- brあとで消す -->
 				<input type="submit" class="btn" value="保存" />
 			</form>
+			<br> <!-- brあとで消す -->
+			<form class="back-dishList" method="get" th:action="@{/dish/list}">
+				<input type="submit" value="料理一覧に戻る">
+			</form>
 		</div>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
