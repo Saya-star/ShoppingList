@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.shopping.entity.Dish;
 import com.example.shopping.repository.DishRepository;
+import com.example.shopping.service.DishService;
 
 import org.springframework.ui.Model;
 
@@ -23,10 +24,13 @@ public class DishController {
 	@Autowired
 	DishRepository dishRepository;
 
+	@Autowired
+	DishService dishService;
+	
 	// 料理一覧画面の表示
 	@GetMapping(value = "/list")
-	public String getList(Model model) {
-		List<Dish> list = dishRepository.findAll();
+	public String getList(Dish dish,Model model) {
+		List<Dish> list = dishService.getList(dish);
 		model.addAttribute("data", list);
 		return "dish/list";
 	}
@@ -42,7 +46,7 @@ public class DishController {
 	@PostMapping(value = "/list")
 	public String add(@ModelAttribute("Form") Dish dish, Model model) {
 		dishRepository.saveAndFlush(dish);
-		List<Dish> list = dishRepository.findAll();
+		List<Dish> list = dishService.getList(dish);
 		model.addAttribute("data", list);
 		return "dish/list";
 	}
@@ -51,7 +55,7 @@ public class DishController {
 	@GetMapping(value = "detail/{id}")
 	public String getDetail(@PathVariable("id") long id, Dish dish, Model model) {
 		model.addAttribute("title", "料理の詳細");
-		Optional<Dish> data = dishRepository.findById(id);
+		Optional<Dish> data = dishService.findDish(id);
 		model.addAttribute("detail", data.get());
 		return "dish/detail";
 	}
@@ -60,7 +64,7 @@ public class DishController {
 	@GetMapping(value = "edit/{id}")
 	public String edit(@PathVariable("id") long id, @ModelAttribute("Form") Dish dish, Model model) {
 		model.addAttribute("title", "料理の編集");
-		Optional<Dish> data = dishRepository.findById(id);
+		Optional<Dish> data = dishService.findDish(id);
 		model.addAttribute("Form", data.get());
 		return "dish/edit";
 	}
