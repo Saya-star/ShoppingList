@@ -23,14 +23,22 @@ public class DishController {
 	@Autowired
 	DishRepository dishRepository;
 
-	//料理登録画面の表示
+	// 料理一覧画面の表示
+	@GetMapping(value = "/list")
+	public String getList(Model model) {
+		List<Dish> list = dishRepository.findAll();
+		model.addAttribute("data", list);
+		return "dish/list";
+	}
+
+	// 料理登録画面の表示
 	@GetMapping(value = "/register")
 	public String register(@ModelAttribute("Form") Dish dish, Model model) {
 		model.addAttribute("title", "料理の登録");
 		return "dish/register";
 	}
 
-	//料理の登録
+	// 料理の登録
 	@PostMapping(value = "/list")
 	public String add(@ModelAttribute("Form") Dish dish, Model model) {
 		dishRepository.saveAndFlush(dish);
@@ -38,30 +46,36 @@ public class DishController {
 		model.addAttribute("data", list);
 		return "dish/list";
 	}
-	
-	//登録した料理の詳細表示
+
+	// 登録した料理の詳細表示
 	@GetMapping(value = "detail/{id}")
-	public String getDetail(@PathVariable("id") long id,Dish dish,Model model) {
-		model.addAttribute("title","料理の詳細");
+	public String getDetail(@PathVariable("id") long id, Dish dish, Model model) {
+		model.addAttribute("title", "料理の詳細");
 		Optional<Dish> data = dishRepository.findById(id);
-		model.addAttribute("detail",data.get());
+		model.addAttribute("detail", data.get());
 		return "dish/detail";
 	}
-	
-	//料理の内容の編集画面
+
+	// 料理の内容の編集画面
 	@GetMapping(value = "edit/{id}")
-	public String edit(@PathVariable("id") long id,@ModelAttribute("Form") Dish dish, Model model) {
+	public String edit(@PathVariable("id") long id, @ModelAttribute("Form") Dish dish, Model model) {
 		model.addAttribute("title", "料理の編集");
 		Optional<Dish> data = dishRepository.findById(id);
 		model.addAttribute("Form", data.get());
 		return "dish/edit";
 	}
-	
-	//編集内容を登録
-	@PostMapping(value="edit")
+
+	// 編集内容を登録
+	@PostMapping(value = "edit")
 	public String update(@ModelAttribute Dish dish, Model model) {
 		dishRepository.saveAndFlush(dish);
-		return "redirect:/list";
+		return "redirect:/dish/list";
 	}
-	
+
+	// 削除メソッド
+	@PostMapping(value = "delete/{id}")
+	public String delete(@PathVariable("id") long id, Model model) {
+		dishRepository.deleteById(id);
+		return "redirect:/dish/list";
+	}
 }

@@ -24,29 +24,29 @@ public class ShopController {
 
 	@Autowired
 	ShopRepository shopRepository;
-	
+
 	@Autowired
 	ShopService shopService;
 
-	//店名の一覧の表示
+	// 店名の一覧の表示
 	@GetMapping
 	public String get(@ModelAttribute("formModel") Shop shop, Model model) {
 		model.addAttribute("title", "お店リスト");
-		//List<Shop> list = shopRepository.findAll();をサービスクラスから呼び出し
+		// List<Shop> list = shopRepository.findAll();をサービスクラスから呼び出し
 		List<Shop> list = shopService.get(shop);
 		model.addAttribute("data", list);
 		return "shop";
 	}
 
-	//リストに店名を追加するメソッド
+	// リストに店名を追加するメソッド
 	@PostMapping
-	@Transactional //いる？
+	@Transactional // いる？
 	public String add(@ModelAttribute("formModel") Shop shop, Model model) {
 		shopRepository.saveAndFlush(shop);
 		return "redirect:/shop";
 	}
-	
-	//店名の削除メソッド
+
+	// 店名の削除メソッド
 	@PostMapping(value = "/delete")
 	public String delete(@RequestParam("id") long id) {
 		shopRepository.deleteById(id);

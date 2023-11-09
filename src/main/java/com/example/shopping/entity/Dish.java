@@ -39,11 +39,11 @@ public class Dish {
 	// 材料の分量
 	@Column
 	private String quantity;
-	
-	//調味料のId
+
+	// 調味料のId
 	private long seasoningId;
-	
-	//調味料名
+
+	// 調味料名
 	private String seasoningName;
 
 	public long getDishId() {

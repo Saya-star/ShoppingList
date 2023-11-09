@@ -1,4 +1,4 @@
-<!-- 材料の表示ページ-->
+<!-- 材料の一覧表示ページ-->
 <!DOCTYPE html>
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
@@ -12,6 +12,10 @@
 <body>
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
+		<h1>登録した料理一覧</h1>
+		<form class="register-dish" method="get" th:action="@{/dish/register}">
+			<input type="submit" value="料理を追加する">
+		</form>
 		<div class="container">
 			<table class="table">
 				<thead>
@@ -21,15 +25,14 @@
 				</thead>
 				<tbody th:each="item: ${data}">
 					<form th:action="@{/dish/detail/__${#strings.toString(item.dishId)}__}">
-					<tr >
-						
-						<td th:text="${item.dishId}"></td>
-						<td th:text=${item.dishName}></td>
-						<td>
-							<input type="submit" value="詳細"></input> <!-- ボタンを追加 -->
-						</td>
-						
-					</tr>
+						<tr>
+							<td th:text="${item.dishId}"></td>
+							<td th:text=${item.dishName}></td>
+							<td>
+								<input type="submit" value="詳細"></input> <!-- ボタンを追加 -->
+							</td>
+
+						</tr>
 					</form>
 				</tbody>
 			</table>
