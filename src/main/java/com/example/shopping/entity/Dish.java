@@ -41,11 +41,13 @@ public class Dish {
 	private String quantity;
 
 	// 調味料のId
+	@Column
 	private long seasoningId;
 
 	// 調味料名
+	@Column
 	private String seasoningName;
-
+	
 	public long getDishId() {
 		return dishId;
 	}
