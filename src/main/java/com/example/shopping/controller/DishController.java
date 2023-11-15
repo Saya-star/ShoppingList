@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.shopping.entity.Dish;
+import com.example.shopping.entity.Ingredient;
 import com.example.shopping.repository.DishRepository;
+import com.example.shopping.repository.IngredientRepository;
 import com.example.shopping.service.DishService;
 
 import org.springframework.ui.Model;
@@ -23,6 +25,9 @@ public class DishController {
 
 	@Autowired
 	DishRepository dishRepository;
+	
+	@Autowired
+	IngredientRepository ingredientRepository; //1115
 
 	@Autowired
 	DishService dishService;
@@ -37,15 +42,17 @@ public class DishController {
 
 	// 料理登録画面の表示
 	@GetMapping(value = "/register")
-	public String register(@ModelAttribute("Form") Dish dish, Model model) {
+	public String register(@ModelAttribute("Form") Dish dish, @ModelAttribute("ingredient")Ingredient ingredient,Model model) {
 		model.addAttribute("title", "料理の登録");
 		return "dish/register";
 	}
 
 	// 料理の登録
+	//1115fix
 	@PostMapping(value = "/list")
-	public String add(@ModelAttribute("Form") Dish dish, Model model) {
+	public String add(@ModelAttribute("Form") Dish dish, @ModelAttribute("ingredient")Ingredient ingredient,Model model) {
 		dishRepository.saveAndFlush(dish);
+		ingredientRepository.saveAndFlush(ingredient);//1115
 		List<Dish> list = dishService.getList(dish);
 		model.addAttribute("data", list);
 		return "dish/list";

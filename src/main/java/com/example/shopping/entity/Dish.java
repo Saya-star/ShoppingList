@@ -1,6 +1,7 @@
 package com.example.shopping.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,16 +31,16 @@ public class Dish {
 	private LocalDate updatedDate;
 
 	// 料理の材料Id
-	@Column
-	private long ingredientId;
+	//@Column
+	//private long ingredientId;
 
 	// 料理の材料名
-	@Column
-	private String ingredientName;
+	//@Column
+	//private String ingredientName;
 
 	// 材料の分量
-	@Column
-	private String quantity;
+	//@Column
+	//private String quantity;
 
 	// 調味料のId
 	@Column
@@ -49,8 +50,8 @@ public class Dish {
 	@Column
 	private String seasoningName;
 	
-	//@OneToMany(mappedBy="ingredient")
-	//private Ingredient ingredient;
+	@OneToMany(mappedBy="dish")
+	private List<Ingredient> ingredient;
 	
 	public long getDishId() {
 		return dishId;
@@ -92,29 +93,29 @@ public class Dish {
 		this.updatedDate = updatedDate;
 	}
 
-	public long getIngredientId() {
-		return ingredientId;
-	}
+	//public long getIngredientId() {
+	//	return ingredientId;
+	//}
 
-	public void setIngredientId(long ingredientId) {
-		this.ingredientId = ingredientId;
-	}
+	//public void setIngredientId(long ingredientId) {
+	//	this.ingredientId = ingredientId;
+	//}
 
-	public String getIngredientName() {
-		return ingredientName;
-	}
+	//public String getIngredientName() {
+	//	return ingredientName;
+	//}
 
-	public void setIngredientName(String ingredientName) {
-		this.ingredientName = ingredientName;
-	}
+	//public void setIngredientName(String ingredientName) {
+	//	this.ingredientName = ingredientName;
+	//}
 
-	public String getQuantity() {
-		return quantity;
-	}
+	//public String getQuantity() {
+	//	return quantity;
+	//}
 
-	public void setQuantity(String quantity) {
-		this.quantity = quantity;
-	}
+	//public void setQuantity(String quantity) {
+	//	this.quantity = quantity;
+	//}
 
 	public long getSeasoningId() {
 		return seasoningId;
@@ -132,11 +133,11 @@ public class Dish {
 		this.seasoningName = seasoningName;
 	}
 
-	//public Ingredient getIngredient() {
-		//return ingredient;
-	//}
+	public List<Ingredient> getIngredient() {
+		return ingredient;
+	}
 
-	//public void setIngredient(Ingredient ingredient) {
-		//this.ingredient = ingredient;
-	//}
+	public void setIngredient(List<Ingredient> ingredient) {
+		this.ingredient = ingredient;
+	}
 }
