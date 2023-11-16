@@ -23,16 +23,10 @@
 					th:action="@{/dish/delete/__${#strings.toString(detail.dishId)}__}">
 					<input type="submit" value="削除">
 				</form>
-				<table class="dish-table">
-					<thead>
-						<th>材料名</th>
-						<th>分量</th>
-					</thead>
-					<tbody>
-						<td th:text="${detail.ingredientName}"></td>
-						<td th:text="${detail.quantity}"></td>
-					</tbody>
-				</table>
+				
+				<!-- 材料表示のテーブルをここに-->
+				
+				
 				<table class="dish-table">
 					<thead>
 						<th>調味料名</th>

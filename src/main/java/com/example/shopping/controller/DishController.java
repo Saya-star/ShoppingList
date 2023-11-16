@@ -52,7 +52,7 @@ public class DishController {
 	@PostMapping(value = "/list")
 	public String add(@ModelAttribute("Form") Dish dish, @ModelAttribute("ingredient")Ingredient ingredient,Model model) {
 		dishRepository.saveAndFlush(dish);
-		ingredientRepository.saveAndFlush(ingredient);//1115
+		ingredientRepository.saveAndFlush(ingredient);//1115 材料データの保存
 		List<Dish> list = dishService.getList(dish);
 		model.addAttribute("data", list);
 		return "dish/list";
@@ -60,10 +60,12 @@ public class DishController {
 
 	// 登録した料理の詳細表示
 	@GetMapping(value = "detail/{id}")
-	public String getDetail(@PathVariable("id") long id, Dish dish, Model model) {
+	public String getDetail(@PathVariable("id") long dishId, Dish dish, Ingredient ingredient,Model model) {
 		model.addAttribute("title", "料理の詳細");
-		Optional<Dish> data = dishService.findDish(id);
+		Optional<Dish> data = dishService.findDish(dishId);
+		//Optional<Ingredient> ingredientData = ingredientRepository.findById(ingredient);//1116追加
 		model.addAttribute("detail", data.get());
+		//model.addAttribute("ingredient-detail",ingredientData);//1116追加
 		return "dish/detail";
 	}
 
