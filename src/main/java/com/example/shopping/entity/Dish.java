@@ -53,6 +53,7 @@ public class Dish {
 	@OneToMany(mappedBy="dish")
 	private List<Ingredient> ingredient;
 	
+	
 	public long getDishId() {
 		return dishId;
 	}

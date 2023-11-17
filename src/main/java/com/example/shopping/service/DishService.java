@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.shopping.entity.Dish;
+import com.example.shopping.entity.Ingredient;
 import com.example.shopping.repository.DishRepository;
+import com.example.shopping.repository.IngredientRepository;
 
 //料理の登録ページのコントローラー
 @Service
@@ -16,13 +18,20 @@ public class DishService {
 	@Autowired
 	DishRepository dishRepository;
 	
+	//1116追加
+	@Autowired
+	IngredientRepository ingredientRepository;
+	
 	public List<Dish> getList (Dish dish){
-		List<Dish> list = dishRepository.findAll();
-		return list;
+		return dishRepository.findAll();
 	}
 	
 	public Optional<Dish> findDish(long id) {
-		Optional<Dish> data = dishRepository.findById(id);
-		return data;
+		return dishRepository.findById(id);
+	}
+	
+	//1116追加
+	public Optional<Ingredient> findIngredient(long id) {
+		return ingredientRepository.findById(id);
 	}
 }

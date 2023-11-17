@@ -9,6 +9,4 @@ import com.example.shopping.entity.Ingredient;
 
 @Repository
 public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
-
-	//public Optional<Ingredient> findById(Ingredient ingredient);//1116追加
 }
