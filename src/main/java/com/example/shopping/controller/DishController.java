@@ -51,22 +51,27 @@ public class DishController {
 	}
 
 	// 料理の登録
-	// 1115fix
 	@PostMapping(value = "/list")
 	public String add(@ModelAttribute Dish dish, @ModelAttribute Ingredient ingredient, Model model) {
 		// System.out.println("*****" + dish.getIngredient().size());
-		System.out.println(ingredient.getIngredientName());// 登録されている材料の確認用
-		dishRepository.saveAndFlush(dish);
-		String[] ingredientNames = ingredient.getIngredientName().split(",");
-		for (int i = 0; i < ingredientNames.length; i++) {
-			Ingredient saveName = new Ingredient();
-			saveName.setIngredientName(ingredientNames[i]);
-			ingredientRepository.saveAndFlush(saveName);
-		}
+		System.out.println(ingredient.getIngredientName());// 登録されている材料の確認用・あとで消す
+		System.out.println(ingredient.getQuantity());// 登録されている分量の確認用・あとで消す
 
-		// ingredientRepository.saveAndFlush(ingredient);//1115 材料データの保存
+		// 料理名の保存
+		dishRepository.saveAndFlush(dish);
 		List<Dish> list = dishService.getList(dish);
 		model.addAttribute("data", list);
+
+		// 材料の保存
+		String[] ingredientNames = ingredient.getIngredientName().split(",");
+		String[] quantities = ingredient.getQuantity().split(",");
+		for (int i = 0; i < ingredientNames.length; i++) {
+			Ingredient save = new Ingredient();
+			save.setIngredientName(ingredientNames[i]);
+			save.setQuantity(quantities[i]);
+			ingredientRepository.saveAndFlush(save);
+		}
+
 		return "dish/list";
 	}
 
