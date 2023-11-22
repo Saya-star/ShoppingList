@@ -18,20 +18,20 @@
 			<form method="post" th:action="@{/dish/list}" th:object="${dish}"><!-- 11/15fix -->
 				<div id="dish-name">
 					<label for="name" class="form-label">料理名</label>
-					<input type="text" class="form-control" name="dishName" th:value="*{dishName}" />
+					<input type="text" class="form-control" name="dishName" />
 				</div>
 				<div id="ingredients_input_fields">
-					<div th:each="ingredient,ingreStat : *{ingredient}">
+					<!--<div th:each="ingredient,ingreStat : *{ingredient}">-->
 						<div class="ingredient_input_field">
 							<label for="name" class="form-label">材料</label>
-							<!--<input type="text" class="form-control" name="ingredientName" th:value="*{ingredientName}" />-->
-							<input type="text" class="form-control" name="ingredientName"
-								th:field="*{ingredient[__${ingreStat.index}__].ingredientName" />
+							<input type="text" class="form-control" name="ingredientName" />
+							<!--<input type="text" class="form-control" name="ingredientName"
+								th:field="*{ingredient[__${ingreStat.index}__].ingredientName" />-->
 							<label for="name" class="form-label">分量</label>
-							<input type="text" class="form-control" name="quantity" th:value="*{quantity}" />
+							<input type="text" class="form-control" name="quantity"/>
 							<button class="remove_ingredient" type="button">削除</button>
 						</div>
-					</div>
+					<!--</div>-->
 				</div>
 				<div class="add_button">
 					<button id="add_ingredient" type="button">材料を追加</button>
@@ -40,7 +40,7 @@
 				<div id="seasonings_input_fields">
 					<div class="seasoning_input_field">
 						<label for="name" class="form-label">調味料</label>
-						<input type="text" class="form-control" name="seasoningName" th:value="*{seasoningName}" />
+						<input type="text" class="form-control" name="seasoningName" />
 						<button class="remove_seasoning" type="button">削除</button>
 					</div>
 				</div>

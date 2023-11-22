@@ -1,5 +1,6 @@
 package com.example.shopping.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +43,7 @@ public class DishController {
 
 	// 料理登録画面の表示
 	@GetMapping(value = "/register")
-	public String register(@ModelAttribute("Form") Dish dish, @ModelAttribute("ingredient")Ingredient ingredient,Model model) {
+	public String register(@ModelAttribute Dish dish, @ModelAttribute("ingredient")Ingredient ingredient,Model model) {
 		model.addAttribute("title", "料理の登録");
 		model.addAttribute("dish", new Dish());
 		return "dish/register";
@@ -51,10 +52,18 @@ public class DishController {
 	// 料理の登録
 	//1115fix
 	@PostMapping(value = "/list")
-	public String add(@ModelAttribute("Form") Dish dish, @ModelAttribute("ingredient")Ingredient ingredient,Model model) {
-		System.out.println("*****" + dish.getIngredient().size());
+	public String add(@ModelAttribute Dish dish, @ModelAttribute("ingredient")Ingredient ingredient,Model model) {
+		//System.out.println("*****" + dish.getIngredient().size());
+		System.out.println(ingredient.getIngredientName());
 		dishRepository.saveAndFlush(dish);
-		ingredientRepository.saveAndFlush(ingredient);//1115 材料データの保存
+		String[] ingredientNames = ingredient.getIngredientName().split(",");
+		for (int i = 0; i < 2; i++) {
+		    Ingredient saveName = new Ingredient();
+		    saveName.setIngredientName(ingredientNames[i]);
+		    ingredientRepository.saveAndFlush(saveName);
+		}
+
+		//ingredientRepository.saveAndFlush(ingredient);//1115 材料データの保存
 		List<Dish> list = dishService.getList(dish);
 		model.addAttribute("data", list);
 		return "dish/list";
