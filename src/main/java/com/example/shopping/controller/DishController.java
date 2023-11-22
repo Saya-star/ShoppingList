@@ -57,7 +57,7 @@ public class DishController {
 		System.out.println(ingredient.getIngredientName());
 		dishRepository.saveAndFlush(dish);
 		String[] ingredientNames = ingredient.getIngredientName().split(",");
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < ingredientNames.length; i++) {
 		    Ingredient saveName = new Ingredient();
 		    saveName.setIngredientName(ingredientNames[i]);
 		    ingredientRepository.saveAndFlush(saveName);
