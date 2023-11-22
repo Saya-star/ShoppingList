@@ -66,7 +66,6 @@ public class DishController {
 		
 		// 料理名の保存
 		dishRepository.saveAndFlush(dish);
-		System.out.println(dish.getDishId());//dishId確認用
 		List<Dish> list = dishService.getList(dish);
 		model.addAttribute("data", list);
 
@@ -77,6 +76,7 @@ public class DishController {
 			Ingredient save = new Ingredient();
 			save.setIngredientName(ingredientNames[i]);
 			save.setQuantity(quantities[i]);
+			save.setDish(dish);
 			ingredientRepository.saveAndFlush(save);
 		}
 		
@@ -85,6 +85,7 @@ public class DishController {
 		for (int i = 0; i < seasoningNames.length; i++) {
 			Seasoning save = new Seasoning();
 			save.setSeasoningName(seasoningNames[i]);
+			save.setDish(dish);
 			seasoningRepository.saveAndFlush(save);
 		}
 		
