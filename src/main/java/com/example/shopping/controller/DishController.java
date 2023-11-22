@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.shopping.entity.Dish;
 import com.example.shopping.entity.Ingredient;
+import com.example.shopping.entity.Seasoning;
 import com.example.shopping.repository.DishRepository;
 import com.example.shopping.repository.IngredientRepository;
+import com.example.shopping.repository.SeasoningRepository;
 import com.example.shopping.service.DishService;
 
 import org.springframework.ui.Model;
@@ -29,6 +31,9 @@ public class DishController {
 
 	@Autowired
 	IngredientRepository ingredientRepository; // 1115
+	
+	@Autowired
+	SeasoningRepository seasoningRepository;
 
 	@Autowired
 	DishService dishService;
@@ -52,17 +57,20 @@ public class DishController {
 
 	// 料理の登録
 	@PostMapping(value = "/list")
-	public String add(@ModelAttribute Dish dish, @ModelAttribute Ingredient ingredient, Model model) {
+	public String add(@ModelAttribute Dish dish, @ModelAttribute Ingredient ingredient, @ModelAttribute Seasoning seasoning, Model model) {
+		//あとで消す
 		// System.out.println("*****" + dish.getIngredient().size());
-		System.out.println(ingredient.getIngredientName());// 登録されている材料の確認用・あとで消す
-		System.out.println(ingredient.getQuantity());// 登録されている分量の確認用・あとで消す
-
+		//System.out.println(ingredient.getIngredientName());// 登録されている材料の確認用・あとで消す
+		//System.out.println(ingredient.getQuantity());// 分量の確認用・あとで消す
+		//System.out.println(seasoning.getSeasoningName()); // 調味料の確認用・あとで消す
+		
 		// 料理名の保存
 		dishRepository.saveAndFlush(dish);
+		System.out.println(dish.getDishId());//dishId確認用
 		List<Dish> list = dishService.getList(dish);
 		model.addAttribute("data", list);
 
-		// 材料の保存
+		//材料の保存（Serviceに移動したほうが良い？）
 		String[] ingredientNames = ingredient.getIngredientName().split(",");
 		String[] quantities = ingredient.getQuantity().split(",");
 		for (int i = 0; i < ingredientNames.length; i++) {
@@ -71,7 +79,15 @@ public class DishController {
 			save.setQuantity(quantities[i]);
 			ingredientRepository.saveAndFlush(save);
 		}
-
+		
+		//調味料の保存
+		String[] seasoningNames = seasoning.getSeasoningName().split(",");
+		for (int i = 0; i < seasoningNames.length; i++) {
+			Seasoning save = new Seasoning();
+			save.setSeasoningName(seasoningNames[i]);
+			seasoningRepository.saveAndFlush(save);
+		}
+		
 		return "dish/list";
 	}
 

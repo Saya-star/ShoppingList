@@ -17,20 +17,20 @@ public class DishService {
 
 	@Autowired
 	DishRepository dishRepository;
-	
-	//1116追加
+
 	@Autowired
 	IngredientRepository ingredientRepository;
-	
-	public List<Dish> getList (Dish dish){
+
+	// 保存してある料理リストの取り出し
+	public List<Dish> getList(Dish dish) {
 		return dishRepository.findAll();
 	}
-	
+
 	public Optional<Dish> findDish(long id) {
 		return dishRepository.findById(id);
 	}
-	
-	//1116追加
+
+	// 1116追加
 	public Optional<Ingredient> findIngredient(long id) {
 		return ingredientRepository.findById(id);
 	}

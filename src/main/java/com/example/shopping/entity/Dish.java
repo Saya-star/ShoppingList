@@ -3,6 +3,7 @@ package com.example.shopping.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,30 +30,12 @@ public class Dish {
 
 	@Column
 	private LocalDate updatedDate;
-
-	// 料理の材料Id
-	//@Column
-	//private long ingredientId;
-
-	// 料理の材料名
-	//@Column
-	//private String ingredientName;
-
-	// 材料の分量
-	//@Column
-	//private String quantity;
-
-	// 調味料のId
-	@Column
-	private long seasoningId;
-
-	// 調味料名
-	@Column
-	private String seasoningName;
 	
-	@OneToMany(mappedBy="dish")
+	@OneToMany(mappedBy="dish",cascade = CascadeType.ALL )
 	private List<Ingredient> ingredient;
 	
+	@OneToMany(mappedBy="dish")
+	private List<Seasoning> seasoning;
 	
 	public long getDishId() {
 		return dishId;
@@ -94,46 +77,6 @@ public class Dish {
 		this.updatedDate = updatedDate;
 	}
 
-	//public long getIngredientId() {
-	//	return ingredientId;
-	//}
-
-	//public void setIngredientId(long ingredientId) {
-	//	this.ingredientId = ingredientId;
-	//}
-
-	//public String getIngredientName() {
-	//	return ingredientName;
-	//}
-
-	//public void setIngredientName(String ingredientName) {
-	//	this.ingredientName = ingredientName;
-	//}
-
-	//public String getQuantity() {
-	//	return quantity;
-	//}
-
-	//public void setQuantity(String quantity) {
-	//	this.quantity = quantity;
-	//}
-
-	public long getSeasoningId() {
-		return seasoningId;
-	}
-
-	public void setSeasoningId(long seasoningId) {
-		this.seasoningId = seasoningId;
-	}
-
-	public String getSeasoningName() {
-		return seasoningName;
-	}
-
-	public void setSeasoningName(String seasoningName) {
-		this.seasoningName = seasoningName;
-	}
-
 	public List<Ingredient> getIngredient() {
 		return ingredient;
 	}
@@ -141,4 +84,13 @@ public class Dish {
 	public void setIngredient(List<Ingredient> ingredient) {
 		this.ingredient = ingredient;
 	}
+
+	public List<Seasoning> getSeasoning() {
+		return seasoning;
+	}
+
+	public void setSeasoning(List<Seasoning> seasoning) {
+		this.seasoning = seasoning;
+	}
+	
 }
