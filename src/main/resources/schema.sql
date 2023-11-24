@@ -7,8 +7,6 @@ CREATE TABLE IF NOT EXISTS dish (
  DISH_NAME VARCHAR (100),
  created_date timestamp,
  updated_date timestamp,
- SEASONING_ID BIGINT,
- SEASONING_NAME VARCHAR(100),
  PRIMARY KEY(ID)
 );
 

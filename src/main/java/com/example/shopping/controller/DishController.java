@@ -48,7 +48,7 @@ public class DishController {
 
 	// 料理登録画面の表示
 	@GetMapping(value = "/register")
-	public String register(@ModelAttribute Dish dish, @ModelAttribute("ingredient") Ingredient ingredient,
+	public String register(@ModelAttribute Dish dish, @ModelAttribute Ingredient ingredient,
 			Model model) {
 		model.addAttribute("title", "料理の登録");
 		model.addAttribute("dish", new Dish());
@@ -58,37 +58,8 @@ public class DishController {
 	// 料理の登録
 	@PostMapping(value = "/list")
 	public String add(@ModelAttribute Dish dish, @ModelAttribute Ingredient ingredient, @ModelAttribute Seasoning seasoning, Model model) {
-		//あとで消す
-		// System.out.println("*****" + dish.getIngredient().size());
-		//System.out.println(ingredient.getIngredientName());// 登録されている材料の確認用・あとで消す
-		//System.out.println(ingredient.getQuantity());// 分量の確認用・あとで消す
-		//System.out.println(seasoning.getSeasoningName()); // 調味料の確認用・あとで消す
-		
-		// 料理名の保存
-		dishRepository.saveAndFlush(dish);
-		List<Dish> list = dishService.getList(dish);
-		model.addAttribute("data", list);
-
-		//材料の保存（Serviceに移動したほうが良い？）
-		String[] ingredientNames = ingredient.getIngredientName().split(",");
-		String[] quantities = ingredient.getQuantity().split(",");
-		for (int i = 0; i < ingredientNames.length; i++) {
-			Ingredient save = new Ingredient();
-			save.setIngredientName(ingredientNames[i]);
-			save.setQuantity(quantities[i]);
-			save.setDish(dish);
-			ingredientRepository.saveAndFlush(save);
-		}
-		
-		//調味料の保存
-		String[] seasoningNames = seasoning.getSeasoningName().split(",");
-		for (int i = 0; i < seasoningNames.length; i++) {
-			Seasoning save = new Seasoning();
-			save.setSeasoningName(seasoningNames[i]);
-			save.setDish(dish);
-			seasoningRepository.saveAndFlush(save);
-		}
-		
+		List<Dish> result = dishService.add(dish, ingredient, seasoning);
+		model.addAttribute("data", result);
 		return "dish/list";
 	}
 

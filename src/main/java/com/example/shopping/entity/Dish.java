@@ -34,7 +34,7 @@ public class Dish {
 	@OneToMany(mappedBy="dish",cascade = CascadeType.ALL )
 	private List<Ingredient> ingredient;
 	
-	@OneToMany(mappedBy="dish")
+	@OneToMany(mappedBy="dish",cascade = CascadeType.ALL)
 	private List<Seasoning> seasoning;
 	
 	public long getDishId() {
