@@ -36,7 +36,7 @@ public class DishService {
 		// 料理名の保存
 		dishRepository.saveAndFlush(dish);
 
-		//材料の保存（Serviceに移動したほうが良い？）
+		//材料の保存
 		String[] ingredientNames = ingredient.getIngredientName().split(",");
 		String[] quantities = ingredient.getQuantity().split(",");
 		for (int i = 0; i < ingredientNames.length; i++) {

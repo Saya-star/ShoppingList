@@ -30,7 +30,7 @@ public class DishController {
 	DishRepository dishRepository;
 
 	@Autowired
-	IngredientRepository ingredientRepository; // 1115
+	IngredientRepository ingredientRepository;
 	
 	@Autowired
 	SeasoningRepository seasoningRepository;
