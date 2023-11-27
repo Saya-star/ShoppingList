@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.shopping.entity.Dish;
 import com.example.shopping.entity.Ingredient;
 import com.example.shopping.entity.Seasoning;
+import com.example.shopping.enums.IngredientType;
 import com.example.shopping.repository.DishRepository;
 import com.example.shopping.repository.IngredientRepository;
 import com.example.shopping.repository.SeasoningRepository;
@@ -52,6 +53,7 @@ public class DishController {
 			Model model) {
 		model.addAttribute("title", "料理の登録");
 		model.addAttribute("dish", new Dish());
+		model.addAttribute("ingredientType",IngredientType.SELECT_OPTION);//材料種類のプルダウンの初期表示
 		return "dish/register";
 	}
 

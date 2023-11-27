@@ -2,6 +2,7 @@ package com.example.shopping.enums;
 
 public enum IngredientType {
 
+	SELECT_OPTION(0,"分類を選択"),
 	VEGETABLES(1,"野菜"),
 	FRUITS(2,"果物"),
 	DAIRY_PRODUCT(3,"乳製品"),
