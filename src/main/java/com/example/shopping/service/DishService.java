@@ -1,5 +1,6 @@
 package com.example.shopping.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,39 +33,27 @@ public class DishService {
 		return dishRepository.findAll();
 	}
 
-	// 登録
+	// 料理の登録
 	public List<Dish> add(Dish dish) {
-		// 一番簡単なやり方
-		//dish.setAppUserId(111);
+		// 材料と調味料のテーブルにDishIdを保存
 		dish.getIngredient().stream().forEach(ingredient -> ingredient.setDish(dish));
-		//dish.getIngredient().stream().forEach(ingredient -> ingredient.setCreatedDate(createdDate));
 		dish.getSeasoning().stream().forEach(seasoning -> seasoning.setDish(dish));
 		
-		//for (Seasoning seasoning : dish.getSeasoning()) {
-		//	seasoning.setDish(dish);
-		//}
+		//各テーブルに日付を保存
+		LocalDate createdDate = LocalDate.now();
+		dish.setCreatedDate(createdDate);
+		dish.getIngredient().stream().forEach(ingredient -> ingredient.setCreatedDate(createdDate));
+		dish.getSeasoning().stream().forEach(seasoning -> seasoning.setCreatedDate(createdDate));
+		
+		
 		// 料理名の保存
 		dishRepository.saveAndFlush(dish);
 
-//		System.out.println(ingredient.getIngredientName());//材料のデータ確認用
-//		System.out.println(ingredientType.getTypeId());//材料種類の確認用
-//		
-//		// 材料の保存
-//		String[] ingredientNames = ingredient.getIngredientName().split(",");
-//		String[] quantities = ingredient.getQuantity().split(",");
-//		for (int i = 0; i < ingredientNames.length; i++) {
-//			Ingredient save = new Ingredient();
-//			save.setIngredientName(ingredientNames[i]);
-//			save.setQuantity(quantities[i]);
-//			save.setIngredientType(ingredientType);//追加
-//			save.setDish(dish);
-//			ingredientRepository.saveAndFlush(save);
-//		}
-
-		//ingredientRepository.saveAllAndFlush(dish.getIngredient());
+		//材料の保存
+		//ingredientRepository.saveAllAndFlush(dish.getIngredient());//不要みたい
 
 		// 調味料の保存
-		//seasoningRepository.saveAllAndFlush(dish.getSeasoning());
+		//seasoningRepository.saveAllAndFlush(dish.getSeasoning());//不要みたい
 
 		return dishRepository.findAll();
 	}
