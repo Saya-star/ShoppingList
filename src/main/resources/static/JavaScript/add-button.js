@@ -10,13 +10,19 @@ $(document).ready(function() {
 	$("#add_ingredient").click(function() {
 		if (n < max_fields) {
 			n++;
-			var element = $(".ingredient_input_field").clone(true);//材料の入力エリアのクローン作成
+			var element = $(".ingredient_input_field").clone(true)[0];//材料の入力エリアのクローン作成
 			//入力エリアの初期化
-			var inputList = element[0].querySelectorAll('input[type="text"]');
+			var inputList = element.querySelectorAll('input[type="text"]');
 			for (var i = 0; i < inputList.length; i++) {
 				inputList[i].value = "";
 			}
-			$("#ingredients_input_fields").append(element[0]);
+
+			// name属性の更新
+			element.querySelectorAll('input,select').forEach(e => {
+				e.name = `${e.dataset.modelName}[${n - 1}].${e.dataset.attrName}`
+			});
+
+			$("#ingredients_input_fields").append(element);
 		}
 	});
 
@@ -33,13 +39,19 @@ $(document).ready(function() {
 	$("#add_seasoning").click(function() {
 		if (m < max_fields) {
 			m++;
-			var element = $(".seasoning_input_field").clone(true);//入力エリアのクローン作成
+			var element = $(".seasoning_input_field").clone(true)[0];//入力エリアのクローン作成
 			//入力エリアの初期化
-			var inputList = element[0].querySelectorAll('input[type="text"]');
+			var inputList = element.querySelectorAll('input[type="text"]');
 			for (var i = 0; i < inputList.length; i++) {
 				inputList[i].value = "";
 			}
-			$("#seasonings_input_fields").append(element[0]);
+
+			// name属性の更新
+			element.querySelectorAll('input').forEach(e => {
+				e.name = `${e.dataset.modelName}[${m - 1}].${e.dataset.attrName}`
+			});
+
+			$("#seasonings_input_fields").append(element);
 		}
 	});
 

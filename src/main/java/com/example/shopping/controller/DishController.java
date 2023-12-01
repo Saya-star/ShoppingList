@@ -59,8 +59,8 @@ public class DishController {
 
 	// 料理の登録
 	@PostMapping(value = "/list")
-	public String add(@ModelAttribute Dish dish, @ModelAttribute Ingredient ingredient, @ModelAttribute Seasoning seasoning, Model model) {
-		List<Dish> result = dishService.add(dish, ingredient, seasoning);
+	public String add(@ModelAttribute Dish dish, Model model) {
+		List<Dish> result = dishService.add(dish);
 		model.addAttribute("data", result);
 		return "dish/list";
 	}
@@ -70,10 +70,22 @@ public class DishController {
 	public String getDetail(@PathVariable("id") long dishId, Dish dish, Model model) {
 		model.addAttribute("title", "料理の詳細");
 		Optional<Dish> data = dishService.findDish(dishId);
-		// Optional<Ingredient> ingredientData =
-		// dishService.findIngredient(ingredientId);//1116追加 //*
+		//Optional<Ingredient> ingredientData = ingredientRepository.findByDish(dish);
+		//List<Ingredient> ingredientData = dish.getIngredient();
+		List<Ingredient> ingredientData = new ArrayList<>();
+		//ingredientDataの中に材料を詰める処理をする
+		//Dishの中の材料を一つずつingredientDataに保存する
+		for(int i=0;i<3;i++) {
+			Ingredient ingredient = new Ingredient();
+			ingredient.getIngredientName();
+			ingredient.getQuantity();
+			ingredientData.add(ingredient);
+		}
+		dish.setIngredient(ingredientData);
+			
 		model.addAttribute("detail", data.get());
-		// model.addAttribute("ingredient-detail",ingredientData.get());//1116追加 //*
+		//System.out.println(ingredientData);
+		model.addAttribute("ingredient-detail",ingredientData);
 		return "dish/detail";
 	}
 

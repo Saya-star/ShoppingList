@@ -2,8 +2,12 @@ package com.example.shopping.entity;
 
 import java.time.LocalDate;
 
+import com.example.shopping.enums.IngredientType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,6 +25,10 @@ public class Ingredient {
 	@Column
 	private String ingredientName;
 
+	@Column
+	@Enumerated(EnumType.ORDINAL)
+	private IngredientType ingredientType;
+	
 	@Column
 	private String quantity;
 
@@ -48,6 +56,14 @@ public class Ingredient {
 
 	public void setIngredientName(String ingredientName) {
 		this.ingredientName = ingredientName;
+	}
+	
+	public IngredientType getIngredientType() {
+		return ingredientType;
+	}
+
+	public void setIngredientType(IngredientType ingredientType) {
+		this.ingredientType = ingredientType;
 	}
 
 	public String getQuantity() {

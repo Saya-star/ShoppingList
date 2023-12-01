@@ -23,14 +23,14 @@
 				<div id="ingredients_input_fields">
 					<div class="ingredient_input_field">
 						<label for="name" class="form-label">材料</label>
-						<input type="text" class="form-control" name="ingredientName" />
-						<select name="ingredientType">
+						<input type="text" class="form-control" name="ingredient[0].ingredientName" data-model-name="ingredient" data-attr-name="ingredientName" />
+						<select name="ingredient[0].ingredientType" data-model-name="ingredient" data-attr-name="ingredientType">
 							<option
 								th:each="ingredientTypeOpt : ${T(com.example.shopping.enums.IngredientType).values()}"
 								th:value="${ingredientTypeOpt}" th:text="${ingredientTypeOpt.typeName}"></option>
 						</select>
 						<label for="name" class="form-label">分量</label>
-						<input type="text" class="form-control" name="quantity" />
+						<input type="text" class="form-control" name="ingredient[0].quantity" data-model-name="ingredient" data-attr-name="quantity" />
 						<button class="remove_ingredient" type="button">削除</button>
 					</div>
 				</div>
@@ -41,7 +41,7 @@
 				<div id="seasonings_input_fields">
 					<div class="seasoning_input_field">
 						<label for="name" class="form-label">調味料</label>
-						<input type="text" class="form-control" name="seasoningName" />
+						<input type="text" class="form-control" name="seasoning[0].seasoningName" data-model-name="seasoning" data-attr-name="seasoningName"  />
 						<button class="remove_seasoning" type="button">削除</button>
 					</div>
 				</div>
