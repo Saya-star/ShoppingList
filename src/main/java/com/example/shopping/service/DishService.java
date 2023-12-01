@@ -34,6 +34,15 @@ public class DishService {
 
 	// 登録
 	public List<Dish> add(Dish dish) {
+		// 一番簡単なやり方
+		//dish.setAppUserId(111);
+		dish.getIngredient().stream().forEach(ingredient -> ingredient.setDish(dish));
+		//dish.getIngredient().stream().forEach(ingredient -> ingredient.setCreatedDate(createdDate));
+		dish.getSeasoning().stream().forEach(seasoning -> seasoning.setDish(dish));
+		
+		//for (Seasoning seasoning : dish.getSeasoning()) {
+		//	seasoning.setDish(dish);
+		//}
 		// 料理名の保存
 		dishRepository.saveAndFlush(dish);
 
@@ -52,10 +61,10 @@ public class DishService {
 //			ingredientRepository.saveAndFlush(save);
 //		}
 
-		ingredientRepository.saveAllAndFlush(dish.getIngredient());
+		//ingredientRepository.saveAllAndFlush(dish.getIngredient());
 
 		// 調味料の保存
-		seasoningRepository.saveAllAndFlush(dish.getSeasoning());
+		//seasoningRepository.saveAllAndFlush(dish.getSeasoning());
 
 		return dishRepository.findAll();
 	}
