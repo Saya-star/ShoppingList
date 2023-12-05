@@ -67,7 +67,7 @@ public class DishController {
 
 	// 登録した料理の詳細表示
 	@GetMapping(value = "detail/{id}")
-	public String getDetail(@PathVariable("id") long dishId, Dish dish, Model model) {
+	public String getDetail(@PathVariable("id") long dishId, Model model) {
 		model.addAttribute("title", "料理の詳細");
 		//idを元に登録された料理を検索
 		Optional<Dish> data = dishService.findDish(dishId);

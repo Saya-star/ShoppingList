@@ -12,6 +12,4 @@ import com.example.shopping.enums.IngredientType;
 
 @Repository
 public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
-
-	//public List<Ingredient> findByDishId(long dishId);//*
 }
