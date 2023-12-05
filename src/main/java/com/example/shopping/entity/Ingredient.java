@@ -37,10 +37,13 @@ public class Ingredient {
 
 	@Column
 	private LocalDate updatedDate;
+	
+	//@Column//*
+	//private Long dishId;
 
 	@ManyToOne
-	@JoinColumn(name = "dish_id")
-	private Dish dish;
+	@JoinColumn(name = "dishId") //insertable=false, updatable=false//*
+	private Dish dish; //*
 
 	public long getIngredientId() {
 		return ingredientId;
@@ -97,4 +100,14 @@ public class Ingredient {
 	public void setDish(Dish dish) {
 		this.dish = dish;
 	}
+
+	//*
+	//public Long getDishId() {
+	//	return dishId;
+	//}
+
+	//public void setDishId(Long dishId) {
+	//	this.dishId = dishId;
+	//}
+	
 }

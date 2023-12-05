@@ -69,23 +69,21 @@ public class DishController {
 	@GetMapping(value = "detail/{id}")
 	public String getDetail(@PathVariable("id") long dishId, Dish dish, Model model) {
 		model.addAttribute("title", "料理の詳細");
+		//idを元に登録された料理を検索
 		Optional<Dish> data = dishService.findDish(dishId);
-		//Optional<Ingredient> ingredientData = ingredientRepository.findByDish(dish);
-		//List<Ingredient> ingredientData = dish.getIngredient();
-		List<Ingredient> ingredientData = new ArrayList<>();
-		//ingredientDataの中に材料を詰める処理をする
-		//Dishの中の材料を一つずつingredientDataに保存する
-		for(int i=0;i<3;i++) {
-			Ingredient ingredient = new Ingredient();
-			ingredient.getIngredientName();
-			ingredient.getQuantity();
-			ingredientData.add(ingredient);
-		}
-		dish.setIngredient(ingredientData);
-			
 		model.addAttribute("detail", data.get());
-		//System.out.println(ingredientData);
-		model.addAttribute("ingredient-detail",ingredientData);
+		
+		//材料と調味料の検索
+		if (data.isPresent()) {
+			Dish savedDish = data.get();//変数名どうなんだろう
+			List<Ingredient> ingredients = savedDish.getIngredient();
+			List<Seasoning> seasonings = savedDish.getSeasoning();
+			model.addAttribute("ingredientDetail",ingredients);
+			model.addAttribute("seasoningDetail", seasonings);
+		} else {
+			//Dishが見つからなかった場合の処理
+			
+		}
 		return "dish/detail";
 	}
 

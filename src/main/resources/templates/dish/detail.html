@@ -24,39 +24,30 @@
 					th:action="@{/dish/delete/__${#strings.toString(detail.dishId)}__}">
 					<input type="submit" value="削除">
 				</form>
-
-				<!-- 材料表示のテーブルをここに-->
-				<!--table class="ingredient-table">
+				<table class="ingredient-table">
 					<thead>
 						<th>材料名</th>
-					</thead>
-					<tbody>
-						<td th:text="${ingredient-detail.IngredientName}"></td>
-					</tbody>
-				</table-->
-				<table class="table">
-					<thead>
-						<th>材料名</th>
-						<th></th>
+						<th>材料の種類</th>
 						<th>分量</th>
 					</thead>
-					<tbody th:each="item: ${ingredient-detail}">
+					<tbody th:each="item: ${ingredientDetail}">
 						<tr>
-							<td th:text="${item.dishName}"></td>
-							<td></td>
+							<td th:text="${item.IngredientName}"></td>
+							<td th:text="${item.IngredientType.typeName}"></td>
 							<td th:text=${item.quantity}></td>
 						</tr>
 					</tbody>
 				</table>
-
-				<!--table class="dish-table">
+				<table class="seasoning-table">
 					<thead>
 						<th>調味料名</th>
 					</thead>
-					<tbody>
-						<td th:text="${detail.seasoningName}"></td>
+					<tbody th:each="item: ${seasoningDetail}">
+						<tr>
+							<td th:text="${item.seasoningName}"></td>
+						</tr>
 					</tbody>
-				</table-->
+				</table>
 			</div>
 			<form class="back-dishList" method="get" th:action="@{/dish/list}">
 				<input type="submit" value="料理一覧に戻る">

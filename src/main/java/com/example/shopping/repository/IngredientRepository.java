@@ -1,5 +1,6 @@
 package com.example.shopping.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +13,5 @@ import com.example.shopping.enums.IngredientType;
 @Repository
 public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
 
-	public Optional<Ingredient> findByDish(Dish dish);
+	//public List<Ingredient> findByDishId(long dishId);//*
 }
