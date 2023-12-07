@@ -32,7 +32,7 @@ public class DishController {
 
 	@Autowired
 	IngredientRepository ingredientRepository;
-	
+
 	@Autowired
 	SeasoningRepository seasoningRepository;
 
@@ -49,57 +49,69 @@ public class DishController {
 
 	// 料理登録画面の表示
 	@GetMapping(value = "/register")
-	public String register(@ModelAttribute Dish dish, @ModelAttribute Ingredient ingredient,
-			Model model) {
+	public String register(@ModelAttribute Dish dish, @ModelAttribute Ingredient ingredient, Model model) {
 		model.addAttribute("title", "料理の登録");
 		model.addAttribute("dish", new Dish());
-		model.addAttribute("ingredientType",IngredientType.SELECT_OPTION);//材料種類のプルダウンの初期表示
+		model.addAttribute("ingredientType", IngredientType.SELECT_OPTION);// 材料種類のプルダウンの初期表示
 		return "dish/register";
 	}
 
 	// 料理の登録
 	@PostMapping(value = "/list")
 	public String add(@ModelAttribute Dish dish, Model model) {
+		System.out.println("add");//確認用
 		List<Dish> result = dishService.add(dish);
 		model.addAttribute("data", result);
 		return "dish/list";
 	}
 
 	// 登録した料理の詳細表示
-	@GetMapping(value = "detail/{id}")
+	@GetMapping(value = "/detail/{id}")
 	public String getDetail(@PathVariable("id") long dishId, Model model) {
 		model.addAttribute("title", "料理の詳細");
-		//idを元に登録された料理を検索
+		// idを元に登録された料理を検索
 		Optional<Dish> data = dishService.findDish(dishId);
 		model.addAttribute("detail", data.get());
-		
-		//材料と調味料の検索
+
+		// 材料と調味料の検索
 		if (data.isPresent()) {
-			Dish savedDish = data.get();//変数名どうなんだろう
+			Dish savedDish = data.get();
 			List<Ingredient> ingredients = savedDish.getIngredient();
 			List<Seasoning> seasonings = savedDish.getSeasoning();
-			model.addAttribute("ingredientDetail",ingredients);
+			model.addAttribute("ingredientDetail", ingredients);
 			model.addAttribute("seasoningDetail", seasonings);
-		} else {
-			//Dishが見つからなかった場合の処理
-			
-		}
+		} // else {
+			// Dishが見つからなかった場合の処理
+
+		// }
 		return "dish/detail";
 	}
 
-	// 料理の内容の編集画面
-	@GetMapping(value = "edit/{id}")
-	public String edit(@PathVariable("id") long id, @ModelAttribute("Form") Dish dish, Model model) {
+	// 料理の内容の編集画面の表示
+	@GetMapping(value = "/edit/{id}")
+	public String edit(@PathVariable("id") long dishId, @ModelAttribute Dish dish, Model model) {
 		model.addAttribute("title", "料理の編集");
-		Optional<Dish> data = dishService.findDish(id);
-		model.addAttribute("Form", data.get());
+		Optional<Dish> data = dishService.findDish(dishId);
+		model.addAttribute("dish", data.get());
+
+		// 材料と調味料の検索
+		//if (data.isPresent()) {
+		//	Dish savedDish = data.get();
+		//	List<Ingredient> ingredients = savedDish.getIngredient();
+		//	List<Seasoning> seasonings = savedDish.getSeasoning();
+		//	model.addAttribute("ingredient", ingredients);
+		//	model.addAttribute("seasoning", seasonings);
+		//}
 		return "dish/edit";
 	}
 
 	// 編集内容を登録
-	@PostMapping(value = "edit")
+	@PostMapping(value = "/edit")
 	public String update(@ModelAttribute Dish dish, Model model) {
-		dishRepository.saveAndFlush(dish);
+		//dishRepository.saveAndFlush(dish);
+		System.out.println("update");//確認用
+		List<Dish> result = dishService.update(dish);
+		model.addAttribute("data", result);
 		return "redirect:/dish/list";
 	}
 
