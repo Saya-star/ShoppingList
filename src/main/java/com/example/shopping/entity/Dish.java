@@ -10,8 +10,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.Data;
 
 @Entity
+@Data
 public class Dish {
 
 	@Id
@@ -37,60 +39,60 @@ public class Dish {
 	@OneToMany(mappedBy="dish",cascade = CascadeType.ALL)
 	private List<Seasoning> seasoning;
 	
-	public long getDishId() {
-		return dishId;
-	}
-
-	public void setDishId(long dishId) {
-		this.dishId = dishId;
-	}
-
-	public long getAppUserId() {
-		return appUserId;
-	}
-
-	public void setAppUserId(long appUserId) {
-		this.appUserId = appUserId;
-	}
-
-	public String getDishName() {
-		return dishName;
-	}
-
-	public void setDishName(String dishName) {
-		this.dishName = dishName;
-	}
-
-	public LocalDate getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(LocalDate createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public LocalDate getUpdatedDate() {
-		return updatedDate;
-	}
-
-	public void setUpdatedDate(LocalDate updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-
-	public List<Ingredient> getIngredient() {
-		return ingredient;
-	}
-
-	public void setIngredient(List<Ingredient> ingredient) {
-		this.ingredient = ingredient;
-	}
-
-	public List<Seasoning> getSeasoning() {
-		return seasoning;
-	}
-
-	public void setSeasoning(List<Seasoning> seasoning) {
-		this.seasoning = seasoning;
-	}
+//	public long getDishId() {
+//		return dishId;
+//	}
+//
+//	public void setDishId(long dishId) {
+//		this.dishId = dishId;
+//	}
+//
+//	public long getAppUserId() {
+//		return appUserId;
+//	}
+//
+//	public void setAppUserId(long appUserId) {
+//		this.appUserId = appUserId;
+//	}
+//
+//	public String getDishName() {
+//		return dishName;
+//	}
+//
+//	public void setDishName(String dishName) {
+//		this.dishName = dishName;
+//	}
+//
+//	public LocalDate getCreatedDate() {
+//		return createdDate;
+//	}
+//
+//	public void setCreatedDate(LocalDate createdDate) {
+//		this.createdDate = createdDate;
+//	}
+//
+//	public LocalDate getUpdatedDate() {
+//		return updatedDate;
+//	}
+//
+//	public void setUpdatedDate(LocalDate updatedDate) {
+//		this.updatedDate = updatedDate;
+//	}
+//
+//	public List<Ingredient> getIngredient() {
+//		return ingredient;
+//	}
+//
+//	public void setIngredient(List<Ingredient> ingredient) {
+//		this.ingredient = ingredient;
+//	}
+//
+//	public List<Seasoning> getSeasoning() {
+//		return seasoning;
+//	}
+//
+//	public void setSeasoning(List<Seasoning> seasoning) {
+//		this.seasoning = seasoning;
+//	}
 	
 }

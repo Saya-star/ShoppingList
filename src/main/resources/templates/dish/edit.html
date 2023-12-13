@@ -21,14 +21,16 @@
 					<label for="name" class="form-label">料理名</label>
 					<input type="text" class="form-control" name="dishName" th:value="*{dishName}"/>
 				</div>
-				<div id="ingredients_input_fields">
+				<div id="ingredients_input_fields"> <!--th:each="item : ${dish.getIngredient}"-->
+					<!--th:each="ingredient : ${ingredient}"-->
 					<div class="ingredient_input_field">
+						<!--input type="hidden" name="ingredient[0]" data-name="ingredient" th:value="*{ingredient[0]}"/-->
 						<label for="name" class="form-label">材料</label>
 						<input type="text" class="form-control" name="ingredient[0].ingredientName" data-model-name="ingredient" data-attr-name="ingredientName" th:value="*{ingredient[0].ingredientName}"/>
-						<select name="ingredient[0].ingredientType" data-model-name="ingredient" data-attr-name="ingredientType">
+						<select name="ingredient[0].ingredientType" data-model-name="ingredient" data-attr-name="ingredientType" >
 							<option
 								th:each="ingredientTypeOpt : ${T(com.example.shopping.enums.IngredientType).values()}"
-								th:value="${ingredientOpt}" th:text="${ingredientTypeOpt.typeName}"></option>
+								th:value="${ingredientTypeOpt}" th:text="${ingredientTypeOpt.typeName}"></option>
 						</select>
 						<label for="name" class="form-label">分量</label>
 						<input type="text" class="form-control" name="ingredient[0].quantity" data-model-name="ingredient" data-attr-name="quantity" th:value="*{ingredient[0].quantity}"/>

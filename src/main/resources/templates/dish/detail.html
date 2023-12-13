@@ -32,8 +32,8 @@
 					</thead>
 					<tbody th:each="item: ${ingredientDetail}">
 						<tr>
-							<td th:text="${item.IngredientName}"></td>
-							<td th:text="${item.IngredientType.typeName}"></td>
+							<td th:text="${item.ingredientName}"></td>
+							<td th:text="${item.ingredientType.typeName}"></td>
 							<td th:text=${item.quantity}></td>
 						</tr>
 					</tbody>

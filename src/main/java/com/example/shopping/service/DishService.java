@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.shopping.entity.Dish;
 import com.example.shopping.entity.Ingredient;
@@ -38,22 +39,21 @@ public class DishService {
 		// 材料と調味料のテーブルにDishIdを保存
 		dish.getIngredient().stream().forEach(ingredient -> ingredient.setDish(dish));
 		dish.getSeasoning().stream().forEach(seasoning -> seasoning.setDish(dish));
-		
-		//各テーブルに日付を保存
+
+		// 各テーブルに日付を保存
 		LocalDate createdDate = LocalDate.now();
 		dish.setCreatedDate(createdDate);
 		dish.getIngredient().stream().forEach(ingredient -> ingredient.setCreatedDate(createdDate));
 		dish.getSeasoning().stream().forEach(seasoning -> seasoning.setCreatedDate(createdDate));
-		
-		
+
 		// 料理の保存
 		dishRepository.saveAndFlush(dish);
 
-		//材料の保存
-		//ingredientRepository.saveAllAndFlush(dish.getIngredient());//不要みたい
+		// 材料の保存
+		// ingredientRepository.saveAllAndFlush(dish.getIngredient());//不要みたい
 
 		// 調味料の保存
-		//seasoningRepository.saveAllAndFlush(dish.getSeasoning());//不要みたい
+		// seasoningRepository.saveAllAndFlush(dish.getSeasoning());//不要みたい
 
 		return dishRepository.findAll();
 	}
@@ -63,26 +63,26 @@ public class DishService {
 	}
 
 	// 料理の登録
-		public List<Dish> update(Dish dish) {
-			// 材料と調味料のテーブルにDishIdを保存
-			dish.getIngredient().stream().forEach(ingredient -> ingredient.setDish(dish));
-			dish.getSeasoning().stream().forEach(seasoning -> seasoning.setDish(dish));
-			
-			//各テーブルに日付を保存
-			LocalDate updatedDate = LocalDate.now();
-			dish.setUpdatedDate(updatedDate);
-			dish.getIngredient().stream().forEach(ingredient -> ingredient.setUpdatedDate(updatedDate));
-			dish.getSeasoning().stream().forEach(seasoning -> seasoning.setUpdatedDate(updatedDate));
-			
-			// 料理の保存
-			dishRepository.saveAndFlush(dish);
-			
-			//材料の保存
-			ingredientRepository.saveAllAndFlush(dish.getIngredient());//不要みたい
+	public List<Dish> update(Dish dish) {
+		// 材料と調味料のテーブルにDishIdを保存
+		dish.getIngredient().stream().forEach(ingredient -> ingredient.setDish(dish));
+		dish.getSeasoning().stream().forEach(seasoning -> seasoning.setDish(dish));
 
-			// 調味料の保存
-			seasoningRepository.saveAllAndFlush(dish.getSeasoning());//不要みたい
+		// 各テーブルに日付を保存
+		LocalDate updatedDate = LocalDate.now();
+		dish.setUpdatedDate(updatedDate);
+		dish.getIngredient().stream().forEach(ingredient -> ingredient.setUpdatedDate(updatedDate));
+		dish.getSeasoning().stream().forEach(seasoning -> seasoning.setUpdatedDate(updatedDate));
 
-			return dishRepository.findAll();
-		}
+		// 料理の保存
+		dishRepository.saveAndFlush(dish);
+
+		// 材料の保存
+		// ingredientRepository.saveAllAndFlush(dish.getIngredient());//不要みたい
+
+		// 調味料の保存
+		// seasoningRepository.saveAllAndFlush(dish.getSeasoning());//不要みたい
+
+		return dishRepository.findAll();
+	}
 }

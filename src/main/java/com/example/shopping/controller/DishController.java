@@ -57,7 +57,7 @@ public class DishController {
 	}
 
 	// 料理の登録
-	@PostMapping(value = "/list")
+	@PostMapping(value = "/register")
 	public String add(@ModelAttribute Dish dish, Model model) {
 		System.out.println("add");//確認用
 		List<Dish> result = dishService.add(dish);
@@ -93,15 +93,19 @@ public class DishController {
 		model.addAttribute("title", "料理の編集");
 		Optional<Dish> data = dishService.findDish(dishId);
 		model.addAttribute("dish", data.get());
+//		for(Ingredient ingredient : data.get().getIngredient()) {
+//			System.out.println(ingredient.getIngredientName());
+//		}
+		//model.addAttribute("ingredientType", IngredientType.SELECT_OPTION);
 
 		// 材料と調味料の検索
-		//if (data.isPresent()) {
-		//	Dish savedDish = data.get();
-		//	List<Ingredient> ingredients = savedDish.getIngredient();
-		//	List<Seasoning> seasonings = savedDish.getSeasoning();
-		//	model.addAttribute("ingredient", ingredients);
-		//	model.addAttribute("seasoning", seasonings);
-		//}
+//		if (data.isPresent()) {
+//			Dish savedDish = data.get();
+//			List<Ingredient> ingredients = savedDish.getIngredient();
+//			List<Seasoning> seasonings = savedDish.getSeasoning();
+//			model.addAttribute("ingredient", ingredients);
+//			model.addAttribute("seasoning", seasonings);
+//		}
 		return "dish/edit";
 	}
 

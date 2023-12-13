@@ -1,0 +1,34 @@
+<!-- 材料の一覧表示ページ-->
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<header th:replace="~{layouts/common.html :: header}"></header>
+	<main>
+		<h1 class="title" th:text="${title}"></h1>
+		<h2>買い物リストを作る</h2>
+		<p>step1:登録した料理を選択する</p>
+		<div class="container">
+			<table class="table">
+				<thead>
+					<th>登録した料理</th>
+				</thead>
+				<tbody th:each="item: ${data}">
+						<tr>
+							<td th:text=${item.dishName}></td>
+						</tr>
+				</tbody>
+			</table>
+		</div>
+	</main>
+	<footer th:replace="~{layouts/common.html :: footer}"></footer>
+</body>
+
+</html>

@@ -17,6 +17,15 @@ $(document).ready(function() {
 				inputList[i].value = "";
 			}
 
+			// hidden属性のname属性の更新 //うまくいかず
+			//var ingredientContainer = $('.ingredient_input_field');
+			//var hiddenInputs = ingredientContainer.find('input[type="hidden"]');
+			//if (hiddenInputs.exists()) {
+			//	element.querySelectorAll(hiddenInputs).forEach(e => {
+			//		e.name = `${e.dataset.name}[${n - 1}]`
+			//	});
+			//}
+
 			// name属性の更新
 			element.querySelectorAll('input,select').forEach(e => {
 				e.name = `${e.dataset.modelName}[${n - 1}].${e.dataset.attrName}`
