@@ -1,6 +1,7 @@
 package com.example.shopping.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,25 +64,32 @@ public class DishService {
 	}
 
 	// 料理の登録
-	public List<Dish> update(Dish dish) {
-		// 材料と調味料のテーブルにDishIdを保存
-		dish.getIngredient().stream().forEach(ingredient -> ingredient.setDish(dish));
-		dish.getSeasoning().stream().forEach(seasoning -> seasoning.setDish(dish));
-
-		// 各テーブルに日付を保存
-		LocalDate updatedDate = LocalDate.now();
-		dish.setUpdatedDate(updatedDate);
-		dish.getIngredient().stream().forEach(ingredient -> ingredient.setUpdatedDate(updatedDate));
-		dish.getSeasoning().stream().forEach(seasoning -> seasoning.setUpdatedDate(updatedDate));
+	public List<Dish> update(Dish form,Dish data) {
+		
+		data.setDishId(form.getDishId());
+		data.setDishName(form.getDishName());
+		//List<Ingredient> updateIngredient = new ArrayList<>();
+		
+		data.setIngredient(form.getIngredient());
+		data.setSeasoning(form.getSeasoning());
+//		// 材料と調味料のテーブルにDishIdを保存
+		data.getIngredient().stream().forEach(ingredient -> ingredient.setDish(form));
+		data.getSeasoning().stream().forEach(seasoning -> seasoning.setDish(form));
+//
+//		// 各テーブルに日付を保存
+//		LocalDate updatedDate = LocalDate.now();
+//		dish.setUpdatedDate(updatedDate);
+//		dish.getIngredient().stream().forEach(ingredient -> ingredient.setUpdatedDate(updatedDate));
+//		dish.getSeasoning().stream().forEach(seasoning -> seasoning.setUpdatedDate(updatedDate));
 
 		// 料理の保存
-		dishRepository.saveAndFlush(dish);
+		dishRepository.saveAndFlush(data);
 
 		// 材料の保存
-		// ingredientRepository.saveAllAndFlush(dish.getIngredient());//不要みたい
+		//ingredientRepository.saveAllAndFlush(data.getIngredient());//不要みたい
 
 		// 調味料の保存
-		// seasoningRepository.saveAllAndFlush(dish.getSeasoning());//不要みたい
+		//seasoningRepository.saveAllAndFlush(data.getSeasoning());//不要みたい
 
 		return dishRepository.findAll();
 	}

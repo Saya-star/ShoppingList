@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.shopping.entity.Dish;
 import com.example.shopping.entity.Ingredient;
@@ -93,28 +94,18 @@ public class DishController {
 		model.addAttribute("title", "料理の編集");
 		Optional<Dish> data = dishService.findDish(dishId);
 		model.addAttribute("dish", data.get());
-//		for(Ingredient ingredient : data.get().getIngredient()) {
-//			System.out.println(ingredient.getIngredientName());
-//		}
-		//model.addAttribute("ingredientType", IngredientType.SELECT_OPTION);
-
-		// 材料と調味料の検索
-//		if (data.isPresent()) {
-//			Dish savedDish = data.get();
-//			List<Ingredient> ingredients = savedDish.getIngredient();
-//			List<Seasoning> seasonings = savedDish.getSeasoning();
-//			model.addAttribute("ingredient", ingredients);
-//			model.addAttribute("seasoning", seasonings);
-//		}
 		return "dish/edit";
 	}
 
 	// 編集内容を登録
 	@PostMapping(value = "/edit")
-	public String update(@ModelAttribute Dish dish, Model model) {
+	public String update(@ModelAttribute Dish form, Model model) {
 		//dishRepository.saveAndFlush(dish);
 		System.out.println("update");//確認用
-		List<Dish> result = dishService.update(dish);
+		Optional<Dish> data = dishService.findDish(form.getDishId());
+		List<Dish> result = dishService.update(form,data.get());
+		//dishRepository.saveAndFlush(DishService.update(form,data.get()));
+		//model.addAttribute("data", dishService.getList(form));
 		model.addAttribute("data", result);
 		return "redirect:/dish/list";
 	}

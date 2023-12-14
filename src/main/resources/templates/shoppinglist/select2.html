@@ -1,4 +1,4 @@
-<!-- 買い物リスト作成・料理を表示するページ-->
+<!-- 買い物リスト作成・選択した料理の材料を表示するページ-->
 <!DOCTYPE html>
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
@@ -13,11 +13,16 @@
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
 		<h1 class="title" th:text="${title}"></h1>
-		<p>step1:料理を選択する</p>
-		<div class="select-dish">
+		<p>step2:料理を選択する</p>
+		<div class="container">
 			<form method="post">
-				<div th:each="item:${data}">
-					<input type="checkbox" name="dishName" th:text="${item.dishName}">
+				<div class="select-ingredients-and-seasonings">
+					<div th:each="item:${ingredientData}">
+						<input type="checkbox" name="ingredientName" th:text="${item.ingredientName}">
+					</div>
+					<div th:each="item:${seasoningData}">
+						<input type="checkbox" name="seasoningName" th:text="${item.seasoningName}">
+					</div>
 				</div>
 				<div>
 					<input type="submit" value="送信">
