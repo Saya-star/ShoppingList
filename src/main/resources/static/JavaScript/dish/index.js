@@ -17,11 +17,6 @@ $(document).ready(function() {
 				inputList[i].value = "";
 			}
 
-			// name属性の更新
-			element.querySelectorAll('input,select').forEach(e => {
-				e.name = `${e.dataset.modelName}[${n - 1}].${e.dataset.attrName}`
-			});
-
 			$("#ingredients_input_fields").append(element);
 		}
 	});
@@ -46,11 +41,6 @@ $(document).ready(function() {
 				inputList[i].value = "";
 			}
 
-			// name属性の更新
-			element.querySelectorAll('input').forEach(e => {
-				e.name = `${e.dataset.modelName}[${m - 1}].${e.dataset.attrName}`
-			});
-
 			$("#seasonings_input_fields").append(element);
 		}
 	});
@@ -63,4 +53,25 @@ $(document).ready(function() {
 		}
 	});
 
+	$('#dish-submit-form').submit(function() {
+		var form = $(this)[0]
+
+		// 材料のname属性の更新
+		var counter = 0;
+		form.querySelectorAll('#ingredients_input_fields .ingredient_input_field').forEach(row => {
+			row.querySelectorAll('input,select').forEach(e => {
+				e.name = `${e.dataset.modelName}[${counter}].${e.dataset.attrName}`
+			});
+			counter++;
+		});
+		
+		// 調味料のname属性の更新
+		counter = 0;
+		form.querySelectorAll('#seasonings_input_fields .seasoning_input_field').forEach(row => {
+			row.querySelectorAll('input').forEach(e => {
+				e.name = `${e.dataset.modelName}[${counter}].${e.dataset.attrName}`
+			});
+			counter++;
+		});
+	})
 });
