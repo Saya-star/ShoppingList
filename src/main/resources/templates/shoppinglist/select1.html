@@ -14,16 +14,14 @@
 	<main>
 		<h1 class="title" th:text="${title}"></h1>
 		<p>step1:料理を選択する</p>
-		<div class="select-dish">
-			<form method="post">
-				<div th:each="item:${data}">
-					<input type="checkbox" name="dishName" th:text="${item.dishName}">
-				</div>
-				<div>
-					<input type="submit" value="送信">
-				</div>
-			</form>
-		</div>
+		<!--div class="select-dish"-->
+		<form method="post" th:action="@{/shoppinglist/select2}" th:object="${SelectForm}">
+			<div th:each="item:${data}">
+				<input type="checkbox" th:value="${item.dishName}" th:text="${item.dishName}" name="dishNames"/>
+			</div>
+			<input type="submit" value="送信">
+		</form>
+		<!--/div-->
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
 </body>

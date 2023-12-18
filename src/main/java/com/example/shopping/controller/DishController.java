@@ -58,7 +58,7 @@ public class DishController {
 	}
 
 	// 料理の登録
-	@PostMapping(value = "/register")
+	@PostMapping(value = "/list")
 	public String add(@ModelAttribute Dish dish, Model model) {
 		System.out.println("add");//確認用
 		List<Dish> result = dishService.add(dish);
