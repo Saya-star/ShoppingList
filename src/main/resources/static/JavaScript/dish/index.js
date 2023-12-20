@@ -53,6 +53,7 @@ $(document).ready(function() {
 		}
 	});
 
+	//データ送信時に入力欄に番号を振る
 	$('#dish-submit-form').submit(function() {
 		var form = $(this)[0]
 

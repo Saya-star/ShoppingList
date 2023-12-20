@@ -93,7 +93,15 @@ public class DishController {
 	public String edit(@PathVariable("id") long dishId, @ModelAttribute Dish dish, Model model) {
 		model.addAttribute("title", "料理の編集");
 		Optional<Dish> data = dishService.findDish(dishId);
-		model.addAttribute("dish", data.get());
+		if (data.isPresent()) {
+			model.addAttribute("dish", data.get());
+			Dish savedDish = data.get();
+			List<Ingredient> ingredients = savedDish.getIngredient();
+			List<Seasoning> seasonings = savedDish.getSeasoning();
+			model.addAttribute("ingredients", ingredients);
+			model.addAttribute("seasonings", seasonings);
+		}
+		
 		return "dish/edit";
 	}
 
