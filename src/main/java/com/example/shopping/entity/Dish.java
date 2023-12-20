@@ -17,7 +17,7 @@ import lombok.Data;
 public class Dish {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private long dishId;
 

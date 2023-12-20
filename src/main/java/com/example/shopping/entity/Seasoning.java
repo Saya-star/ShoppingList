@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 public class Seasoning {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private long seasoningId;
 	

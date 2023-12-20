@@ -18,7 +18,7 @@ import jakarta.persistence.ManyToOne;
 public class Ingredient {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private long ingredientId;
 
