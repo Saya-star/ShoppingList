@@ -21,18 +21,17 @@
 					<label for="name" class="form-label">料理名</label>
 					<input type="text" class="form-control" name="dishName" th:value="*{dishName}" />
 				</div>
-				<div id="ingredients_input_fields"><!--th:each="item : ${dish.getIngredient}"-->
+				<div id="ingredients_input_fields">
 					<th:block th:each="item : ${ingredients}">
-						<div class="ingredient_input_field"> <!--th:each="ingredient : ${ingredients}"-->
-						<!--input type="hidden" name="ingredient[0]" data-name="ingredient" th:value="*{ingredient[0]}"/-->
+						<div class="ingredient_input_field">
 							<label for="name" class="form-label">材料</label>
 							<input type="text" class="form-control" data-model-name="ingredient"
 								data-attr-name="ingredientName" th:value="${item.ingredientName}" />
 							<select data-model-name="ingredient" data-attr-name="ingredientType">
 								<option
 									th:each="ingredientTypeOpt : ${T(com.example.shopping.enums.IngredientType).values()}"
-									th:value="${ingredientTypeOpt}" th:text="${ingredientTypeOpt.typeName}" />
-								<!--th:selected="${ingredientTypeOpt == item.ingredientTypeOpt}"--></option>
+									th:value="${ingredientTypeOpt}" th:text="${ingredientTypeOpt.typeName}"
+									th:selected="${ingredientTypeOpt == item.ingredientType}"></option>
 							</select>
 							<label for="name" class="form-label">分量</label>
 							<input type="text" class="form-control" data-model-name="ingredient"
@@ -46,12 +45,14 @@
 				</div>
 				<br> <!-- brあとで消す -->
 				<div id="seasonings_input_fields">
-					<div class="seasoning_input_field" th:each="item : ${seasonings}">
-						<label for="name" class="form-label">調味料</label>
-						<input type="text" class="form-control" data-model-name="seasoning"
-							data-attr-name="seasoningName" th:value="*{seasoning[0].seasoningName}" />
-						<button class="remove_seasoning" type="button">削除</button>
-					</div>
+					<th:block th:each="item : ${seasonings}">
+						<div class="seasoning_input_field">
+							<label for="name" class="form-label">調味料</label>
+							<input type="text" class="form-control" data-model-name="seasoning"
+								data-attr-name="seasoningName" th:value="${item.seasoningName}" />
+							<button class="remove_seasoning" type="button">削除</button>
+						</div>
+					</th:block>
 				</div>
 				<div class="add_button">
 					<button id="add_seasoning" type="button">調味料を追加</button>
