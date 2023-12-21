@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS ingredient (
  created_date timestamp,
  updated_date timestamp,
  dish_id BIGINT,
+ ingredient_deleted BOOLEAN,
  PRIMARY KEY(ingredient_id)
 ); 
 
@@ -27,5 +28,6 @@ CREATE TABLE IF NOT EXISTS seasoning (
  created_date timestamp,
  updated_date timestamp,
  dish_id BIGINT,
+ seasoning_deleted BOOLEAN,
  PRIMARY KEY(seasoning_id)
 ); 

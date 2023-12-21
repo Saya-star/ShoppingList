@@ -13,8 +13,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Data;
 
 @Entity
+@Data
 public class Ingredient {
 
 	@Id
@@ -41,60 +43,63 @@ public class Ingredient {
 	@ManyToOne
 	@JoinColumn(name = "dishId")
 	private Dish dish;
-
-	public long getIngredientId() {
-		return ingredientId;
-	}
-
-	public void setIngredientId(long ingredientId) {
-		this.ingredientId = ingredientId;
-	}
-
-	public String getIngredientName() {
-		return ingredientName;
-	}
-
-	public void setIngredientName(String ingredientName) {
-		this.ingredientName = ingredientName;
-	}
 	
-	public IngredientType getIngredientType() {
-		return ingredientType;
-	}
+	@Column
+	private boolean ingredientDeleted = false;
 
-	public void setIngredientType(IngredientType ingredientType) {
-		this.ingredientType = ingredientType;
-	}
-
-	public String getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(String quantity) {
-		this.quantity = quantity;
-	}
-
-	public LocalDate getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(LocalDate createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public LocalDate getUpdatedDate() {
-		return updatedDate;
-	}
-
-	public void setUpdatedDate(LocalDate updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-
-	public Dish getDish() {
-		return dish;
-	}
-
-	public void setDish(Dish dish) {
-		this.dish = dish;
-	}	
+//	public long getIngredientId() {
+//		return ingredientId;
+//	}
+//
+//	public void setIngredientId(long ingredientId) {
+//		this.ingredientId = ingredientId;
+//	}
+//
+//	public String getIngredientName() {
+//		return ingredientName;
+//	}
+//
+//	public void setIngredientName(String ingredientName) {
+//		this.ingredientName = ingredientName;
+//	}
+//	
+//	public IngredientType getIngredientType() {
+//		return ingredientType;
+//	}
+//
+//	public void setIngredientType(IngredientType ingredientType) {
+//		this.ingredientType = ingredientType;
+//	}
+//
+//	public String getQuantity() {
+//		return quantity;
+//	}
+//
+//	public void setQuantity(String quantity) {
+//		this.quantity = quantity;
+//	}
+//
+//	public LocalDate getCreatedDate() {
+//		return createdDate;
+//	}
+//
+//	public void setCreatedDate(LocalDate createdDate) {
+//		this.createdDate = createdDate;
+//	}
+//
+//	public LocalDate getUpdatedDate() {
+//		return updatedDate;
+//	}
+//
+//	public void setUpdatedDate(LocalDate updatedDate) {
+//		this.updatedDate = updatedDate;
+//	}
+//
+//	public Dish getDish() {
+//		return dish;
+//	}
+//
+//	public void setDish(Dish dish) {
+//		this.dish = dish;
+//	}	
 }

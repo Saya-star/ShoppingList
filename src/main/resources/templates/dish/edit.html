@@ -22,7 +22,7 @@
 					<input type="text" class="form-control" name="dishName" th:value="*{dishName}" />
 				</div>
 				<div id="ingredients_input_fields">
-					<th:block th:each="item : ${ingredients}">
+					<th:block th:each="item : ${ingredients}" th:unless="${item.ingredientDeleted}">
 						<div class="ingredient_input_field">
 							<label for="name" class="form-label">材料</label>
 							<input type="text" class="form-control" data-model-name="ingredient"
@@ -45,7 +45,7 @@
 				</div>
 				<br> <!-- brあとで消す -->
 				<div id="seasonings_input_fields">
-					<th:block th:each="item : ${seasonings}">
+					<th:block th:each="item : ${seasonings}" th:unless="${item.seasoningDeleted}">
 						<div class="seasoning_input_field">
 							<label for="name" class="form-label">調味料</label>
 							<input type="text" class="form-control" data-model-name="seasoning"

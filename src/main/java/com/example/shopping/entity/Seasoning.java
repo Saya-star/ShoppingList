@@ -9,8 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Data;
 
 @Entity
+@Data
 public class Seasoning {
 
 	@Id
@@ -30,44 +32,47 @@ public class Seasoning {
 	@ManyToOne
 	@JoinColumn(name = "dish_id")
 	private Dish dish;
-
-	public long getSeasoningId() {
-		return seasoningId;
-	}
-
-	public void setSeasoningId(long seasoningId) {
-		this.seasoningId = seasoningId;
-	}
-
-	public String getSeasoningName() {
-		return seasoningName;
-	}
-
-	public void setSeasoningName(String seasoningName) {
-		this.seasoningName = seasoningName;
-	}
-
-	public LocalDate getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(LocalDate createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public LocalDate getUpdatedDate() {
-		return updatedDate;
-	}
-
-	public void setUpdatedDate(LocalDate updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-
-	public Dish getDish() {
-		return dish;
-	}
-
-	public void setDish(Dish dish) {
-		this.dish = dish;
-	}
+	
+	@Column
+	private boolean seasoningDeleted = false;
+//
+//	public long getSeasoningId() {
+//		return seasoningId;
+//	}
+//
+//	public void setSeasoningId(long seasoningId) {
+//		this.seasoningId = seasoningId;
+//	}
+//
+//	public String getSeasoningName() {
+//		return seasoningName;
+//	}
+//
+//	public void setSeasoningName(String seasoningName) {
+//		this.seasoningName = seasoningName;
+//	}
+//
+//	public LocalDate getCreatedDate() {
+//		return createdDate;
+//	}
+//
+//	public void setCreatedDate(LocalDate createdDate) {
+//		this.createdDate = createdDate;
+//	}
+//
+//	public LocalDate getUpdatedDate() {
+//		return updatedDate;
+//	}
+//
+//	public void setUpdatedDate(LocalDate updatedDate) {
+//		this.updatedDate = updatedDate;
+//	}
+//
+//	public Dish getDish() {
+//		return dish;
+//	}
+//
+//	public void setDish(Dish dish) {
+//		this.dish = dish;
+//	}
 }

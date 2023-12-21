@@ -30,7 +30,7 @@
 						<th>材料の種類</th>
 						<th>分量</th>
 					</thead>
-					<tbody th:each="item: ${ingredientDetail}">
+					<tbody th:each="item: ${ingredientDetail}" th:unless="${item.ingredientDeleted}">
 						<tr>
 							<td th:text="${item.ingredientName}"></td>
 							<td th:text="${item.ingredientType.typeName}"></td>
@@ -42,7 +42,7 @@
 					<thead>
 						<th>調味料名</th>
 					</thead>
-					<tbody th:each="item: ${seasoningDetail}">
+					<tbody th:each="item: ${seasoningDetail}" th:unless="${item.seasoningDeleted}">
 						<tr>
 							<td th:text="${item.seasoningName}"></td>
 						</tr>

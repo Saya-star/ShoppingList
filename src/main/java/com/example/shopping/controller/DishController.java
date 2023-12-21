@@ -108,12 +108,9 @@ public class DishController {
 	// 編集内容を登録
 	@PostMapping(value = "/edit")
 	public String update(@ModelAttribute Dish form, Model model) {
-		//dishRepository.saveAndFlush(dish);
 		System.out.println("update");//確認用
 		Optional<Dish> data = dishService.findDish(form.getDishId());
 		List<Dish> result = dishService.update(form,data.get());
-		//dishRepository.saveAndFlush(DishService.update(form,data.get()));
-		//model.addAttribute("data", dishService.getList(form));
 		model.addAttribute("data", result);
 		return "redirect:/dish/list";
 	}
