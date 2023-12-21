@@ -16,7 +16,19 @@ $(document).ready(function() {
 			for (var i = 0; i < inputList.length; i++) {
 				inputList[i].value = "";
 			}
-
+			//材料種類の選択エリアの初期化
+			var selectArea = element.querySelectorAll('select');
+			for (var i = 0; i < selectArea.length; i++) {
+				var options = selectArea[i].options;
+				for (var j = 0; j < options.length; j++) {
+					if (options[j].value === "0") {
+						// "分類を選択"のオプションを選択状態にする
+						options[j].selected = true;
+					} else {
+						options[j].selected = false;
+					}
+				}
+			}
 			$("#ingredients_input_fields").append(element);
 		}
 	});
@@ -65,7 +77,7 @@ $(document).ready(function() {
 			});
 			counter++;
 		});
-		
+
 		// 調味料のname属性の更新
 		counter = 0;
 		form.querySelectorAll('#seasonings_input_fields .seasoning_input_field').forEach(row => {
