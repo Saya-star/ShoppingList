@@ -1,5 +1,5 @@
-INSERT INTO dish (dish_id, app_user_id, dish_name, created_date, updated_date) values (10001, 1, 'カレー', LOCALTIME(), LOCALTIME());
-INSERT INTO dish (dish_id, app_user_id, dish_name, created_date, updated_date) values (10002, 1, 'オムライス', LOCALTIME(), LOCALTIME());
+INSERT INTO dish (dish_id, app_user_id, dish_name, created_date, updated_date, dish_deleted) values (10001, 1, 'カレー', LOCALTIME(), LOCALTIME(), FALSE);
+INSERT INTO dish (dish_id, app_user_id, dish_name, created_date, updated_date, dish_deleted) values (10002, 1, 'オムライス', LOCALTIME(), LOCALTIME(), FALSE);
 INSERT INTO ingredient (ingredient_id, ingredient_name, ingredient_type, quantity, created_date, updated_date, dish_id, ingredient_deleted) values (10001, '玉ねぎ', 1, '1個', LOCALTIME(), LOCALTIME(), 10001, FALSE);
 INSERT INTO ingredient (ingredient_id, ingredient_name, ingredient_type, quantity, created_date, updated_date, dish_id, ingredient_deleted) values (10002, '人参', 1, '1本', LOCALTIME(), LOCALTIME(), 10001, FALSE);
 INSERT INTO ingredient (ingredient_id, ingredient_name, ingredient_type, quantity, created_date, updated_date, dish_id, ingredient_deleted) values (10003, 'ジャガイモ', 1, '3個', LOCALTIME(), LOCALTIME(), 10001, FALSE);

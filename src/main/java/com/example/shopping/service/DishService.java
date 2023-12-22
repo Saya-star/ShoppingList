@@ -57,33 +57,35 @@ public class DishService {
 	public Optional<Dish> findDish(long id) {
 		return dishRepository.findById(id);
 	}
-
-	// 料理の編集内容の登録
-	public List<Dish> update(Dish form, Dish data) {
-		// 料理名の書き換え
-		data.setDishId(form.getDishId());
-		data.setDishName(form.getDishName());
+	
+	// 編集
+	public List<Dish> edit(Dish form) {
+		// 更新前のデータを取得
+		Optional<Dish> currentDish = dishRepository.findById(form.getDishId());
+		// 編集内容を登録
+		currentDish.get().setDishId(form.getDishId());
+		currentDish.get().setDishName(form.getDishName());
 
 		// 登録されていた材料と調味料を論理削除
-		data.getIngredient().stream().forEach(ingredient -> ingredient.setIngredientDeleted(true));
-		data.getSeasoning().stream().forEach(ingredient -> ingredient.setSeasoningDeleted(true));
+		currentDish.get().getIngredient().stream().forEach(ingredient -> ingredient.setIngredientDeleted(true));
+		currentDish.get().getSeasoning().stream().forEach(ingredient -> ingredient.setSeasoningDeleted(true));
 
 		// 送信された材料・調味料を元のデータに登録
-		data.setIngredient(form.getIngredient());
-		data.setSeasoning(form.getSeasoning());
+		currentDish.get().setIngredient(form.getIngredient());
+		currentDish.get().setSeasoning(form.getSeasoning());
 
 		// 材料と調味料のテーブルにDishIdを保存
-		data.getIngredient().stream().forEach(ingredient -> ingredient.setDish(form));
-		data.getSeasoning().stream().forEach(seasoning -> seasoning.setDish(form));
+		currentDish.get().getIngredient().stream().forEach(ingredient -> ingredient.setDish(form));
+		currentDish.get().getSeasoning().stream().forEach(seasoning -> seasoning.setDish(form));
 
 		// 各テーブルに更新日を保存
 		LocalDate updatedDate = LocalDate.now();
-		data.setUpdatedDate(updatedDate);
-		data.getIngredient().stream().forEach(ingredient -> ingredient.setUpdatedDate(updatedDate));
-		data.getSeasoning().stream().forEach(seasoning -> seasoning.setUpdatedDate(updatedDate));
+		currentDish.get().setUpdatedDate(updatedDate);
+		currentDish.get().getIngredient().stream().forEach(ingredient -> ingredient.setUpdatedDate(updatedDate));
+		currentDish.get().getSeasoning().stream().forEach(seasoning -> seasoning.setUpdatedDate(updatedDate));
 
-		// 料理の保存
-		dishRepository.saveAndFlush(data);
+		// 編集内容の保存
+		dishRepository.saveAndFlush(currentDish.get());
 
 		return dishRepository.findAll();
 	}

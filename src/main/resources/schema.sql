@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS dish (
  dish_name VARCHAR (100),
  created_date timestamp,
  updated_date timestamp,
+ dish_deleted BOOLEAN,
  PRIMARY KEY(dish_id)
 );
 

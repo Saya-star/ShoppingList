@@ -109,16 +109,19 @@ public class DishController {
 	@PostMapping(value = "/edit")
 	public String update(@ModelAttribute Dish form, Model model) {
 		System.out.println("update");//確認用
-		Optional<Dish> data = dishService.findDish(form.getDishId());
-		List<Dish> result = dishService.update(form,data.get());
+		List<Dish> result = dishService.edit(form);
 		model.addAttribute("data", result);
 		return "redirect:/dish/list";
 	}
 
 	// 削除メソッド
 	@PostMapping(value = "delete/{id}")
-	public String delete(@PathVariable("id") long id, Model model) {
-		dishRepository.deleteById(id);
+	public String delete(@PathVariable("id") long dishId, Model model) {
+		Optional<Dish> deleteDish = dishRepository.findById(dishId);
+		if(deleteDish.isPresent()) {
+			deleteDish.get().setDishDeleted(true);
+		}
+		dishRepository.saveAndFlush(deleteDish.get());
 		return "redirect:/dish/list";
 	}
 }

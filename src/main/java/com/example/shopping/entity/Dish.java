@@ -39,6 +39,9 @@ public class Dish {
 	@OneToMany(mappedBy="dish",cascade = CascadeType.ALL)
 	private List<Seasoning> seasoning;
 	
+	@Column
+	private boolean dishDeleted = false;
+	
 //	public long getDishId() {
 //		return dishId;
 //	}
