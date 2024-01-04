@@ -1,0 +1,42 @@
+<!-- いつも買うものの登録ページ -->
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<header th:replace="layouts/common.html :: header"></header>
+	<main>
+		<div class="container">
+			<h1 class="title" th:text="${title}"></h1>
+			<form method="post" action="/alwaysBuy" th:object="${formModel}">
+				<p>いつも買うものを入力してください</p>
+				<input type="text" name="alwaysBuyName" th:value="*{alwaysBuyName}" />
+				<input type="submit" value="保存">
+			</form>
+			<table class="table">
+				<thead>
+					<th>登録済みの買うもの</th>
+				</thead>
+				<tbody>
+					<tr th:each="item: ${data}" th:unless="${item.deleted}">
+						<td th:text="${item.alwaysBuyName}"></td>
+						<td>
+							<form th:action="@{/alwaysBuy/delete}" method="post">
+								<input type="hidden" name="id" th:value="${item.alwaysBuyId}">
+								<input type="submit" class="btn delete" value="削除">
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+	</main>
+	<footer th:replace="layouts/common.html :: footer"></footer>
+</body>
+
+</html>
