@@ -38,11 +38,11 @@ public class ShopController {
 		return "shop";
 	}
 
-	// リストに店名を追加するメソッド
+	// 店名を追加
 	@PostMapping
-	@Transactional // いる？
+	@Transactional
 	public String add(@ModelAttribute("formModel") Shop shop, Model model) {
-		shopRepository.saveAndFlush(shop);
+		shopService.add(shop);
 		return "redirect:/shop";
 	}
 

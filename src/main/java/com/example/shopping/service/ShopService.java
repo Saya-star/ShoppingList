@@ -1,5 +1,6 @@
 package com.example.shopping.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,13 @@ public class ShopService {
 	//Shopのリストを取得
 	public List<Shop> get(Shop shop) {
 		return shopRepository.findAll();
+	}
+	
+	//お店の登録
+	public void add(Shop shop) {
+		LocalDate createdDate = LocalDate.now();
+		shop.setCreatedDate(createdDate);
+		shopRepository.saveAndFlush(shop);
 	}
 
 	// idからShopを検索
