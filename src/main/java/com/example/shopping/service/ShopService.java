@@ -15,9 +15,9 @@ public class ShopService {
 	@Autowired
 	ShopRepository shopRepository;
 
+	//Shopのリストを取得
 	public List<Shop> get(Shop shop) {
-		List<Shop> list = shopRepository.findAll();
-		return list;
+		return shopRepository.findAll();
 	}
 
 	// idからShopを検索
