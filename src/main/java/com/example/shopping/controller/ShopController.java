@@ -29,7 +29,7 @@ public class ShopController {
 	@Autowired
 	ShopService shopService;
 
-	// 店名の一覧の表示
+	// 店名の一覧表示
 	@GetMapping
 	public String get(@ModelAttribute("formModel") Shop shop, Model model) {
 		model.addAttribute("title", "お店リスト");
@@ -49,11 +49,7 @@ public class ShopController {
 	// 店名の削除
 	@PostMapping(value = "/delete")
 	public String delete(@RequestParam("id") long id) {
-		Optional<Shop> deleteShop = shopService.find(id);
-		if (deleteShop.isPresent()) {
-			deleteShop.get().setDeleted(true);
-		}
-		shopRepository.saveAndFlush(deleteShop.get());
+		shopService.delete(id);
 		return "redirect:/shop";
 	}
 }
