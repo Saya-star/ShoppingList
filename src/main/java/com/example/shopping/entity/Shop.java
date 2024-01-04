@@ -9,8 +9,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
 
 @Entity
+@Data
 public class Shop {
 
 	@Id
@@ -27,36 +29,4 @@ public class Shop {
 	
 	@Column
 	private LocalDate createdDate;
-
-	public Long getShopId(){
-		return shopId;
-	}
-	
-	public void setShopId(Long shopId) {
-		this.shopId = shopId;
-	}
-	
-	public Long getAppUserId() {
-		return appUserId;
-	}
-	
-	public void setAppUserId(Long appUserId) {
-		this.appUserId = appUserId;
-	}
-	
-	public String getShopName() {
-		return shopName;
-	}
-	
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
-	}
-	
-	public LocalDate getCreatedDate() {
-		return createdDate;
-	}
-	
-	public void setCreatedDate(LocalDate createdDate) {
-		this.createdDate = createdDate;
-	}
 }
