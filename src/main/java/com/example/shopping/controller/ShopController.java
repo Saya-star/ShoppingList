@@ -1,6 +1,7 @@
 package com.example.shopping.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,10 +46,14 @@ public class ShopController {
 		return "redirect:/shop";
 	}
 
-	// 店名の削除メソッド
+	// 店名の削除
 	@PostMapping(value = "/delete")
 	public String delete(@RequestParam("id") long id) {
-		shopRepository.deleteById(id);
+		Optional<Shop> deleteShop = shopService.find(id);
+		if (deleteShop.isPresent()) {
+			deleteShop.get().setDeleted(true);
+		}
+		shopRepository.saveAndFlush(deleteShop.get());
 		return "redirect:/shop";
 	}
 }

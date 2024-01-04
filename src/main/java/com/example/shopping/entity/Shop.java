@@ -29,4 +29,7 @@ public class Shop {
 	
 	@Column
 	private LocalDate createdDate;
+	
+	@Column
+	private boolean deleted = false;
 }
