@@ -29,23 +29,28 @@
 				</div>
 			</form>
 		</div-->
-		<div class="ingredientList">
-			<p>選択した料理に必要な材料の中から買うものを選択する</p>
-			<th:block th:each="item:${ingredientList}">
-				<p th:text="${item.ingredientName}"></p>				
-			</th:block>
-		</div>
-		<div class="seasoningList">
-			<p>選択した料理に必要な調味料の中から買うものを選択する</p>
-			<th:block th:each="item:${seasoningList}">
-				<p th:text="${item.seasoningName}"></p>				
-			</th:block>
-		</div>
-		<div class="alwaysBuyItems">
-			<p>いつも買うものを選択する</p>
-			<th:block th:each="item:${alwaysBuy}">
-				<p th:text="${item.alwaysBuyName}"></p>				
-			</th:block>
+		<div class="select-items">
+			<form method="post" th:action="@{/shoppinglist/select3}">
+				<div class="ingredientList">
+					<p>選択した料理に必要な材料の中から買うものを選択する</p>
+					<th:block th:each="item:${ingredientList}">
+						<input type="checkbox" th:text="${item.ingredientName}"/>
+					</th:block>
+				</div>
+				<div class="seasoningList">
+					<p>選択した料理に必要な調味料の中から買うものを選択する</p>
+					<th:block th:each="item:${seasoningList}">
+						<input type="checkbox" th:text="${item.seasoningName}"/>
+					</th:block>
+				</div>
+				<div class="alwaysBuyItems">
+					<p>いつも買うものを選択する</p>
+					<th:block th:each="item:${alwaysBuy}">
+						<input type="checkbox" th:text="${item.alwaysBuyName}"/>
+					</th:block>
+				</div>
+				<input type="submit" value="送信">
+			</form>
 		</div>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>

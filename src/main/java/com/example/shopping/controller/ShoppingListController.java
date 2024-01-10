@@ -91,8 +91,8 @@ public class ShoppingListController {
 		return "shoppinglist/select2";
 	}
 	
-	@GetMapping(value="/select2")
-	public String getPage2(Model model) {
-		return "shoppinglist/select2";
+	@PostMapping(value="/select3")
+	public String getPage3(Model model) {
+		return "shoppinglist/select3";
 	}
 }
