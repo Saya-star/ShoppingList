@@ -11,23 +11,24 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Shop {
+public class AlwaysBuy {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
-	private long shopId;
+	private long alwaysBuyId;
 
 	@Column
 	 /** ManyToOne */
 	private long appUserId;
 	
 	@Column
-	private String shopName;
+	private String alwaysBuyName;
 	
 	@Column
 	private LocalDate createdDate;
 	
 	@Column
 	private boolean deleted = false;
+	
 }
