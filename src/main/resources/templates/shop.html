@@ -24,7 +24,7 @@
 					<th>登録したお店</th>
 				</thead>
 				<tbody>
-					<tr th:each="item: ${data}">
+					<tr th:each="item: ${data}" th:unless="${item.deleted}">
 						<td th:text="${item.shopName}"></td>
 						<td>
 							<form th:action="@{/shop/delete}" method="post">
@@ -35,7 +35,6 @@
 					</tr>
 				</tbody>
 			</table>
-
 	</main>
 	<footer th:replace="layouts/common.html :: footer"></footer>
 </body>
