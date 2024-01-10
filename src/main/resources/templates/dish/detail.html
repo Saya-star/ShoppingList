@@ -15,30 +15,37 @@
 		<div class="container">
 			<h1 class="title" th:text="${title}"></h1>
 			<div class="dish-detail">
+				<p>料理名</p>
 				<p class="name" th:text="${detail.dishName}"></p>
 				<form class="edit-dish" method="get" th:action="@{/dish/edit/__${#strings.toString(detail.dishId)}__}">
 					<input type="submit" value="編集">
 				</form>
-				<form class="edit-dish" method="post"
+				<form class="remove-dish" method="post"
 					th:action="@{/dish/delete/__${#strings.toString(detail.dishId)}__}">
 					<input type="submit" value="削除">
 				</form>
-				<table class="dish-table">
+				<table class="ingredient-table">
 					<thead>
 						<th>材料名</th>
+						<th>材料の種類</th>
 						<th>分量</th>
 					</thead>
-					<tbody>
-						<td th:text="${detail.ingredientName}"></td>
-						<td th:text="${detail.quantity}"></td>
+					<tbody th:each="item: ${ingredientDetail}" th:unless="${item.ingredientDeleted}">
+						<tr>
+							<td th:text="${item.ingredientName}"></td>
+							<td th:text="${item.ingredientType.typeName}"></td>
+							<td th:text=${item.quantity}></td>
+						</tr>
 					</tbody>
 				</table>
-				<table class="dish-table">
+				<table class="seasoning-table">
 					<thead>
 						<th>調味料名</th>
 					</thead>
-					<tbody>
-						<td th:text="${detail.seasoningName}"></td>
+					<tbody th:each="item: ${seasoningDetail}" th:unless="${item.seasoningDeleted}">
+						<tr>
+							<td th:text="${item.seasoningName}"></td>
+						</tr>
 					</tbody>
 				</table>
 			</div>

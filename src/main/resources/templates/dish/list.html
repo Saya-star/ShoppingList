@@ -23,7 +23,7 @@
 					<th>登録した料理</th>
 					<th>操作</th><!-- 仮の名前 -->
 				</thead>
-				<tbody th:each="item: ${data}">
+				<tbody th:each="item: ${data}" th:unless="${item.dishDeleted}">
 					<form th:action="@{/dish/detail/__${#strings.toString(item.dishId)}__}">
 						<tr>
 							<td th:text="${item.dishId}"></td>

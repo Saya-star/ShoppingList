@@ -15,17 +15,24 @@
 	<main>
 		<div class="container">
 			<h1 class="title" th:text="${title}"></h1>
-			<form method="post" th:action="@{/dish/list}" th:object="${Form}">
+			<form id="dish-submit-form" method="post" th:action="@{/dish/list}" th:object="${dish}">
 				<div id="dish-name">
 					<label for="name" class="form-label">料理名</label>
-					<input type="text" class="form-control" name="dishName" th:value="*{dishName}" />
+					<input type="text" class="form-control" name="dishName" />
 				</div>
 				<div id="ingredients_input_fields">
 					<div class="ingredient_input_field">
 						<label for="name" class="form-label">材料</label>
-						<input type="text" class="form-control" name="ingredientName" th:value="*{ingredientName}" />
+						<input type="text" class="form-control"
+							data-model-name="ingredient" data-attr-name="ingredientName" />
+						<select data-model-name="ingredient" data-attr-name="ingredientType">
+							<option
+								th:each="ingredientTypeOpt : ${T(com.example.shopping.enums.IngredientType).values()}"
+								th:value="${ingredientTypeOpt}" th:text="${ingredientTypeOpt.typeName}"></option>
+						</select>
 						<label for="name" class="form-label">分量</label>
-						<input type="text" class="form-control" name="quantity" th:value="*{quantity}" />
+						<input type="text" class="form-control"
+							data-model-name="ingredient" data-attr-name="quantity" />
 						<button class="remove_ingredient" type="button">削除</button>
 					</div>
 				</div>
@@ -36,7 +43,8 @@
 				<div id="seasonings_input_fields">
 					<div class="seasoning_input_field">
 						<label for="name" class="form-label">調味料</label>
-						<input type="text" class="form-control" name="seasoningName" th:value="*{seasoningName}" />
+						<input type="text" class="form-control"
+							data-model-name="seasoning" data-attr-name="seasoningName" />
 						<button class="remove_seasoning" type="button">削除</button>
 					</div>
 				</div>
@@ -53,6 +61,7 @@
 		</div>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
-	<script th:src="@{/JavaScript/add-button.js}"></script>
+	<script th:src="@{/JavaScript/dish/index.js}"></script>
 </body>
+
 </html>
