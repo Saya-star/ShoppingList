@@ -35,6 +35,12 @@
 				<p th:text="${item.ingredientName}"></p>				
 			</th:block>
 		</div>
+		<div class="seasoningList">
+			<p>選択した料理に必要な調味料の中から買うものを選択する</p>
+			<th:block th:each="item:${seasoningList}">
+				<p th:text="${item.seasoningName}"></p>				
+			</th:block>
+		</div>
 		<div class="alwaysBuyItems">
 			<p>いつも買うものを選択する</p>
 			<th:block th:each="item:${alwaysBuy}">

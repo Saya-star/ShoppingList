@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.shopping.entity.AlwaysBuy;
 import com.example.shopping.entity.Dish;
 import com.example.shopping.entity.Ingredient;
+import com.example.shopping.entity.Seasoning;
 import com.example.shopping.form.SelectForm;
 import com.example.shopping.repository.AlwaysBuyRepository;
 import com.example.shopping.repository.DishRepository;
@@ -59,26 +60,31 @@ public class ShoppingListController {
 	
 	@PostMapping(value="/select2")
 	public String selectDish(@RequestParam(value = "dishIds", required = false) Long[] dishIds, Model model) {
-		// dishNamesを利用して何かを行う
+		// 選択されたdishIdを表示する //あとで消す
 		if (dishIds != null) {
 			System.out.println(Arrays.toString(dishIds));
 		}
-		//dishIdから材料を検索
+		
 		List<Ingredient> ingredientList = new ArrayList<>();
+		List<Seasoning> seasoningList = new ArrayList<>();
 		
 		for(int i = 0; i < dishIds.length; i++) {
+			//dishIdから選択された料理を検索
 			Optional<Dish> selectedDish = dishRepository.findById(dishIds[i]);
+			
+			//材料を検索し、ingredientListに追加
 			List<Ingredient> selectedDishIngredient = selectedDish.get().getIngredient();
 			ingredientList.addAll(selectedDishIngredient);
-		}
+			
+			//調味料を検索し、seasoningListに追加
+			List<Seasoning> selectedDishSeasoning = selectedDish.get().getSeasoning();
+			seasoningList.addAll(selectedDishSeasoning);
+			}
+		
 		model.addAttribute("ingredientList",ingredientList);
-		
-		
-		//dishIdから調味料を検索
-		
-		//調味料をリストに詰める
-		
-		//いつも買うものリストをリストに詰める
+		model.addAttribute("seasoningList",seasoningList);
+
+		//いつも買うものリストをalwaysBuyListに追加
 		List<AlwaysBuy> alwaysBuyList = alwaysBuyRepository.findAll();
 		model.addAttribute("alwaysBuy", alwaysBuyList);
 		//あとで買うものをリストに詰める
