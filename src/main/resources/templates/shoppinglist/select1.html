@@ -15,9 +15,9 @@
 		<h1 class="title" th:text="${title}"></h1>
 		<p>step1:料理を選択する</p>
 		<!--div class="select-dish"-->
-		<form method="post" th:action="@{/shoppinglist/select2}" th:object="${SelectForm}">
+		<form method="post" th:action="@{/shoppinglist/select2}" >th:object="${SelectForm}">
 			<div th:each="item:${data}">
-				<input type="checkbox" th:value="${item.dishName}" th:text="${item.dishName}" name="dishNames"/>
+				<input type="checkbox" th:value="${item.dishId}" th:text="${item.dishName}" name="dishIds"/>
 			</div>
 			<input type="submit" value="送信">
 		</form>

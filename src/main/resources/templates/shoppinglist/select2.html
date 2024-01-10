@@ -13,7 +13,7 @@
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
 		<!--h1 class="title" th:text="${title}"></h1-->
-		<p>step2:料理を選択する</p>
+		<p>step2:買うものを選択する</p>
 		<!--div class="container">
 			<form method="post">
 				<div class="select-ingredients-and-seasonings">
@@ -29,6 +29,18 @@
 				</div>
 			</form>
 		</div-->
+		<div class="ingredientList">
+			<p>選択した料理に必要な材料の中から買うものを選択する</p>
+			<th:block th:each="item:${ingredientList}">
+				<p th:text="${item.ingredientName}"></p>				
+			</th:block>
+		</div>
+		<div class="alwaysBuyItems">
+			<p>いつも買うものを選択する</p>
+			<th:block th:each="item:${alwaysBuy}">
+				<p th:text="${item.alwaysBuyName}"></p>				
+			</th:block>
+		</div>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
 </body>
