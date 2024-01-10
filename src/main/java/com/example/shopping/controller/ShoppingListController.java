@@ -88,6 +88,7 @@ public class ShoppingListController {
 		List<AlwaysBuy> alwaysBuyList = alwaysBuyRepository.findAll();
 		model.addAttribute("alwaysBuy", alwaysBuyList);
 		//あとで買うものをリストに詰める
+		
 		return "shoppinglist/select2";
 	}
 	
