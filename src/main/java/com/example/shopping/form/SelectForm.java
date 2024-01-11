@@ -1,5 +1,7 @@
 package com.example.shopping.form;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -7,13 +9,13 @@ public class SelectForm {
 
 	private Long ingredientId;
 	
-	private Long[] ingredientIds;
+	private List<Long> ingredientIds;
 	
 	private Long seasoningId;
 	
-	private Long[] seasoningIds;
+	private List<Long> seasoningIds;
 	
 	private Long alwaysBuyId;
 	
-	private Long[] alwaysBuyIds;
+	private List<Long> alwaysBuyIds;
 }

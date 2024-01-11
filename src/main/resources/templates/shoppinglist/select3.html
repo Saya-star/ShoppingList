@@ -13,6 +13,10 @@
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
 		<p>step3</p>
+		<p th:text="${selectForm.ingredientIds}"></p>
+		<!--th:block th:each="item:${ingredientNamesList}">
+			<p th:text="${item.ingredientName}"></p>
+		</th:block-->
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
 </body>
