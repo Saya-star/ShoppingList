@@ -17,9 +17,6 @@ public class ShoppingListIngredient {
 	private long shoppingListIngredientId;
 	
 	@Column
-	private long shoppingListId;
-	
-	@Column
 	private long ingredientId;
 	
 	@ManyToOne
