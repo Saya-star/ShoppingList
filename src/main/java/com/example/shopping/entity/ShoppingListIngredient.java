@@ -16,7 +16,7 @@ public class ShoppingListIngredient {
 	@Column
 	private long shoppingListIngredientId;
 	
-	@Column
+	@Column //Nameかな？
 	private long ingredientId;
 	
 	@ManyToOne
