@@ -1,22 +1,19 @@
 package com.example.shopping.form;
 
+import lombok.Data;
+
+@Data
 public class SelectForm {
 
-	private String dishName;
-	private String dishNames[];
+	private Long ingredientId;
 	
-	public String getDishName() {
-		return dishName;
-	}
-	public void setDishName(String dishName) {
-		this.dishName = dishName;
-	}
-	public String[] getDishNames() {
-		return dishNames;
-	}
-	public void setDishNames(String[] dishNames) {
-		this.dishNames = dishNames;
-	}
+	private Long[] ingredientIds;
 	
+	private Long seasoningId;
 	
+	private Long[] seasoningIds;
+	
+	private Long alwaysBuyId;
+	
+	private Long[] alwaysBuyIds;
 }

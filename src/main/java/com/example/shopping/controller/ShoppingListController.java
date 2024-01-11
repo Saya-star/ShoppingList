@@ -46,18 +46,10 @@ public class ShoppingListController {
 		model.addAttribute("title","買い物リストを作る①");
 		List<Dish> list = dishService.getList(dish);
 		model.addAttribute("data", list);
-//		model.addAttribute("SelectForm", new SelectForm());
 		return "shoppinglist/select1";
 	}
 	
-//	//選択された料理の送信
-//	@PostMapping(value="/select2")
-//	public String selectDish(@ModelAttribute SelectForm selectForm, Model model) {
-//		System.out.println("selected");
-//		System.out.println(selectForm.getDishNames().toString());
-//		return "shoppinglist/select2";
-//	}
-	
+	//選択された料理の材料・調味料と、いつも買うものリスト、あとで買うものリストの表示
 	@PostMapping(value="/select2")
 	public String selectDish(@RequestParam(value = "dishIds", required = false) Long[] dishIds, Model model) {
 		// 選択されたdishIdを表示する //あとで消す
@@ -87,13 +79,14 @@ public class ShoppingListController {
 		//いつも買うものリストをalwaysBuyListに追加
 		List<AlwaysBuy> alwaysBuyList = alwaysBuyRepository.findAll();
 		model.addAttribute("alwaysBuy", alwaysBuyList);
-		//あとで買うものをリストに詰める
+		//あとで買うものをリストに詰める　//あとで買うものリストを作ってから着手
 		
 		return "shoppinglist/select2";
 	}
 	
 	@PostMapping(value="/select3")
-	public String getPage3(Model model) {
+	public String getPage3(@ModelAttribute SelectForm selectForm, Model model) {
+		
 		return "shoppinglist/select3";
 	}
 }
