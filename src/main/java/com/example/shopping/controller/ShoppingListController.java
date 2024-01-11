@@ -63,4 +63,7 @@ public class ShoppingListController {
 		shoppingListService.selectItems(selectForm, model);
 		return "shoppinglist/select3";
 	}
+	
+	//買い物リストを作成
+	
 }

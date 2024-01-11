@@ -25,65 +25,66 @@ public class ShoppingListService {
 
 	@Autowired
 	DishRepository dishRepository;
-	
+
 	@Autowired
 	AlwaysBuyRepository alwaysBuyRepository;
-	
+
 	@Autowired
 	IngredientRepository ingredientRepository;
-	
+
 	@Autowired
 	SeasoningRepository seasoningRepository;
-	
-	//選択された料理の材料・調味料と、いつも買うものリスト、あとで買うものリストの表示
+
+	// 選択された料理の材料・調味料と、いつも買うものリスト、あとで買うものリストの表示
 	public void getItems(@RequestParam(value = "dishIds", required = false) Long[] dishIds, Model model) {
 
 		List<Ingredient> ingredientList = new ArrayList<>();
 		List<Seasoning> seasoningList = new ArrayList<>();
-		
-		for(int i = 0; i < dishIds.length; i++) {
-			//dishIdから選択された料理を検索
+
+		//選択された料理から材料と調味料を検索
+		for (int i = 0; i < dishIds.length; i++) {
+			// dishIdで選択された料理を検索
 			Optional<Dish> selectedDish = dishRepository.findById(dishIds[i]);
-			
-			//材料を検索し、ingredientListに追加
+
+			// 材料を検索し、ingredientListに追加
 			List<Ingredient> selectedDishIngredient = selectedDish.get().getIngredient();
 			ingredientList.addAll(selectedDishIngredient);
-			
-			//調味料を検索し、seasoningListに追加
+
+			// 調味料を検索し、seasoningListに追加
 			List<Seasoning> selectedDishSeasoning = selectedDish.get().getSeasoning();
 			seasoningList.addAll(selectedDishSeasoning);
-			}
-		
-		model.addAttribute("ingredientList",ingredientList);
-		model.addAttribute("seasoningList",seasoningList);
+		}
 
-		//いつも買うものリストをalwaysBuyListに追加
+		model.addAttribute("ingredientList", ingredientList);
+		model.addAttribute("seasoningList", seasoningList);
+
+		// いつも買うものリストをalwaysBuyListに追加
 		List<AlwaysBuy> alwaysBuyList = alwaysBuyRepository.findAll();
 		model.addAttribute("alwaysBuy", alwaysBuyList);
-		//あとで買うものをリストに詰める　//あとで買うものリストを作ってから着手
-		
+		// あとで買うものをリストに詰める //あとで買うものリストを作ってから着手
+
 	}
-	
+
 	public void selectItems(@ModelAttribute SelectForm selectForm, Model model) {
-		//選択された材料Idから材料名を検索し、Listに登録
-				List<String> ingredientNamesList = new ArrayList<>();
-				for(Long id: selectForm.getIngredientIds()) {
-					Optional<Ingredient> selectedIngredient = ingredientRepository.findById(id);
-					ingredientNamesList.add(selectedIngredient.get().getIngredientName());
-				}
-				model.addAttribute("ingredientNames",ingredientNamesList);
-				
-				//選択された調味料Idから調味料名を検索し、Listに登録
-				List<String> seasoningNamesList = new ArrayList<>();
-				for(Long id: selectForm.getSeasoningIds()) {
-					Optional<Seasoning> selectedSeasoning = seasoningRepository.findById(id);
-					seasoningNamesList.add(selectedSeasoning.get().getSeasoningName());
-				}
-				model.addAttribute("seasoningNames",seasoningNamesList);
-				
-				//いつも買うものリストから選択されたものをListに登録　
-				
-				//あとで買うものリストから選択されたものをListに登録　
-				
+		// 選択された材料Idから材料名を検索し、Listに登録　//分量が無かった
+		List<String> ingredientNamesList = new ArrayList<>();
+		for (Long id : selectForm.getIngredientIds()) {
+			Optional<Ingredient> selectedIngredient = ingredientRepository.findById(id);
+			ingredientNamesList.add(selectedIngredient.get().getIngredientName());
+		}
+		model.addAttribute("ingredientNames", ingredientNamesList);
+
+		// 選択された調味料Idから調味料名を検索し、Listに登録
+		List<String> seasoningNamesList = new ArrayList<>();
+		for (Long id : selectForm.getSeasoningIds()) {
+			Optional<Seasoning> selectedSeasoning = seasoningRepository.findById(id);
+			seasoningNamesList.add(selectedSeasoning.get().getSeasoningName());
+		}
+		model.addAttribute("seasoningNames", seasoningNamesList);
+
+		// いつも買うものリストから選択されたものをListに登録
+
+		// あとで買うものリストから選択されたものをListに登録
+
 	}
 }
