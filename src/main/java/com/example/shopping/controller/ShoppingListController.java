@@ -22,6 +22,7 @@ import com.example.shopping.form.SelectForm;
 import com.example.shopping.repository.AlwaysBuyRepository;
 import com.example.shopping.repository.DishRepository;
 import com.example.shopping.repository.IngredientRepository;
+import com.example.shopping.repository.SeasoningRepository;
 import com.example.shopping.service.DishService;
 
 @Controller
@@ -36,6 +37,9 @@ public class ShoppingListController {
 	
 	@Autowired
 	IngredientRepository ingredientRepository;
+	
+	@Autowired
+	SeasoningRepository seasoningRepository;
 	
 	@Autowired
 	AlwaysBuyRepository alwaysBuyRepository;
@@ -87,12 +91,22 @@ public class ShoppingListController {
 	//選択した買うものから買うものリストを作成するページを表示
 	@PostMapping(value="/select3")
 	public String selectItems(@ModelAttribute SelectForm selectForm, Model model) {
+		//選択された材料Idから材料名を検索し、Listに登録
 		List<String> ingredientNamesList = new ArrayList<>();
 		for(Long id: selectForm.getIngredientIds()) {
 			Optional<Ingredient> selectedIngredient = ingredientRepository.findById(id);
 			ingredientNamesList.add(selectedIngredient.get().getIngredientName());
 		}
 		model.addAttribute("ingredientNames",ingredientNamesList);
+		
+		//選択された調味料Idから調味料名を検索し、Listに登録
+		List<String> seasoningNamesList = new ArrayList<>();
+		for(Long id: selectForm.getSeasoningIds()) {
+			Optional<Seasoning> selectedSeasoning = seasoningRepository.findById(id);
+			seasoningNamesList.add(selectedSeasoning.get().getSeasoningName());
+		}
+		model.addAttribute("seasoningNames",seasoningNamesList);
+		
 		return "shoppinglist/select3";
 	}
 }
