@@ -87,13 +87,12 @@ public class ShoppingListController {
 	//選択した買うものから買うものリストを作成するページを表示
 	@PostMapping(value="/select3")
 	public String selectItems(@ModelAttribute SelectForm selectForm, Model model) {
-//		List<Long> ingredientIdsList = selectForm.getIngredientIds();
-//		List<String> ingredientNamesList = new ArrayList<>();
-//		for(Long id: ingredientIdsList) {
-//			Optional<Ingredient> findIngredient = ingredientRepository.findById(id);
-//			ingredientNamesList.add(findIngredient.get().getIngredientName());
-//		}
-//		model.addAttribute("ingredientNames",ingredientNamesList);
+		List<String> ingredientNamesList = new ArrayList<>();
+		for(Long id: selectForm.getIngredientIds()) {
+			Optional<Ingredient> selectedIngredient = ingredientRepository.findById(id);
+			ingredientNamesList.add(selectedIngredient.get().getIngredientName());
+		}
+		model.addAttribute("ingredientNames",ingredientNamesList);
 		return "shoppinglist/select3";
 	}
 }
