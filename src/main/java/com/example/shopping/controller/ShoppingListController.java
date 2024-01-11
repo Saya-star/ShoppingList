@@ -51,7 +51,7 @@ public class ShoppingListController {
 	
 	//選択された料理の材料・調味料と、いつも買うものリスト、あとで買うものリストの表示
 	@PostMapping(value="/select2")
-	public String selectDish(@RequestParam(value = "dishIds", required = false) Long[] dishIds, Model model) {
+	public String getItems(@RequestParam(value = "dishIds", required = false) Long[] dishIds, Model model) {
 		// 選択されたdishIdを表示する //あとで消す
 		if (dishIds != null) {
 			System.out.println(Arrays.toString(dishIds));
@@ -85,7 +85,7 @@ public class ShoppingListController {
 	}
 	
 	@PostMapping(value="/select3")
-	public String getPage3(@ModelAttribute SelectForm selectForm, Model model) {
+	public String selectItems(@ModelAttribute SelectForm selectForm, Model model) {
 		
 		return "shoppinglist/select3";
 	}
