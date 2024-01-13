@@ -47,11 +47,11 @@ public class ShoppingListService {
 			// dishIdで選択された料理を検索
 			Optional<Dish> selectedDish = dishRepository.findById(dishIds[i]);
 
-			// 材料を検索し、ingredientListに追加
+			// 選択された料理に必要な材料を検索し、ingredientListに追加
 			List<Ingredient> selectedDishIngredient = selectedDish.get().getIngredient();
 			ingredientList.addAll(selectedDishIngredient);
 
-			// 調味料を検索し、seasoningListに追加
+			// 選択された料理に必要な調味料を検索し、seasoningListに追加
 			List<Seasoning> selectedDishSeasoning = selectedDish.get().getSeasoning();
 			seasoningList.addAll(selectedDishSeasoning);
 		}
@@ -62,8 +62,11 @@ public class ShoppingListService {
 
 		// いつも買うものリストをalwaysBuyListに追加
 		List<AlwaysBuy> alwaysBuyList = alwaysBuyRepository.findAll();
+		
+		//TODO 以下の処理はControllerクラスで実装する
 		model.addAttribute("alwaysBuy", alwaysBuyList);
-		// あとで買うものをリストに詰める //あとで買うものリストを作ってから着手
+		
+		//TODO あとで買うものをリストに詰める //あとで買うものリストを作ってから着手
 
 	}
 
@@ -86,9 +89,9 @@ public class ShoppingListService {
 		// TODO 以下のリストはControllerクラスで実装する
 		model.addAttribute("selectedSeasoning", selectedSeasoningList);
 
-		// いつも買うものリストから選択されたものをListに登録
+		// TODO いつも買うものリストから選択されたものをListに登録
 
-		// あとで買うものリストから選択されたものをListに登録
+		// TODO　あとで買うものリストから選択されたものをListに登録
 
 	}
 }
