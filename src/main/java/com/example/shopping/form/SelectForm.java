@@ -7,12 +7,9 @@ import lombok.Data;
 @Data
 public class SelectForm {
 
-	
 	private List<Long> ingredientIds;
-
 	
 	private List<Long> seasoningIds;
-
 	
 	private List<Long> alwaysBuyIds;
 }

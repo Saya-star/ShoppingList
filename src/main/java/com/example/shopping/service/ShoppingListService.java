@@ -23,6 +23,7 @@ import com.example.shopping.repository.SeasoningRepository;
 @Service
 public class ShoppingListService {
 
+	//　TODO　コンストラクタインジェクションに修正
 	@Autowired
 	DishRepository dishRepository;
 
@@ -55,6 +56,7 @@ public class ShoppingListService {
 			seasoningList.addAll(selectedDishSeasoning);
 		}
 
+		//　TODO 以下の処理はControllerクラスで実装する
 		model.addAttribute("ingredientList", ingredientList);
 		model.addAttribute("seasoningList", seasoningList);
 
@@ -66,21 +68,23 @@ public class ShoppingListService {
 	}
 
 	public void selectItems(@ModelAttribute SelectForm selectForm, Model model) {
-		// 選択された材料Idから材料名を検索し、Listに登録　//分量が無かった
-		List<String> ingredientNamesList = new ArrayList<>();
-		for (Long id : selectForm.getIngredientIds()) {
+		// 選択された材料Idから材料名を検索し、Listに登録 //Ingredient型のリストに変更
+		List<Ingredient> selectedIngredientList = new ArrayList<>();
+		for(Long id: selectForm.getIngredientIds()) {
 			Optional<Ingredient> selectedIngredient = ingredientRepository.findById(id);
-			ingredientNamesList.add(selectedIngredient.get().getIngredientName());
+			selectedIngredientList.add(selectedIngredient.get());
 		}
-		model.addAttribute("ingredientNames", ingredientNamesList);
+		//　TODO 以下の処理はControllerクラスで実装する
+		model.addAttribute("selectedIngredient", selectedIngredientList);
 
-		// 選択された調味料Idから調味料名を検索し、Listに登録
-		List<String> seasoningNamesList = new ArrayList<>();
+		// 選択された調味料Idから調味料名を検索し、Listに登録　//Seasoning型のリストに変更
+		List<Seasoning> selectedSeasoningList = new ArrayList<>();
 		for (Long id : selectForm.getSeasoningIds()) {
 			Optional<Seasoning> selectedSeasoning = seasoningRepository.findById(id);
-			seasoningNamesList.add(selectedSeasoning.get().getSeasoningName());
+			selectedSeasoningList.add(selectedSeasoning.get());
 		}
-		model.addAttribute("seasoningNames", seasoningNamesList);
+		// TODO 以下のリストはControllerクラスで実装する
+		model.addAttribute("selectedSeasoning", selectedSeasoningList);
 
 		// いつも買うものリストから選択されたものをListに登録
 

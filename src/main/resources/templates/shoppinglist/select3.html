@@ -13,14 +13,14 @@
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
 		<p>step3</p>
-		<!--p th:text="${selectForm.ingredientIds}"></p-->
 		<p>・選択した材料</p>
-		<th:block th:each="item:${ingredientNames}">
-			<p th:text="${item}"></p>
+		<th:block th:each="item:${selectedIngredient}">
+			<p th:text="${item.ingredientName}"></p>
+			<p th:text="${item.quantity}"></p>
 		</th:block>
 		<p>・選択した調味料</p>
-		<th:block th:each="item:${seasoningNames}">
-			<p th:text="${item}"></p>
+		<th:block th:each="item:${selectedSeasoning}">
+			<p th:text="${item.seasoningName}"></p>
 		</th:block>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
