@@ -13,15 +13,24 @@
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
 		<p>step3</p>
-		<p>・選択した材料</p>
-		<th:block th:each="item:${selectedIngredient}">
-			<p th:text="${item.ingredientName}"></p>
-			<p th:text="${item.quantity}"></p>
-		</th:block>
-		<p>・選択した調味料</p>
-		<th:block th:each="item:${selectedSeasoning}">
-			<p th:text="${item.seasoningName}"></p>
-		</th:block>
+		<div class="make-shoppinglist">
+			<form method="post" action="#">
+				<div class="ingredientList">
+					<p>・選択した材料</p>
+					<th:block th:each="item:${selectedIngredient}">
+						<input type="checkbox" th:text="${item.ingredientName}" />
+						<a th:text="${item.quantity}"></a>
+					</th:block>
+				</div>
+				<div class="seasoningList">
+					<p>・選択した調味料</p>
+					<th:block th:each="item:${selectedSeasoning}">
+						<input type="checkbox" th:text="${item.seasoningName}"></input>
+					</th:block>
+				</div>
+				<button type="submit">買い物リストを作成</button>
+			</form>
+		</div>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
 </body>
