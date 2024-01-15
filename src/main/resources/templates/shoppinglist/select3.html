@@ -25,8 +25,13 @@
 				<div class="seasoningList">
 					<p>・選択した調味料</p>
 					<th:block th:each="item:${selectedSeasoning}">
-						<input type="checkbox" th:text="${item.seasoningName}"></input>
+						<input type="checkbox" th:text="${item.seasoningName}"/>
 					</th:block>
+				</div>
+				<div class="shopList">
+					<p>・買うお店を選択する</p>
+					<th:block th:each="item:${shopList}">
+						<input type="radio" th:text="${item.shopName}"/>
 				</div>
 				<button type="submit">買い物リストを作成</button>
 			</form>

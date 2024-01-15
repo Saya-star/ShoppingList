@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.shopping.entity.Dish;
+import com.example.shopping.entity.Shop;
 import com.example.shopping.form.SelectForm;
 import com.example.shopping.repository.AlwaysBuyRepository;
 import com.example.shopping.repository.DishRepository;
 import com.example.shopping.repository.IngredientRepository;
 import com.example.shopping.repository.SeasoningRepository;
+import com.example.shopping.repository.ShopRepository;
 import com.example.shopping.service.DishService;
 import com.example.shopping.service.ShoppingListService;
 
@@ -34,6 +36,9 @@ public class ShoppingListController {
 	
 	@Autowired
 	AlwaysBuyRepository alwaysBuyRepository;
+	
+	@Autowired
+	ShopRepository shopRepository;
 	
 	@Autowired
 	DishService dishService;
@@ -61,6 +66,8 @@ public class ShoppingListController {
 	@PostMapping(value="/select3")
 	public String selectItems(@ModelAttribute SelectForm selectForm, Model model) {
 		shoppingListService.selectItems(selectForm, model);
+		List<Shop> shopList= shopRepository.findAll();
+		model.addAttribute("shopList", shopList);
 		return "shoppinglist/select3";
 	}
 	
