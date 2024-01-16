@@ -1,5 +1,6 @@
 package com.example.shopping.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -89,6 +90,17 @@ public class ShoppingListController {
 	//買い物リストを作成（DBに保存）
 	@PostMapping(value="/select3/create")
 	public String createList(@ModelAttribute ShoppingListForm shoppingListForm, Model model) {
+		ShoppingList newList = new ShoppingList();
+		
+		//買い物リストにお店Idを登録
+		newList.setShopId(shoppingListForm.getShopId());
+		
+		//日時を登録
+		LocalDate createdDate = LocalDate.now();
+		newList.setCreatedDate(createdDate);
+		
+		shoppingListRepository.saveAndFlush(newList);
+		
 		//shoppingListFormに入った材料IdをListに代入
 		List<Long> selectedIngredientIds = shoppingListForm.getIngredientIds();
 		
@@ -99,9 +111,14 @@ public class ShoppingListController {
 		for(Long id: selectedIngredientIds) {
 			ShoppingListIngredient shoppingListIngredient = new ShoppingListIngredient();
 			shoppingListIngredient.setIngredientId(id);
+			shoppingListIngredient.setShoppingList(newList);
 			shoppingListIngredients.add(shoppingListIngredient);
 		}
 		shoppingListIngredientRepository.saveAllAndFlush(shoppingListIngredients);
+		
+		newList.setShoppingListIngredients(shoppingListIngredients);
+		
+		shoppingListRepository.saveAndFlush(newList);
 		
 //		return "reditect:/shoppinglist/select3"; //redirectにするとselect3に必要な情報がうまく取得できないので一旦別ページに移動
 		return "shoppinglist/list";
