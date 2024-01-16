@@ -1,6 +1,9 @@
 package com.example.shopping.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,13 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.shopping.entity.Dish;
+import com.example.shopping.entity.Ingredient;
 import com.example.shopping.entity.Shop;
+import com.example.shopping.entity.ShoppingList;
+import com.example.shopping.entity.ShoppingListIngredient;
 import com.example.shopping.form.SelectForm;
+import com.example.shopping.form.ShoppingListForm;
 import com.example.shopping.repository.AlwaysBuyRepository;
 import com.example.shopping.repository.DishRepository;
 import com.example.shopping.repository.IngredientRepository;
 import com.example.shopping.repository.SeasoningRepository;
 import com.example.shopping.repository.ShopRepository;
+import com.example.shopping.repository.ShoppingListIngredientRepository;
+import com.example.shopping.repository.ShoppingListRepository;
 import com.example.shopping.service.DishService;
 import com.example.shopping.service.ShoppingListService;
 
@@ -39,6 +48,12 @@ public class ShoppingListController {
 	
 	@Autowired
 	ShopRepository shopRepository;
+	
+	@Autowired
+	ShoppingListRepository shoppingListRepository;
+	
+	@Autowired
+	ShoppingListIngredientRepository shoppingListIngredientRepository;
 	
 	@Autowired
 	DishService dishService;
@@ -71,6 +86,25 @@ public class ShoppingListController {
 		return "shoppinglist/select3";
 	}
 	
-	//買い物リストを作成
+	//買い物リストを作成（DBに保存）
+	@PostMapping(value="/select3/create")
+	public String createList(@ModelAttribute ShoppingListForm shoppingListForm, Model model) {
+		//shoppingListFormに入った材料IdをListに代入
+		List<Long> selectedIngredientIds = shoppingListForm.getIngredientIds();
+		
+		//ShoppingListIngredientに材料Idを保存するためにArrayListを作成
+		List<ShoppingListIngredient> shoppingListIngredients = new ArrayList<>();
+		
+		//ShoppingListIngredientに材料Idをセット
+		for(Long id: selectedIngredientIds) {
+			ShoppingListIngredient shoppingListIngredient = new ShoppingListIngredient();
+			shoppingListIngredient.setIngredientId(id);
+			shoppingListIngredients.add(shoppingListIngredient);
+		}
+		shoppingListIngredientRepository.saveAllAndFlush(shoppingListIngredients);
+		
+//		return "reditect:/shoppinglist/select3"; //redirectにするとselect3に必要な情報がうまく取得できないので一旦別ページに移動
+		return "shoppinglist/list";
+	}
 	
 }
