@@ -13,6 +13,11 @@
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
 		<p>買い物リスト一覧</p>
+		<div class="contents">
+			<th:block th:each="item:${ingredientList}">
+				<a th:text="${item.ingredientName}"></a>
+				<a th:text="${item.quantity}"></a>
+			</th:block>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
 </body>

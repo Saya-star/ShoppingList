@@ -57,7 +57,7 @@ public class ShoppingListController {
 
 	@Autowired
 	ShoppingListIngredientRepository shoppingListIngredientRepository;
-	
+
 	@Autowired
 	ShoppingListSeasoningRepository shoppingListSeasoningRepository;
 
@@ -96,11 +96,19 @@ public class ShoppingListController {
 	@PostMapping(value = "/select3/create")
 	public String createList(@ModelAttribute ShoppingListForm shoppingListForm, Model model) {
 
-		//DBにデータを登録
+		// DBにデータを登録
 		ShoppingList createdList = shoppingListService.createShoppingList(shoppingListForm);
-		//登録内容を表示するための動き
-		List<ShoppingListIngredient> ingredinetList = createdList.getShoppingListIngredients();
-		
+		// 登録内容を表示するための動き
+		// 登録したリストからShoppingListIngredientのリストを呼び出す
+		// shoppingListIngredientに登録されているIngredientIdから該当するIngredientを呼び出す
+		List<ShoppingListIngredient> shoppingListIngredientList = createdList.getShoppingListIngredients();
+		List<Ingredient> registeredIngredient = new ArrayList<>();
+		for (ShoppingListIngredient sli : shoppingListIngredientList) {
+			long id = sli.getIngredientId();
+			Optional<Ingredient> ingredient = ingredientRepository.findById(id);
+			registeredIngredient.add(ingredient.get());
+		}
+		model.addAttribute("ingredientList",registeredIngredient);
 //		model.addAttribute("ingredientList",createdList.getShoppingListIngredients());
 //		return "reditect:/shoppinglist/select3"; //redirectにするとselect3に必要な情報がうまく取得できないので一旦別ページに移動
 		return "shoppinglist/list";
