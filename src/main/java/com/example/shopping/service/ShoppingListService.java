@@ -31,7 +31,7 @@ import com.example.shopping.repository.ShoppingListSeasoningRepository;
 @Service
 public class ShoppingListService {
 
-	//　TODO　コンストラクタインジェクションに修正
+	// TODO コンストラクタインジェクションに修正
 	@Autowired
 	DishRepository dishRepository;
 
@@ -43,16 +43,15 @@ public class ShoppingListService {
 
 	@Autowired
 	SeasoningRepository seasoningRepository;
-	
+
 	@Autowired
 	ShoppingListRepository shoppingListRepository;
-	
+
 	@Autowired
 	ShoppingListIngredientRepository shoppingListIngredientRepository;
-	
+
 	@Autowired
 	ShoppingListSeasoningRepository shoppingListSeasoningRepository;
-	
 
 	// 選択された料理の材料・調味料と、いつも買うものリスト、あとで買うものリストの表示
 	public void getItems(@RequestParam(value = "dishIds", required = false) Long[] dishIds, Model model) {
@@ -60,7 +59,7 @@ public class ShoppingListService {
 		List<Ingredient> ingredientList = new ArrayList<>();
 		List<Seasoning> seasoningList = new ArrayList<>();
 
-		//選択された料理から材料と調味料を検索
+		// 選択された料理から材料と調味料を検索
 		for (int i = 0; i < dishIds.length; i++) {
 			// dishIdで選択された料理を検索
 			Optional<Dish> selectedDish = dishRepository.findById(dishIds[i]);
@@ -74,31 +73,31 @@ public class ShoppingListService {
 			seasoningList.addAll(selectedDishSeasoning);
 		}
 
-		//　TODO 以下の処理はControllerクラスで実装する
+		// TODO 以下の処理はControllerクラスで実装する
 		model.addAttribute("ingredientList", ingredientList);
 		model.addAttribute("seasoningList", seasoningList);
 
 		// いつも買うものリストをalwaysBuyListに追加
 		List<AlwaysBuy> alwaysBuyList = alwaysBuyRepository.findAll();
-		
-		//TODO 以下の処理はControllerクラスで実装する
+
+		// TODO 以下の処理はControllerクラスで実装する
 		model.addAttribute("alwaysBuy", alwaysBuyList);
-		
-		//TODO あとで買うものをリストに詰める //あとで買うものリストを作ってから着手
+
+		// TODO あとで買うものをリストに詰める //あとで買うものリストを作ってから着手
 
 	}
 
 	public void selectItems(@ModelAttribute SelectForm selectForm, Model model) {
 		// 選択された材料Idから材料名を検索し、Listに登録 //Ingredient型のリストに変更
 		List<Ingredient> selectedIngredientList = new ArrayList<>();
-		for(Long id: selectForm.getIngredientIds()) {
+		for (Long id : selectForm.getIngredientIds()) {
 			Optional<Ingredient> selectedIngredient = ingredientRepository.findById(id);
 			selectedIngredientList.add(selectedIngredient.get());
 		}
-		//　TODO 以下の処理はControllerクラスで実装する
+		// TODO 以下の処理はControllerクラスで実装する
 		model.addAttribute("selectedIngredient", selectedIngredientList);
 
-		// 選択された調味料Idから調味料名を検索し、Listに登録　//Seasoning型のリストに変更
+		// 選択された調味料Idから調味料名を検索し、Listに登録 //Seasoning型のリストに変更
 		List<Seasoning> selectedSeasoningList = new ArrayList<>();
 		for (Long id : selectForm.getSeasoningIds()) {
 			Optional<Seasoning> selectedSeasoning = seasoningRepository.findById(id);
@@ -109,64 +108,59 @@ public class ShoppingListService {
 
 		// TODO いつも買うものリストから選択されたものをListに登録
 
-		// TODO　あとで買うものリストから選択されたものをListに登録
+		// TODO あとで買うものリストから選択されたものをListに登録
 
 	}
-	
+
 	public ShoppingList createShoppingList(ShoppingListForm shoppingListForm) {
-		
+
 		/*
 		 * ShoppingListエンティティにデータを保存
 		 */
 
 		ShoppingList newList = new ShoppingList();
-
 		// 買い物リストにお店Idを登録
 		newList.setShopId(shoppingListForm.getShopId());
-
 		// 日時を登録
 		LocalDate createdDate = LocalDate.now();
 		newList.setCreatedDate(createdDate);
-
+		// 保存
 		shoppingListRepository.saveAndFlush(newList);
 
 		/*
 		 * ShoppingListIngredientエンティティにデータを保存
 		 */
 
-		// shoppingListFormに入った材料IdをListに代入
+		// shoppingListFormに入っている材料IdのデータををListに代入
 		List<Long> selectedIngredientIds = shoppingListForm.getIngredientIds();
-
-		// ShoppingListIngredientに材料Idを保存するためのArrayListを作成
+		// ShoppingListIngredientエンティティに材料Idを保存するためのArrayListを作成
 		List<ShoppingListIngredient> shoppingListIngredients = new ArrayList<>();
-
-		// ShoppingListIngredientに材料Idをセット
+		// 材料Idをセット
 		for (Long id : selectedIngredientIds) {
 			ShoppingListIngredient shoppingListIngredient = new ShoppingListIngredient();
 			shoppingListIngredient.setIngredientId(id);
 			shoppingListIngredient.setShoppingList(newList);
 			shoppingListIngredients.add(shoppingListIngredient);
 		}
-		// ShoppingListIngredientに保存
+		// 保存
 		shoppingListIngredientRepository.saveAllAndFlush(shoppingListIngredients);
 
 		/*
 		 * ShoppingListSeasoningエンティティにデータを保存
 		 */
-		// shoppingListFormに入った調味料IdをListに代入
+
+		// shoppingListFormに入っている調味料IdのデータをListに代入
 		List<Long> selectedSeasoningIds = shoppingListForm.getSeasoningIds();
-
-		// ShoppingListSeasoningに調味料Idを保存するためにArrayListを作成
+		// ShoppingListSeasoningエンティティに調味料Idを保存するためのArrayListを作成
 		List<ShoppingListSeasoning> shoppingListSeasonings = new ArrayList<>();
-
-		// ShoppingListSeasoningに材料Idをセット
+		// 調味料Idをセット
 		for (Long id : selectedSeasoningIds) {
 			ShoppingListSeasoning shoppingListSeasoning = new ShoppingListSeasoning();
 			shoppingListSeasoning.setSeasoningId(id);
 			shoppingListSeasoning.setShoppingList(newList);
 			shoppingListSeasonings.add(shoppingListSeasoning);
 		}
-		// ShoppingListSeasoningに保存
+		// 保存
 		shoppingListSeasoningRepository.saveAllAndFlush(shoppingListSeasonings);
 
 		/*
@@ -175,7 +169,7 @@ public class ShoppingListService {
 		newList.setShoppingListIngredients(shoppingListIngredients);
 		newList.setShoppingListSeasonings(shoppingListSeasonings);
 		shoppingListRepository.saveAndFlush(newList);
-		
+
 		return newList;
 	}
 }
