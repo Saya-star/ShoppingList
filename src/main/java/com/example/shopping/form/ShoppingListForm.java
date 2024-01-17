@@ -21,7 +21,7 @@ public class ShoppingListForm {
 	
 	private List<Long> ingredientIds;
 	//private List<ShoppingListIngredient> shoppingListIngredientIds;
-	//private List<Long> seasoningIds;
+	private List<Long> seasoningIds;
 	
 	//TODO ShoppingListSeasoning/ShoppingListAlwaysBuy/ShoppingListLaterBuyもそれぞれ追加
 }
