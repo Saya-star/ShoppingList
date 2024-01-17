@@ -95,67 +95,13 @@ public class ShoppingListController {
 	// 買い物リストを作成（DBに保存）
 	@PostMapping(value = "/select3/create")
 	public String createList(@ModelAttribute ShoppingListForm shoppingListForm, Model model) {
-		/*
-		 * ShoppingListエンティティにデータを保存
-		 */
 
-		ShoppingList newList = new ShoppingList();
-
-		// 買い物リストにお店Idを登録
-		newList.setShopId(shoppingListForm.getShopId());
-
-		// 日時を登録
-		LocalDate createdDate = LocalDate.now();
-		newList.setCreatedDate(createdDate);
-
-		shoppingListRepository.saveAndFlush(newList);
-
-		/*
-		 * ShoppingListIngredientエンティティにデータを保存
-		 */
-
-		// shoppingListFormに入った材料IdをListに代入
-		List<Long> selectedIngredientIds = shoppingListForm.getIngredientIds();
-
-		// ShoppingListIngredientに材料Idを保存するためのArrayListを作成
-		List<ShoppingListIngredient> shoppingListIngredients = new ArrayList<>();
-
-		// ShoppingListIngredientに材料Idをセット
-		for (Long id : selectedIngredientIds) {
-			ShoppingListIngredient shoppingListIngredient = new ShoppingListIngredient();
-			shoppingListIngredient.setIngredientId(id);
-			shoppingListIngredient.setShoppingList(newList);
-			shoppingListIngredients.add(shoppingListIngredient);
-		}
-		// ShoppingListIngredientに保存
-		shoppingListIngredientRepository.saveAllAndFlush(shoppingListIngredients);
-
-		/*
-		 * ShoppingListSeasoningエンティティにデータを保存
-		 */
-		// shoppingListFormに入った調味料IdをListに代入
-		List<Long> selectedSeasoningIds = shoppingListForm.getSeasoningIds();
-
-		// ShoppingListSeasoningに調味料Idを保存するためにArrayListを作成
-		List<ShoppingListSeasoning> shoppingListSeasonings = new ArrayList<>();
-
-		// ShoppingListSeasoningに材料Idをセット
-		for (Long id : selectedSeasoningIds) {
-			ShoppingListSeasoning shoppingListSeasoning = new ShoppingListSeasoning();
-			shoppingListSeasoning.setSeasoningId(id);
-			shoppingListSeasoning.setShoppingList(newList);
-			shoppingListSeasonings.add(shoppingListSeasoning);
-		}
-		// ShoppingListSeasoningに保存
-		shoppingListSeasoningRepository.saveAllAndFlush(shoppingListSeasonings);
-
-		/*
-		 * ShoppingListとShoppingListIngredient/ShoppingListSeasoningの紐付け
-		 */
-		newList.setShoppingListIngredients(shoppingListIngredients);
-		newList.setShoppingListSeasonings(shoppingListSeasonings);
-		shoppingListRepository.saveAndFlush(newList);
-
+		//DBにデータを登録
+		ShoppingList createdList = shoppingListService.createShoppingList(shoppingListForm);
+		//登録内容を表示するための動き
+		List<ShoppingListIngredient> ingredinetList = createdList.getShoppingListIngredients();
+		
+//		model.addAttribute("ingredientList",createdList.getShoppingListIngredients());
 //		return "reditect:/shoppinglist/select3"; //redirectにするとselect3に必要な情報がうまく取得できないので一旦別ページに移動
 		return "shoppinglist/list";
 	}

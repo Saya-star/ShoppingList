@@ -1,5 +1,6 @@
 package com.example.shopping.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,11 +15,18 @@ import com.example.shopping.entity.AlwaysBuy;
 import com.example.shopping.entity.Dish;
 import com.example.shopping.entity.Ingredient;
 import com.example.shopping.entity.Seasoning;
+import com.example.shopping.entity.ShoppingList;
+import com.example.shopping.entity.ShoppingListIngredient;
+import com.example.shopping.entity.ShoppingListSeasoning;
 import com.example.shopping.form.SelectForm;
+import com.example.shopping.form.ShoppingListForm;
 import com.example.shopping.repository.AlwaysBuyRepository;
 import com.example.shopping.repository.DishRepository;
 import com.example.shopping.repository.IngredientRepository;
 import com.example.shopping.repository.SeasoningRepository;
+import com.example.shopping.repository.ShoppingListIngredientRepository;
+import com.example.shopping.repository.ShoppingListRepository;
+import com.example.shopping.repository.ShoppingListSeasoningRepository;
 
 @Service
 public class ShoppingListService {
@@ -35,6 +43,16 @@ public class ShoppingListService {
 
 	@Autowired
 	SeasoningRepository seasoningRepository;
+	
+	@Autowired
+	ShoppingListRepository shoppingListRepository;
+	
+	@Autowired
+	ShoppingListIngredientRepository shoppingListIngredientRepository;
+	
+	@Autowired
+	ShoppingListSeasoningRepository shoppingListSeasoningRepository;
+	
 
 	// 選択された料理の材料・調味料と、いつも買うものリスト、あとで買うものリストの表示
 	public void getItems(@RequestParam(value = "dishIds", required = false) Long[] dishIds, Model model) {
@@ -93,5 +111,71 @@ public class ShoppingListService {
 
 		// TODO　あとで買うものリストから選択されたものをListに登録
 
+	}
+	
+	public ShoppingList createShoppingList(ShoppingListForm shoppingListForm) {
+		
+		/*
+		 * ShoppingListエンティティにデータを保存
+		 */
+
+		ShoppingList newList = new ShoppingList();
+
+		// 買い物リストにお店Idを登録
+		newList.setShopId(shoppingListForm.getShopId());
+
+		// 日時を登録
+		LocalDate createdDate = LocalDate.now();
+		newList.setCreatedDate(createdDate);
+
+		shoppingListRepository.saveAndFlush(newList);
+
+		/*
+		 * ShoppingListIngredientエンティティにデータを保存
+		 */
+
+		// shoppingListFormに入った材料IdをListに代入
+		List<Long> selectedIngredientIds = shoppingListForm.getIngredientIds();
+
+		// ShoppingListIngredientに材料Idを保存するためのArrayListを作成
+		List<ShoppingListIngredient> shoppingListIngredients = new ArrayList<>();
+
+		// ShoppingListIngredientに材料Idをセット
+		for (Long id : selectedIngredientIds) {
+			ShoppingListIngredient shoppingListIngredient = new ShoppingListIngredient();
+			shoppingListIngredient.setIngredientId(id);
+			shoppingListIngredient.setShoppingList(newList);
+			shoppingListIngredients.add(shoppingListIngredient);
+		}
+		// ShoppingListIngredientに保存
+		shoppingListIngredientRepository.saveAllAndFlush(shoppingListIngredients);
+
+		/*
+		 * ShoppingListSeasoningエンティティにデータを保存
+		 */
+		// shoppingListFormに入った調味料IdをListに代入
+		List<Long> selectedSeasoningIds = shoppingListForm.getSeasoningIds();
+
+		// ShoppingListSeasoningに調味料Idを保存するためにArrayListを作成
+		List<ShoppingListSeasoning> shoppingListSeasonings = new ArrayList<>();
+
+		// ShoppingListSeasoningに材料Idをセット
+		for (Long id : selectedSeasoningIds) {
+			ShoppingListSeasoning shoppingListSeasoning = new ShoppingListSeasoning();
+			shoppingListSeasoning.setSeasoningId(id);
+			shoppingListSeasoning.setShoppingList(newList);
+			shoppingListSeasonings.add(shoppingListSeasoning);
+		}
+		// ShoppingListSeasoningに保存
+		shoppingListSeasoningRepository.saveAllAndFlush(shoppingListSeasonings);
+
+		/*
+		 * ShoppingListとShoppingListIngredient/ShoppingListSeasoningの紐付け
+		 */
+		newList.setShoppingListIngredients(shoppingListIngredients);
+		newList.setShoppingListSeasonings(shoppingListSeasonings);
+		shoppingListRepository.saveAndFlush(newList);
+		
+		return newList;
 	}
 }
