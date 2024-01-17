@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.shopping.entity.Dish;
 import com.example.shopping.entity.Ingredient;
+import com.example.shopping.entity.Seasoning;
 import com.example.shopping.entity.Shop;
 import com.example.shopping.entity.ShoppingList;
 import com.example.shopping.entity.ShoppingListIngredient;
@@ -98,17 +99,29 @@ public class ShoppingListController {
 
 		// DBにデータを登録
 		ShoppingList createdList = shoppingListService.createShoppingList(shoppingListForm);
-		// 登録内容を表示するための動き
-		// 登録したリストからShoppingListIngredientのリストを呼び出す
-		// shoppingListIngredientに登録されているIngredientIdから該当するIngredientを呼び出す
+		model.addAttribute("createdList",createdList);
+		
+		// 登録内容を表示する
+		// 登録したリストからShoppingListIngredientを呼び出す
+		// shoppingListIngredientに登録されている材料Idから該当するIngredientを呼び出す
 		List<ShoppingListIngredient> shoppingListIngredientList = createdList.getShoppingListIngredients();
-		List<Ingredient> registeredIngredient = new ArrayList<>();
-		for (ShoppingListIngredient sli : shoppingListIngredientList) {
-			long id = sli.getIngredientId();
+		List<Ingredient> registeredIngredients = new ArrayList<>();
+		for (ShoppingListIngredient shoppingListIngredient : shoppingListIngredientList) {
+			long id = shoppingListIngredient.getIngredientId();
 			Optional<Ingredient> ingredient = ingredientRepository.findById(id);
-			registeredIngredient.add(ingredient.get());
+			registeredIngredients.add(ingredient.get());
 		}
-		model.addAttribute("ingredientList",registeredIngredient);
+		model.addAttribute("ingredientList",registeredIngredients);
+		
+		//登録した材料の呼び出し
+		List<ShoppingListSeasoning> shoppingListSeasoningList = createdList.getShoppingListSeasonings();
+		List<Seasoning> registeredSeasonings = new ArrayList<>();
+		for(ShoppingListSeasoning shoppingListSeasoning : shoppingListSeasoningList) {
+			long id = shoppingListSeasoning.getSeasoningId();
+			Optional<Seasoning> seasoning = seasoningRepository.findById(id);
+			registeredSeasonings.add(seasoning.get());
+		}
+		model.addAttribute("seasoningList",registeredSeasonings);
 //		model.addAttribute("ingredientList",createdList.getShoppingListIngredients());
 //		return "reditect:/shoppinglist/select3"; //redirectにするとselect3に必要な情報がうまく取得できないので一旦別ページに移動
 		return "shoppinglist/list";
