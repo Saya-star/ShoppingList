@@ -1,5 +1,7 @@
 DROP TABLE IF EXISTS dish;
 DROP TABLE IF EXISTS ingredient;
+DROP TABLE IF EXISTS seasoning;
+DROP TABLE IF EXISTS shop;
 
 CREATE TABLE IF NOT EXISTS dish (
  dish_id SERIAL NOT NULL,
@@ -32,3 +34,12 @@ CREATE TABLE IF NOT EXISTS seasoning (
  seasoning_deleted BOOLEAN,
  PRIMARY KEY(seasoning_id)
 ); 
+
+CREATE TABLE IF NOT EXISTS shop (
+ shop_id SERIAL NOT NULL,
+ app_user_id BIGINT,
+ shop_name VARCHAR(20),
+ created_date timestamp,
+ deleted BOOLEAN,
+ PRIMARY KEY(shop_id)
+);
