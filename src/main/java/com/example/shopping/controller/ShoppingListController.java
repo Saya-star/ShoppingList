@@ -123,7 +123,7 @@ public class ShoppingListController {
 		 */
 
 		// shoppingListFormに入っている材料IdのデータををListに代入
-		Iterable<Ingredient> selectedIngredientIds = shoppingListForm.getIngredientIds();
+		Iterable<Ingredient> selectedIngredientIds = shoppingListForm.getIngredients();
 		// ShoppingListIngredientエンティティに材料Idを保存するためのArrayListを作成
 		List<ShoppingListIngredient> shoppingListIngredients = new ArrayList<>();
 		// 材料Idをセット
@@ -143,7 +143,7 @@ public class ShoppingListController {
 		 */
 
 		// shoppingListFormに入っている調味料IdのデータをListに代入
-		Iterable<Seasoning> selectedSeasoningIds = shoppingListForm.getSeasoningIds();
+		Iterable<Seasoning> selectedSeasoningIds = shoppingListForm.getSeasonings();
 		// ShoppingListSeasoningエンティティに調味料Idを保存するためのArrayListを作成
 		List<ShoppingListSeasoning> shoppingListSeasonings = new ArrayList<>();
 		// 調味料Idをセット

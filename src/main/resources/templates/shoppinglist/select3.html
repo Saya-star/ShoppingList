@@ -18,14 +18,14 @@
 				<div class="ingredientList">
 					<p>・選択した材料</p>
 					<th:block th:each="item:${selectedIngredient}">
-						<input type="checkbox" th:text="${item.ingredientName}" th:value="${item.ingredientId}" name="ingredientIds"/>
+						<input type="checkbox" th:text="${item.ingredientName}" th:value="${item.ingredientId}" name="ingredients"/>
 						<a th:text="${item.quantity}"></a>
 					</th:block>
 				</div>
 				<div class="seasoningList">
 					<p>・選択した調味料</p>
 					<th:block th:each="item:${selectedSeasoning}">
-						<input type="checkbox" th:text="${item.seasoningName}" th:value="${item.seasoningId}" name="seasoningIds"/>
+						<input type="checkbox" th:text="${item.seasoningName}" th:value="${item.seasoningId}" name="seasonings"/>
 					</th:block>
 				</div>
 				<div class="shopList">
