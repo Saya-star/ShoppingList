@@ -21,8 +21,8 @@ public class ShoppingListForm {
 	private LocalDate createdDate;
 	
 	private List<Ingredient> ingredientIds;
-	//private List<ShoppingListIngredient> shoppingListIngredientIds;
+	
 	private List<Seasoning> seasoningIds;
 	
-	//TODO ShoppingListSeasoning/ShoppingListAlwaysBuy/ShoppingListLaterBuyもそれぞれ追加
+	//TODO AlwaysBuy/LaterBuyもそれぞれ追加
 }
