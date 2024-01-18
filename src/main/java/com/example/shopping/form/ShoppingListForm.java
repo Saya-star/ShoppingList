@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.example.shopping.entity.Ingredient;
+import com.example.shopping.entity.Seasoning;
 import com.example.shopping.entity.ShoppingListIngredient;
 
 import lombok.Data;
@@ -19,9 +20,9 @@ public class ShoppingListForm {
 	
 	private LocalDate createdDate;
 	
-	private List<Long> ingredientIds;
+	private List<Ingredient> ingredientIds;
 	//private List<ShoppingListIngredient> shoppingListIngredientIds;
-	private List<Long> seasoningIds;
+	private List<Seasoning> seasoningIds;
 	
 	//TODO ShoppingListSeasoning/ShoppingListAlwaysBuy/ShoppingListLaterBuyもそれぞれ追加
 }

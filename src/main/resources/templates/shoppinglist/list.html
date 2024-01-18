@@ -17,11 +17,11 @@
 			<p th:text="${createdList.createdDate}"></p>
 			<p th:text="${createdList.shopId}"></p>
 			<th:block th:each="item:${ingredientList}">
-				<a th:text="${item.ingredientName}"></a>
-				<a th:text="${item.quantity}"></a>
+				<a th:text="${item.ingredient.ingredientName}"></a>
+				<a th:text="${item.ingredient.quantity}"></a>
 			</th:block>
 			<th:block th:each="item:${seasoningList}">
-				<a th:text="${item.seasoningName}"></a>
+				<a th:text="${item.seasoning.seasoningName}"></a>
 			</th:block>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>

@@ -18,8 +18,9 @@ public class ShoppingListSeasoning {
 	@Column
 	private long shoppingListSeasoningId;
 	
-	@Column
-	private long seasoningId;
+	@ManyToOne
+	@JoinColumn(name = "seasoningId")
+	private Seasoning seasoning;
 	
 	@ManyToOne
 	@JoinColumn(name = "shoppingListId")

@@ -97,31 +97,91 @@ public class ShoppingListController {
 	@PostMapping(value = "/select3/create")
 	public String createList(@ModelAttribute ShoppingListForm shoppingListForm, Model model) {
 
+		/*
+		 * ShoppingListエンティティにデータを保存
+		 */
+
+		ShoppingList newList = new ShoppingList();
+		// 買い物リストにお店Idを登録
+		newList.setShopId(shoppingListForm.getShopId());
+		// 日時を登録
+		LocalDate createdDate = LocalDate.now();
+		newList.setCreatedDate(createdDate);
+		// 保存
+		shoppingListRepository.saveAndFlush(newList);
+		
+		model.addAttribute("createdList",newList);
+
+		/*
+		 * ShoppingListIngredientエンティティにデータを保存
+		 */
+
+		// shoppingListFormに入っている材料IdのデータををListに代入
+		Iterable<Ingredient> selectedIngredientIds = shoppingListForm.getIngredientIds();
+		// ShoppingListIngredientエンティティに材料Idを保存するためのArrayListを作成
+		List<ShoppingListIngredient> shoppingListIngredients = new ArrayList<>();
+		// 材料Idをセット
+		for (Ingredient ingredient : selectedIngredientIds) {
+			ShoppingListIngredient shoppingListIngredient = new ShoppingListIngredient();
+			shoppingListIngredient.setIngredient(ingredient);
+			shoppingListIngredient.setShoppingList(newList);
+			shoppingListIngredients.add(shoppingListIngredient);
+		}
+		// 保存
+		shoppingListIngredientRepository.saveAllAndFlush(shoppingListIngredients);
+
+		model.addAttribute("ingredientList",shoppingListIngredients);
+		
+		/*
+		 * ShoppingListSeasoningエンティティにデータを保存
+		 */
+
+		// shoppingListFormに入っている調味料IdのデータをListに代入
+		Iterable<Seasoning> selectedSeasoningIds = shoppingListForm.getSeasoningIds();
+		// ShoppingListSeasoningエンティティに調味料Idを保存するためのArrayListを作成
+		List<ShoppingListSeasoning> shoppingListSeasonings = new ArrayList<>();
+		// 調味料Idをセット
+		for (Seasoning seasoning : selectedSeasoningIds) {
+			ShoppingListSeasoning shoppingListSeasoning = new ShoppingListSeasoning();
+			shoppingListSeasoning.setSeasoning(seasoning);
+			shoppingListSeasoning.setShoppingList(newList);
+			shoppingListSeasonings.add(shoppingListSeasoning);
+		}
+		// 保存
+		shoppingListSeasoningRepository.saveAllAndFlush(shoppingListSeasonings);
+
+		model.addAttribute("seasoningList",shoppingListSeasonings);
+		/*
+		 * 以下、サービスクラスにメソッドを全て移動した場合
+		 */
+		
 		// DBにデータを登録
-		ShoppingList createdList = shoppingListService.createShoppingList(shoppingListForm);
-		model.addAttribute("createdList",createdList);
+//		ShoppingList createdList = shoppingListService.createShoppingList(shoppingListForm);
+//		model.addAttribute("createdList",createdList);
 		
-		// 登録内容を表示する
-		// 登録したリストからShoppingListIngredientを呼び出す
-		// shoppingListIngredientに登録されている材料Idから該当するIngredientを呼び出す
-		List<ShoppingListIngredient> shoppingListIngredientList = createdList.getShoppingListIngredients();
-		List<Ingredient> registeredIngredients = new ArrayList<>();
-		for (ShoppingListIngredient shoppingListIngredient : shoppingListIngredientList) {
-			long id = shoppingListIngredient.getIngredientId();
-			Optional<Ingredient> ingredient = ingredientRepository.findById(id);
-			registeredIngredients.add(ingredient.get());
-		}
-		model.addAttribute("ingredientList",registeredIngredients);
-		
-		//登録した材料の呼び出し
-		List<ShoppingListSeasoning> shoppingListSeasoningList = createdList.getShoppingListSeasonings();
-		List<Seasoning> registeredSeasonings = new ArrayList<>();
-		for(ShoppingListSeasoning shoppingListSeasoning : shoppingListSeasoningList) {
-			long id = shoppingListSeasoning.getSeasoningId();
-			Optional<Seasoning> seasoning = seasoningRepository.findById(id);
-			registeredSeasonings.add(seasoning.get());
-		}
-		model.addAttribute("seasoningList",registeredSeasonings);
+//		// 登録内容を表示する
+//		// 登録したリストからShoppingListIngredientを呼び出す
+//		// shoppingListIngredientに登録されている材料Idから該当するIngredientを呼び出す
+//		shoppingListIngredientRepository.findById(createdList.getShoppingListId());
+//		model.addAttribute("ingredientList",shoppingListIngredientList.getClass());
+//		List<ShoppingListIngredient> shoppingListIngredientList = createdList.getShoppingListIngredients();
+//		List<Ingredient> registeredIngredients = new ArrayList<>();
+//		for (ShoppingListIngredient shoppingListIngredient : shoppingListIngredientList) {
+//			long id = shoppingListIngredient.getIngredientId();
+//			Optional<Ingredient> ingredient = ingredientRepository.findById(id);
+//			registeredIngredients.add(ingredient.get());
+//		}
+//		model.addAttribute("ingredientList",registeredIngredients);
+//		
+//		//登録した材料の呼び出し
+//		List<ShoppingListSeasoning> shoppingListSeasoningList = createdList.getShoppingListSeasonings();
+//		List<Seasoning> registeredSeasonings = new ArrayList<>();
+//		for(ShoppingListSeasoning shoppingListSeasoning : shoppingListSeasoningList) {
+//			long id = shoppingListSeasoning.getSeasoningId();
+//			Optional<Seasoning> seasoning = seasoningRepository.findById(id);
+//			registeredSeasonings.add(seasoning.get());
+//		}
+//		model.addAttribute("seasoningList",registeredSeasonings);
 //		model.addAttribute("ingredientList",createdList.getShoppingListIngredients());
 //		return "reditect:/shoppinglist/select3"; //redirectにするとselect3に必要な情報がうまく取得できないので一旦別ページに移動
 		return "shoppinglist/list";

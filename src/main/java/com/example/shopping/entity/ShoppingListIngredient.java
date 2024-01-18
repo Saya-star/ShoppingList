@@ -23,14 +23,15 @@ public class ShoppingListIngredient {
 	@Column
 	private long shoppingListIngredientId;
 	
-//	@Column
-//	private Ingredient ingredient;
+	@ManyToOne
+	@JoinColumn(name = "ingredientId")
+	private Ingredient ingredient;
 	
 //	@OneToOne(mappedBy="shoppingListIngredient")//Allかな？
 //	private Ingredient ingredient;
 //	
-	@Column //Nameかな？
-	private long ingredientId;
+//	@Column //Nameかな？
+//	private long ingredientId;
 //	
 //	@Column //必要？
 //	private String ingredientName;

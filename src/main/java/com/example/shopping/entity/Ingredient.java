@@ -1,6 +1,7 @@
 package com.example.shopping.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.example.shopping.enums.IngredientType;
 
@@ -14,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
@@ -49,7 +51,7 @@ public class Ingredient {
 	@Column
 	private boolean ingredientDeleted = false;
 	
-//	@OneToOne(mappedBy="ingredient" )//Allかな？
-//	private ShoppingListIngredient shoppingListIngredient;
-//	
+	@OneToMany(mappedBy="ingredient" )//Allかな？
+	private List<ShoppingListIngredient> shoppingListIngredient;
+	
 }
