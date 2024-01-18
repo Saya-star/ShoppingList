@@ -84,11 +84,17 @@ public class ShoppingListController {
 		return "shoppinglist/select2";
 	}
 
-	// 選択した買うものから買うものリストを作成するページを表示
+	// 選択した買うものを買い物リストを作成するページに表示
 	@PostMapping(value = "/select3")
 	public String selectItems(@ModelAttribute SelectForm selectForm, Model model) {
-		shoppingListService.selectItems(selectForm, model);
+//		shoppingListService.selectItems(selectForm, model);
+		List<Ingredient> selectedIngredient = selectForm.getIngredients();
+		List<Seasoning> selectedSeasoning = selectForm.getSeasonings();
+		//TODO いつも買うものリスト・あとで買うものリストの表示の処理
+//		List<AlwaysBuy> selectedAlwaysBuy = selectForm.getAlwaysBuys();
 		List<Shop> shopList = shopRepository.findAll();
+		model.addAttribute("selectedIngredient", selectedIngredient);
+		model.addAttribute("selectedSeasoning",selectedSeasoning);
 		model.addAttribute("shopList", shopList);
 		return "shoppinglist/select3";
 	}
