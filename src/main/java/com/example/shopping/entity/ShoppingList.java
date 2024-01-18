@@ -9,7 +9,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Entity
@@ -24,8 +26,9 @@ public class ShoppingList {
 	@Column
 	private long appUserId;
 	
-	@Column
-	private long shopId;
+	@OneToOne
+	@JoinColumn(name = "shopId")
+	private Shop shop;
 	
 	@Column
 	private LocalDate createdDate;

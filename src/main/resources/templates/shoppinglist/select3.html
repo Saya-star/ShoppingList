@@ -31,7 +31,7 @@
 				<div class="shopList">
 					<p>・買うお店を選択する</p>
 					<th:block th:each="item:${shopList}">
-						<input type="radio" th:text="${item.shopName}" th:value="${item.shopId}" name="shopId"/>
+						<input type="radio" th:text="${item.shopName}" th:value="${item.shopId}" name="shop"/>
 				</div>
 				<button type="submit">買い物リストを作成</button>
 			</form>

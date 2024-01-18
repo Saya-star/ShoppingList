@@ -15,7 +15,7 @@
 		<p>買い物リスト一覧</p>
 		<div class="contents">
 			<p th:text="${createdList.createdDate}"></p>
-			<p th:text="${createdList.shopId}"></p>
+			<p th:text="${createdList.shop.shopName}"></p>
 			<th:block th:each="item:${ingredientList}">
 				<a th:text="${item.ingredient.ingredientName}"></a>
 				<a th:text="${item.ingredient.quantity}"></a>

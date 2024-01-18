@@ -109,7 +109,7 @@ public class ShoppingListController {
 
 		ShoppingList newList = new ShoppingList();
 		// 買い物リストにお店Idを登録
-		newList.setShopId(shoppingListForm.getShopId());
+		newList.setShop(shoppingListForm.getShop());
 		// 日時を登録
 		LocalDate createdDate = LocalDate.now();
 		newList.setCreatedDate(createdDate);

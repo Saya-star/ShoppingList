@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.shopping.entity.Ingredient;
 import com.example.shopping.entity.Seasoning;
+import com.example.shopping.entity.Shop;
 import com.example.shopping.entity.ShoppingListIngredient;
 
 import lombok.Data;
@@ -16,7 +17,7 @@ public class ShoppingListForm {
 	
 	private long appUserId;
 	
-	private long shopId;
+	private Shop shop;
 	
 	private LocalDate createdDate;
 	
