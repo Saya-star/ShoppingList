@@ -112,64 +112,65 @@ public class ShoppingListService {
 //
 //	}
 
-//	public ShoppingList createShoppingList(ShoppingListForm shoppingListForm) {
-//
-//		/*
-//		 * ShoppingListエンティティにデータを保存
-//		 */
-//
-//		ShoppingList newList = new ShoppingList();
-//		// 買い物リストにお店Idを登録
-//		newList.setShopId(shoppingListForm.getShopId());
-//		// 日時を登録
-//		LocalDate createdDate = LocalDate.now();
-//		newList.setCreatedDate(createdDate);
-//		// 保存
-//		shoppingListRepository.saveAndFlush(newList);
-//
-//		/*
-//		 * ShoppingListIngredientエンティティにデータを保存
-//		 */
-//
-//		// shoppingListFormに入っている材料IdのデータををListに代入
-//		Iterable<Ingredient> selectedIngredientIds = shoppingListForm.getIngredientIds();
-//		// ShoppingListIngredientエンティティに材料Idを保存するためのArrayListを作成
-//		List<ShoppingListIngredient> shoppingListIngredients = new ArrayList<>();
-//		// 材料Idをセット
-//		for (Ingredient ingredient : selectedIngredientIds) {
-//			ShoppingListIngredient shoppingListIngredient = new ShoppingListIngredient();
-//			shoppingListIngredient.setIngredient(ingredient);
-//			shoppingListIngredient.setShoppingList(newList);
-//			shoppingListIngredients.add(shoppingListIngredient);
-//		}
-//		// 保存
-//		shoppingListIngredientRepository.saveAllAndFlush(shoppingListIngredients);
-//
-//		/*
-//		 * ShoppingListSeasoningエンティティにデータを保存
-//		 */
-//
-//		// shoppingListFormに入っている調味料IdのデータをListに代入
-//		List<Long> selectedSeasoningIds = shoppingListForm.getSeasoningIds();
-//		// ShoppingListSeasoningエンティティに調味料Idを保存するためのArrayListを作成
-//		List<ShoppingListSeasoning> shoppingListSeasonings = new ArrayList<>();
-//		// 調味料Idをセット
-//		for (Long id : selectedSeasoningIds) {
-//			ShoppingListSeasoning shoppingListSeasoning = new ShoppingListSeasoning();
-//			shoppingListSeasoning.setSeasoningId(id);
-//			shoppingListSeasoning.setShoppingList(newList);
-//			shoppingListSeasonings.add(shoppingListSeasoning);
-//		}
-//		// 保存
-//		shoppingListSeasoningRepository.saveAllAndFlush(shoppingListSeasonings);
+	public ShoppingList createShoppingList(ShoppingListForm shoppingListForm) {
 
 		/*
-		 * ShoppingListとShoppingListIngredient/ShoppingListSeasoningの紐付け→不要だった
+		 * ShoppingListエンティティにデータを保存
 		 */
-//		newList.setShoppingListIngredients(shoppingListIngredients);
-//		newList.setShoppingListSeasonings(shoppingListSeasonings);
-//		shoppingListRepository.saveAndFlush(newList);
 
-//		return newList;
-//	}
+		ShoppingList newList = new ShoppingList();
+		// 買い物リストにお店Idを登録
+		newList.setShop(shoppingListForm.getShop());
+		// 日時を登録
+		LocalDate createdDate = LocalDate.now();
+		newList.setCreatedDate(createdDate);
+		// 保存
+		shoppingListRepository.saveAndFlush(newList);
+		
+
+		/*
+		 * ShoppingListIngredientエンティティにデータを保存
+		 */
+
+		// shoppingListFormに入っている材料IdのデータををListに代入
+		Iterable<Ingredient> selectedIngredientIds = shoppingListForm.getIngredients();
+		// ShoppingListIngredientエンティティに材料Idを保存するためのArrayListを作成
+		List<ShoppingListIngredient> shoppingListIngredients = new ArrayList<>();
+		// 材料Idをセット
+		for (Ingredient ingredient : selectedIngredientIds) {
+			ShoppingListIngredient shoppingListIngredient = new ShoppingListIngredient();
+			shoppingListIngredient.setIngredient(ingredient);
+			shoppingListIngredient.setShoppingList(newList);
+			shoppingListIngredients.add(shoppingListIngredient);
+		}
+		// 保存
+		shoppingListIngredientRepository.saveAllAndFlush(shoppingListIngredients);
+		
+		/*
+		 * ShoppingListSeasoningエンティティにデータを保存
+		 */
+
+		// shoppingListFormに入っている調味料IdのデータをListに代入
+		Iterable<Seasoning> selectedSeasoningIds = shoppingListForm.getSeasonings();
+		// ShoppingListSeasoningエンティティに調味料Idを保存するためのArrayListを作成
+		List<ShoppingListSeasoning> shoppingListSeasonings = new ArrayList<>();
+		// 調味料Idをセット
+		for (Seasoning seasoning : selectedSeasoningIds) {
+			ShoppingListSeasoning shoppingListSeasoning = new ShoppingListSeasoning();
+			shoppingListSeasoning.setSeasoning(seasoning);
+			shoppingListSeasoning.setShoppingList(newList);
+			shoppingListSeasonings.add(shoppingListSeasoning);
+		}
+		// 保存
+		shoppingListSeasoningRepository.saveAllAndFlush(shoppingListSeasonings);
+
+		/*
+		 * ShoppingListとShoppingListIngredient/ShoppingListSeasoningの紐付け→やっぱり必要だった
+		 */
+		newList.setShoppingListIngredients(shoppingListIngredients);
+		newList.setShoppingListSeasonings(shoppingListSeasonings);
+		shoppingListRepository.saveAndFlush(newList);
+
+		return newList;
+	}
 }

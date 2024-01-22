@@ -16,11 +16,11 @@
 		<div class="contents">
 			<p th:text="${createdList.createdDate}"></p>
 			<p th:text="${createdList.shop.shopName}"></p>
-			<th:block th:each="item:${ingredientList}">
+			<th:block th:each="item:${createdList.shoppingListIngredients}">
 				<a th:text="${item.ingredient.ingredientName}"></a>
 				<a th:text="${item.ingredient.quantity}"></a>
 			</th:block>
-			<th:block th:each="item:${seasoningList}">
+			<th:block th:each="item:${createdList.shoppingListSeasonings}">
 				<a th:text="${item.seasoning.seasoningName}"></a>
 			</th:block>
 	</main>
