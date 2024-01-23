@@ -35,6 +35,9 @@
 				</div>
 				<button type="submit">買い物リストを作成</button>
 			</form>
+			<form class="move-to-shoppingList" method="get" th:action="@{/shoppinglist/list}">
+				<button type="submit">完了(買い物リストを見る)</button>
+			</form>
 		</div>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
