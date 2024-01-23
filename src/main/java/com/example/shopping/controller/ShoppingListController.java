@@ -100,6 +100,7 @@ public class ShoppingListController {
 		// TODO 後で消してください
 //		model.addAttribute("shoppingList", model.getAttribute(selectForm));
 //		redirectAttributes.addFlashAttribute(selectForm);
+		
 		return "shoppinglist/select3";
 	}
 	
@@ -127,7 +128,7 @@ public class ShoppingListController {
 
 		ShoppingList newList = shoppingListService.createShoppingList(shoppingListForm);
 		model.addAttribute("createdList", newList);
-//		return "reditect:/shoppinglist/select3"; //redirectにするとselect3に必要な情報がうまく取得できないので一旦別ページに移動
+//		return "redirect:/shoppinglist/select3"; //redirectにするとselect3に必要な情報がうまく取得できないので一旦別ページに移動
 		return "shoppinglist/list";
 	}
 
