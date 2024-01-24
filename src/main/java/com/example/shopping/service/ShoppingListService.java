@@ -3,6 +3,7 @@ package com.example.shopping.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,50 +127,55 @@ public class ShoppingListService {
 		newList.setCreatedDate(createdDate);
 		// 保存
 		shoppingListRepository.saveAndFlush(newList);
-		
 
 		/*
 		 * ShoppingListIngredientエンティティにデータを保存
 		 */
-
-		// shoppingListFormに入っている材料IdのデータををListに代入
-		Iterable<Ingredient> selectedIngredientIds = shoppingListForm.getIngredients();
-		// ShoppingListIngredientエンティティに材料Idを保存するためのArrayListを作成
-		List<ShoppingListIngredient> shoppingListIngredients = new ArrayList<>();
-		// 材料Idをセット
-		for (Ingredient ingredient : selectedIngredientIds) {
-			ShoppingListIngredient shoppingListIngredient = new ShoppingListIngredient();
-			shoppingListIngredient.setIngredient(ingredient);
-			shoppingListIngredient.setShoppingList(newList);
-			shoppingListIngredients.add(shoppingListIngredient);
-		}
-		// 保存
-		shoppingListIngredientRepository.saveAllAndFlush(shoppingListIngredients);
+		// shoppingListFormに入っている材料のデータの取り出し
+		Optional<List<Ingredient>> selectedIngredients = Optional.ofNullable(shoppingListForm.getIngredients());
 		
+		if (selectedIngredients.isPresent()) {
+			// ShoppingListIngredientエンティティに材料Idを保存するためのArrayListを作成
+			List<ShoppingListIngredient> shoppingListIngredients = new ArrayList<>();
+			// 材料Idをセット
+			for (Ingredient ingredient : selectedIngredients.get()) {
+				ShoppingListIngredient shoppingListIngredient = new ShoppingListIngredient();
+				shoppingListIngredient.setIngredient(ingredient);
+				shoppingListIngredient.setShoppingList(newList);
+				shoppingListIngredients.add(shoppingListIngredient);
+			}
+			// 保存
+			shoppingListIngredientRepository.saveAllAndFlush(shoppingListIngredients);
+
+		}
+
 		/*
 		 * ShoppingListSeasoningエンティティにデータを保存
 		 */
 
-		// shoppingListFormに入っている調味料IdのデータをListに代入
-		Iterable<Seasoning> selectedSeasoningIds = shoppingListForm.getSeasonings();
-		// ShoppingListSeasoningエンティティに調味料Idを保存するためのArrayListを作成
-		List<ShoppingListSeasoning> shoppingListSeasonings = new ArrayList<>();
-		// 調味料Idをセット
-		for (Seasoning seasoning : selectedSeasoningIds) {
-			ShoppingListSeasoning shoppingListSeasoning = new ShoppingListSeasoning();
-			shoppingListSeasoning.setSeasoning(seasoning);
-			shoppingListSeasoning.setShoppingList(newList);
-			shoppingListSeasonings.add(shoppingListSeasoning);
+		// shoppingListFormに入っている調味料のデータの取り出し
+		Optional<List<Seasoning>> selectedSeasonings = Optional.ofNullable(shoppingListForm.getSeasonings());
+		
+		if (selectedSeasonings.isPresent()) {
+			// ShoppingListSeasoningエンティティに調味料Idを保存するためのArrayListを作成
+			List<ShoppingListSeasoning> shoppingListSeasonings = new ArrayList<>();
+			// 調味料Idをセット
+			for (Seasoning seasoning : selectedSeasonings.get()) {
+				ShoppingListSeasoning shoppingListSeasoning = new ShoppingListSeasoning();
+				shoppingListSeasoning.setSeasoning(seasoning);
+				shoppingListSeasoning.setShoppingList(newList);
+				shoppingListSeasonings.add(shoppingListSeasoning);
+			}
+			// 保存
+			shoppingListSeasoningRepository.saveAllAndFlush(shoppingListSeasonings);
 		}
-		// 保存
-		shoppingListSeasoningRepository.saveAllAndFlush(shoppingListSeasonings);
 
 		/*
 		 * ShoppingListとShoppingListIngredient/ShoppingListSeasoningの紐付け→やっぱり必要だった
 		 */
-		newList.setShoppingListIngredients(shoppingListIngredients);
-		newList.setShoppingListSeasonings(shoppingListSeasonings);
-		shoppingListRepository.saveAndFlush(newList);
+//		newList.setShoppingListIngredients(shoppingListIngredients);
+//		newList.setShoppingListSeasonings(shoppingListSeasonings);
+//		shoppingListRepository.saveAndFlush(newList);
 
 		return newList;
 	}
