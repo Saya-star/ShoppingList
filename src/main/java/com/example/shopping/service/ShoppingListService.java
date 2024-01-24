@@ -107,7 +107,7 @@ public class ShoppingListService {
 		 * ShoppingListIngredientエンティティにデータを保存
 		 */
 		// shoppingListFormに入っている材料のデータの取り出し
-		Optional<List<Ingredient>> selectedIngredients = Optional.ofNullable(shoppingListForm.getIngredients());
+		Optional<List<Ingredient>> selectedIngredients = Optional.ofNullable(shoppingListForm.getIngredientList());
 		
 		if (selectedIngredients.isPresent()) {
 			// ShoppingListIngredientエンティティに材料Idを保存するためのArrayListを作成
@@ -130,7 +130,7 @@ public class ShoppingListService {
 		 */
 
 		// shoppingListFormに入っている調味料のデータの取り出し
-		Optional<List<Seasoning>> selectedSeasonings = Optional.ofNullable(shoppingListForm.getSeasonings());
+		Optional<List<Seasoning>> selectedSeasonings = Optional.ofNullable(shoppingListForm.getSeasoningList());
 		
 		if (selectedSeasonings.isPresent()) {
 			// ShoppingListSeasoningエンティティに調味料Idを保存するためのArrayListを作成
