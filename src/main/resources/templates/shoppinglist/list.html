@@ -13,7 +13,7 @@
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
 		<p>買い物リスト一覧</p>
-		<div class="contents">
+		<div class="contents" >
 			<p th:text="${createdList.createdDate}"></p>
 			<p th:text="${createdList.shop.shopName}"></p>
 			<th:block th:each="item:${createdList.shoppingListIngredients}">

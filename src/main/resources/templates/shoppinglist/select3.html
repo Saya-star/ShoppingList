@@ -18,20 +18,22 @@
 				<div class="ingredientList">
 					<p>・選択した材料</p>
 					<th:block th:each="item:${selectedIngredient}">
-						<input type="checkbox" th:text="${item.ingredientName}" th:value="${item.ingredientId}" name="ingredients"/>
+						<input type="checkbox" th:text="${item.ingredientName}" th:value="${item.ingredientId}"
+							name="ingredients" />
 						<a th:text="${item.quantity}"></a>
 					</th:block>
 				</div>
 				<div class="seasoningList">
 					<p>・選択した調味料</p>
 					<th:block th:each="item:${selectedSeasoning}">
-						<input type="checkbox" th:text="${item.seasoningName}" th:value="${item.seasoningId}" name="seasonings"/>
+						<input type="checkbox" th:text="${item.seasoningName}" th:value="${item.seasoningId}"
+							name="seasonings" />
 					</th:block>
 				</div>
 				<div class="shopList">
 					<p>・買うお店を選択する</p>
 					<th:block th:each="item:${shopList}">
-						<input type="radio" th:text="${item.shopName}" th:value="${item.shopId}" name="shop"/>
+						<input type="radio" th:text="${item.shopName}" th:value="${item.shopId}" name="shop" />
 				</div>
 				<button type="submit">買い物リストを作成</button>
 			</form>
@@ -39,6 +41,21 @@
 				<button type="submit">完了(買い物リストを見る)</button>
 			</form>
 		</div>
+		<section id="posts"　th:if="${createdList} != null">
+			<ul>
+				<p>買い物リスト一覧</p>
+				<div class="contents">
+					<!--p th:text="${createdList.createdDate}"></p-->
+					<p th:text="${createdList.shop.shopName}"></p>
+					<th:block th:each="item:${createdList.shoppingListIngredients}">
+						<a th:text="${item.ingredient.ingredientName}"></a>
+						<a th:text="${item.ingredient.quantity}"></a>
+					</th:block>
+					<th:block th:each="item:${createdList.shoppingListSeasonings}">
+						<a th:text="${item.seasoning.seasoningName}"></a>
+					</th:block>
+			</ul>
+		</section>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
 </body>
