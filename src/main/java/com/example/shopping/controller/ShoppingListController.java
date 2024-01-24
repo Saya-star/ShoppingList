@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.shopping.entity.Dish;
@@ -37,6 +38,7 @@ import com.example.shopping.service.ShoppingListService;
 
 @Controller
 @RequestMapping(value = "/shoppinglist")
+@SessionAttributes(types = { SelectForm.class })
 public class ShoppingListController {
 
 	@Autowired
@@ -69,6 +71,11 @@ public class ShoppingListController {
 	@Autowired
 	ShoppingListService shoppingListService;
 
+	@ModelAttribute(value = "selectForm")
+	public SelectForm setUpSelectForm() {
+		return new SelectForm();
+	}
+
 	// 料理を選択する画面の表示
 	@GetMapping(value = "/select1")
 	public String getPage(Dish dish, Model model) {
@@ -87,49 +94,37 @@ public class ShoppingListController {
 
 	// 選択した買うものを買い物リストを作成するページに表示
 	@PostMapping(value = "/select3")
-	public String selectItems(@ModelAttribute SelectForm selectForm, Model model, RedirectAttributes redirectAttributes) {
-//		shoppingListService.selectItems(selectForm, model);
-		List<Ingredient> selectedIngredient = selectForm.getIngredients();
-		List<Seasoning> selectedSeasoning = selectForm.getSeasonings();
-		//TODO いつも買うものリスト・あとで買うものリストの表示の処理
-//		List<AlwaysBuy> selectedAlwaysBuy = selectForm.getAlwaysBuys();
+	public String selectItems(@ModelAttribute SelectForm selectForm, Model model,
+			RedirectAttributes redirectAttributes) {
 		List<Shop> shopList = shopRepository.findAll();
-		model.addAttribute("selectedIngredient", selectedIngredient);
-		model.addAttribute("selectedSeasoning",selectedSeasoning);
+		model.addAttribute("selectedIngredient", selectForm.getIngredients());
+		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());
 		model.addAttribute("shopList", shopList);
+		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
 		// TODO 後で消してください
-//		model.addAttribute("shoppingList", model.getAttribute(selectForm));
-//		redirectAttributes.addFlashAttribute(selectForm);
-		
+//		model.addAttribute("shoppingList", model.getAttribute("shoppingList"));
 		return "shoppinglist/select3";
 	}
-	
-//	// TODO 後で修正してください
-//	// 選択した買うものを買い物リストを作成するページに表示
-//	@PostMapping(value = "/select3/edit")
-//	public String selectItemsEdit(@ModelAttribute SelectForm selectForm, Model model) {
-////		shoppingListService.selectItems(selectForm, model);
-//		List<Ingredient> selectedIngredient = (List<Ingredient>) model.getAttribute("IngredientList");
-//		List<Seasoning> selectedSeasoning = selectForm.getSeasonings();
-//		//TODO いつも買うものリスト・あとで買うものリストの表示の処理
-////		List<AlwaysBuy> selectedAlwaysBuy = selectForm.getAlwaysBuys();
-//		List<Shop> shopList = shopRepository.findAll();
-//		model.addAttribute("selectedIngredient", selectedIngredient);
-//		model.addAttribute("selectedSeasoning",selectedSeasoning);
-//		model.addAttribute("shopList", shopList);
-//		// TODO 後で消してください
-//		model.addAttribute("shoppingList", model.getAttribute("shoppingList"));
-//		return "shoppinglist/select3";
-//	}
-	
-	// 買い物リストを作成（DBに保存）
-	@PostMapping(value = "/select3/create")
-	public String createList(@ModelAttribute ShoppingListForm shoppingListForm, Model model, RedirectAttributes redirectAttributes) {
 
-		ShoppingList newList = shoppingListService.createShoppingList(shoppingListForm);
-		model.addAttribute("createdList", newList);
-//		return "redirect:/shoppinglist/select3"; //redirectにするとselect3に必要な情報がうまく取得できないので一旦別ページに移動
-		return "shoppinglist/list";
+	// TODO 後で修正してください
+	// 選択した買うものを買い物リストを作成するページに表示
+	@GetMapping(value = "/select3")
+	public String selectItemsEdit(SelectForm selectForm, Model model) {
+		List<Shop> shopList = shopRepository.findAll();
+		model.addAttribute("selectedIngredient", selectForm.getIngredients());
+		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());
+		model.addAttribute("shopList", shopList);
+		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
+		// TODO 後で消してください
+//		model.addAttribute("shoppingList", model.getAttribute("shoppingList"));
+		return "shoppinglist/select3";
 	}
 
+	// 買い物リストを作成（DBに保存）
+	@PostMapping(value = "/select3/create")
+	public String createList(@ModelAttribute ShoppingListForm shoppingListForm, Model model) {
+		ShoppingList newList = shoppingListService.createShoppingList(shoppingListForm);
+		model.addAttribute("createdList", newList);
+		return "redirect:/shoppinglist/select3";
+	}
 }
