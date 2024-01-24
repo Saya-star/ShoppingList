@@ -107,7 +107,7 @@ public class ShoppingListController {
 	}
 
 	// TODO 後で修正してください
-	// 選択した買うものを買い物リストを作成するページに表示
+	// リダイレクト後・選択した買うものを買い物リストを作成するページに表示
 	@GetMapping(value = "/select3")
 	public String selectItemsEdit(SelectForm selectForm, Model model) {
 		List<Shop> shopList = shopRepository.findAll();
@@ -116,7 +116,7 @@ public class ShoppingListController {
 		model.addAttribute("shopList", shopList);
 		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
 		// TODO 後で消してください
-//		model.addAttribute("shoppingList", model.getAttribute("shoppingList"));
+		model.addAttribute("shoppingList", model.getAttribute("shoppingList"));
 		return "shoppinglist/select3";
 	}
 
@@ -124,7 +124,7 @@ public class ShoppingListController {
 	@PostMapping(value = "/select3/create")
 	public String createList(@ModelAttribute ShoppingListForm shoppingListForm, Model model) {
 		ShoppingList newList = shoppingListService.createShoppingList(shoppingListForm);
-		model.addAttribute("createdList", newList);
-		return "redirect:/shoppinglist/select3";
+		model.addAttribute("shoppingList", newList);
+		return "forward:/shoppinglist/select3";
 	}
 }
