@@ -28,12 +28,12 @@
 						<input type="checkbox" th:text="${item.seasoningName}" th:value="${item.seasoningId}" name="seasonings"/>
 					</th:block>
 				</div>
-				<div class="alwaysBuyItems">
+				<!--div class="alwaysBuyItems">
 					<p>いつも買うものを選択する</p>
 					<th:block th:each="item:${alwaysBuy}">
-						<input type="checkbox" th:text="${item.alwaysBuyName}"/><!-- th:value=$"{item.alwaysBuy}" name="alwaysBuy"/-->
+						<input type="checkbox" th:text="${item.alwaysBuyName}"　th:value=$"{item.alwaysBuy}" name="alwaysBuy"/>
 					</th:block>
-				</div>
+				</div-->
 				<input type="submit" value="送信">
 			</form>
 		</div>
