@@ -41,12 +41,12 @@
 				<button type="submit">完了(買い物リストを見る)</button>
 			</form>
 		</div>
-		<section id="posts"　th:if="${shoppingList} != null">
+		<article id="posts"　th:if="${shoppingLists} != null" th:each="shoppingList: ${shoppingLists}">
 			<ul>
 				<p>買い物リスト一覧</p>
 				<div class="contents">
 					<!--p th:text="${createdList.createdDate}"></p-->
-					<p th:text="${shoppingList.shop.shopName}"></p>
+					<p th:if="${shoppingList.shop} != null" th:text="${shoppingList.shop.shopName}"></p>
 					<th:block th:each="item:${shoppingList.shoppingListIngredients}">
 						<a th:text="${item.ingredient.ingredientName}"></a>
 						<a th:text="${item.ingredient.quantity}"></a>
@@ -55,7 +55,7 @@
 						<a th:text="${item.seasoning.seasoningName}"></a>
 					</th:block>
 			</ul>
-		</section>
+		</article>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
 </body>

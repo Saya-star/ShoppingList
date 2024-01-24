@@ -75,6 +75,8 @@ public class ShoppingListController {
 	public SelectForm setUpSelectForm() {
 		return new SelectForm();
 	}
+	
+	private List<ShoppingList> shoppingLists = new ArrayList<>();
 
 	// 料理を選択する画面の表示
 	@GetMapping(value = "/select1")
@@ -101,8 +103,6 @@ public class ShoppingListController {
 		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());
 		model.addAttribute("shopList", shopList);
 		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
-		// TODO 後で消してください
-//		model.addAttribute("shoppingList", model.getAttribute("shoppingList"));
 		return "shoppinglist/select3";
 	}
 
@@ -115,8 +115,8 @@ public class ShoppingListController {
 		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());
 		model.addAttribute("shopList", shopList);
 		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
-		// TODO 後で消してください
-		model.addAttribute("shoppingList", model.getAttribute("shoppingList"));
+		//先に登録された買い物リストを表示する
+		model.addAttribute("shoppingLists", model.getAttribute("shoppingLists"));
 		return "shoppinglist/select3";
 	}
 
@@ -124,7 +124,8 @@ public class ShoppingListController {
 	@PostMapping(value = "/select3/create")
 	public String createList(@ModelAttribute ShoppingListForm shoppingListForm, Model model) {
 		ShoppingList newList = shoppingListService.createShoppingList(shoppingListForm);
-		model.addAttribute("shoppingList", newList);
+		shoppingLists.add(newList);
+		model.addAttribute("shoppingLists", shoppingLists);
 		return "forward:/shoppinglist/select3";
 	}
 }
