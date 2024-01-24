@@ -146,7 +146,8 @@ public class ShoppingListService {
 			}
 			// 保存
 			shoppingListIngredientRepository.saveAllAndFlush(shoppingListIngredients);
-
+			newList.setShoppingListIngredients(shoppingListIngredients);
+			
 		}
 
 		/*
@@ -168,10 +169,12 @@ public class ShoppingListService {
 			}
 			// 保存
 			shoppingListSeasoningRepository.saveAllAndFlush(shoppingListSeasonings);
+			newList.setShoppingListSeasonings(shoppingListSeasonings);
+			
 		}
 
 		/*
-		 * ShoppingListとShoppingListIngredient/ShoppingListSeasoningの紐付け→やっぱり必要だった
+		 * ShoppingListとShoppingListIngredient/ShoppingListSeasoningの紐付け
 		 */
 //		newList.setShoppingListIngredients(shoppingListIngredients);
 //		newList.setShoppingListSeasonings(shoppingListSeasonings);
