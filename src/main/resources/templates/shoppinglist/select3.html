@@ -1,4 +1,4 @@
-<!-- 買い物リスト作成・料理を表示するページ-->
+<!-- 買い物リスト買うものとお店の組み合わせを選択するページ-->
 <!DOCTYPE html>
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
@@ -38,14 +38,14 @@
 				<button type="submit">買い物リストを作成</button>
 			</form>
 			<form class="move-to-shoppingList" method="get" th:action="@{/shoppinglist/list}">
-				<button type="submit">完了(買い物リストを見る)</button>
+				<button type="submit">完了(買い物リスト一覧画面へ)</button>
 			</form>
 		</div>
+		<p>作成した買い物リスト</p>
 		<article id="posts"　th:if="${shoppingLists} != null" th:each="shoppingList: ${shoppingLists}">
 			<ul>
-				<p>買い物リスト一覧</p>
 				<div class="contents">
-					<!--p th:text="${createdList.createdDate}"></p-->
+					<p th:text="${shoppingList.createdDate}"></p>
 					<p th:if="${shoppingList.shop} != null" th:text="${shoppingList.shop.shopName}"></p>
 					<th:block th:each="item:${shoppingList.shoppingListIngredients}">
 						<a th:text="${item.ingredient.ingredientName}"></a>
