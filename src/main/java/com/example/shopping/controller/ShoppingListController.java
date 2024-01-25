@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.shopping.entity.Dish;
@@ -70,13 +71,22 @@ public class ShoppingListController {
 
 	@Autowired
 	ShoppingListService shoppingListService;
+	
+	//作成した買い物リスト表示用
+	private List<ShoppingList> shoppingLists = new ArrayList<>();
 
+	//セッションに格納するフォームオブジェクトの生成
 	@ModelAttribute(value = "selectForm")
 	public SelectForm setUpSelectForm() {
 		return new SelectForm();
 	}
-	
-	private List<ShoppingList> shoppingLists = new ArrayList<>();
+
+	//セッションに格納されているオブジェクトを削除（操作途中のオブジェクトがセッションに格納されていたときのため）
+	@GetMapping(value = "/initialize")
+	public String initializeSelectForm(SessionStatus sessionStatus) {
+		sessionStatus.setComplete();
+		return "redirect:/shoppinglist/select1";
+	}
 
 	// 料理を選択する画面の表示
 	@GetMapping(value = "/select1")
@@ -105,9 +115,8 @@ public class ShoppingListController {
 		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
 		return "shoppinglist/select3";
 	}
-
-	// TODO 後で修正してください
-	// リダイレクト後・選択した買うものを買い物リストを作成するページに表示
+	
+	// 買い物リスト再作成時・選択した買うものを買い物リストを作成するページに表示
 	@GetMapping(value = "/select3")
 	public String selectItemsEdit(SelectForm selectForm, Model model) {
 		List<Shop> shopList = shopRepository.findAll();
@@ -115,7 +124,7 @@ public class ShoppingListController {
 		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());
 		model.addAttribute("shopList", shopList);
 		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
-		//先に登録された買い物リストを表示する
+		// 先に登録された買い物リストを表示する
 		model.addAttribute("shoppingLists", model.getAttribute("shoppingLists"));
 		return "shoppinglist/select3";
 	}
@@ -127,5 +136,20 @@ public class ShoppingListController {
 		shoppingLists.add(newList);
 		model.addAttribute("shoppingLists", shoppingLists);
 		return "forward:/shoppinglist/select3";
+	}
+	
+	//セッションの破棄（完了ボタンを押下したとき）
+	@GetMapping(value="/complete")
+	public String complete(SessionStatus sessionStatus) {
+		sessionStatus.setComplete();
+		return "redirect:/shoppinglist/list";
+	}
+	
+	//買い物リストの一覧表示
+	@GetMapping(value="/list")
+	public String getShoppingLists(Model model) {
+		List<ShoppingList> shoppingLists = shoppingListRepository.findAll();
+		model.addAttribute("shoppingLists",shoppingLists);
+		return "shoppinglist/list";
 	}
 }
