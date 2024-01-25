@@ -157,4 +157,15 @@ public class ShoppingListService {
 
 		return newList;
 	}
+	
+	//買い物リストの削除
+	public void deleteShoppingList(long shoppingListId) {
+		Optional<ShoppingList> deleteShoppingList = shoppingListRepository.findById(shoppingListId);
+		if (deleteShoppingList.isPresent()) {
+			deleteShoppingList.get().setShoppingListDeleted(true);
+			deleteShoppingList.get().getShoppingListIngredients().forEach(shoppingListIngredient -> shoppingListIngredient.setDeleted(true));
+			deleteShoppingList.get().getShoppingListSeasonings().forEach(shoppingListSeasoning -> shoppingListSeasoning.setDeleted(true));
+		}
+		shoppingListRepository.saveAndFlush(deleteShoppingList.get());
+	}
 }
