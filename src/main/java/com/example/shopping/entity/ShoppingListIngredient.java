@@ -27,18 +27,6 @@ public class ShoppingListIngredient {
 	@JoinColumn(name = "ingredientId")
 	private Ingredient ingredient;
 	
-//	@OneToOne(mappedBy="shoppingListIngredient")//Allかな？
-//	private Ingredient ingredient;
-//	
-//	@Column //Nameかな？
-//	private long ingredientId;
-//	
-//	@Column //必要？
-//	private String ingredientName;
-//	
-//	@Column //必要？
-//	private String quantity;
-	
 	@ManyToOne
 	@JoinColumn(name = "shoppingListId")
 	private ShoppingList shoppingList;
