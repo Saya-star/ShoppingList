@@ -13,16 +13,20 @@
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
 		<p>買い物リスト一覧</p>
-		<div class="contents" >
-			<p th:text="${createdList.createdDate}"></p>
-			<p th:text="${createdList.shop.shopName}"></p>
-			<th:block th:each="item:${createdList.shoppingListIngredients}">
-				<a th:text="${item.ingredient.ingredientName}"></a>
-				<a th:text="${item.ingredient.quantity}"></a>
-			</th:block>
-			<th:block th:each="item:${createdList.shoppingListSeasonings}">
-				<a th:text="${item.seasoning.seasoningName}"></a>
-			</th:block>
+		<article id="posts"　th:if="${shoppingLists} != null" th:each="shoppingList: ${shoppingLists}">
+			<ul>
+				<div class="contents">
+					<p th:text="${shoppingList.createdDate}"></p>
+					<p th:if="${shoppingList.shop} != null" th:text="${shoppingList.shop.shopName}"></p>
+					<th:block th:each="item:${shoppingList.shoppingListIngredients}">
+						<a th:text="${item.ingredient.ingredientName}"></a>
+						<a th:text="${item.ingredient.quantity}"></a>
+					</th:block>
+					<th:block th:each="item:${shoppingList.shoppingListSeasonings}">
+						<a th:text="${item.seasoning.seasoningName}"></a>
+					</th:block>
+			</ul>
+		</article>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
 </body>
