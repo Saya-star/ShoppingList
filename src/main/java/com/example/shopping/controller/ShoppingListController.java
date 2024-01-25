@@ -71,17 +71,17 @@ public class ShoppingListController {
 
 	@Autowired
 	ShoppingListService shoppingListService;
-	
-	//作成した買い物リスト表示用
+
+	// 作成した買い物リスト表示用
 	private List<ShoppingList> shoppingLists = new ArrayList<>();
 
-	//セッションに格納するフォームオブジェクトの生成
+	// セッションに格納するフォームオブジェクトの生成
 	@ModelAttribute(value = "selectForm")
 	public SelectForm setUpSelectForm() {
 		return new SelectForm();
 	}
 
-	//セッションに格納されているオブジェクトを削除（操作途中のオブジェクトがセッションに格納されていたときのため）
+	// セッションに格納されているオブジェクトを削除（操作途中のオブジェクトがセッションに格納されていたときのため）
 	@GetMapping(value = "/initialize")
 	public String initializeSelectForm(SessionStatus sessionStatus) {
 		sessionStatus.setComplete();
@@ -100,7 +100,7 @@ public class ShoppingListController {
 	// 選択された料理の材料・調味料と、いつも買うものリスト、あとで買うものリストの表示
 	@PostMapping(value = "/select2")
 	public String getItems(@RequestParam(value = "dishIds", required = false) Long[] dishIds, Model model) {
-		model.addAttribute("title" , "買い物リストを作る②");
+		model.addAttribute("title", "買い物リストを作る②");
 		shoppingListService.getItems(dishIds, model);
 		return "shoppinglist/select2";
 	}
@@ -116,7 +116,7 @@ public class ShoppingListController {
 		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
 		return "shoppinglist/select3";
 	}
-	
+
 	// 買い物リスト再作成時・選択した買うものを買い物リストを作成するページに表示
 	@GetMapping(value = "/select3")
 	public String selectItemsEdit(SelectForm selectForm, Model model) {
@@ -139,19 +139,19 @@ public class ShoppingListController {
 		model.addAttribute("shoppingLists", shoppingLists);
 		return "forward:/shoppinglist/select3";
 	}
-	
-	//セッションの破棄（完了ボタンを押下したとき）
-	@GetMapping(value="/complete")
+
+	// セッションの破棄（完了ボタンを押下したとき）
+	@GetMapping(value = "/complete")
 	public String complete(SessionStatus sessionStatus) {
 		sessionStatus.setComplete();
 		return "redirect:/shoppinglist/list";
 	}
-	
-	//買い物リストの一覧表示
-	@GetMapping(value="/list")
+
+	// 買い物リストの一覧表示
+	@GetMapping(value = "/list")
 	public String getShoppingLists(Model model) {
 		List<ShoppingList> shoppingLists = shoppingListRepository.findAll();
-		model.addAttribute("shoppingLists",shoppingLists);
+		model.addAttribute("shoppingLists", shoppingLists);
 		return "shoppinglist/list";
 	}
 }
