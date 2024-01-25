@@ -12,7 +12,8 @@
 <body>
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
-		<p>step3</p>
+		<h1 class="title" th:text="${title}"></h1>
+		<p>step3：買うものとお店を選択して買い物リストを作成する</p>
 		<div class="make-shoppinglist">
 			<form method="post" th:action="@{/shoppinglist/select3/create}" th:object="${shoppingList}">
 				<div class="ingredientList">

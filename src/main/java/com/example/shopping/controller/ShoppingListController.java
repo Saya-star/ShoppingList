@@ -100,17 +100,18 @@ public class ShoppingListController {
 	// 選択された料理の材料・調味料と、いつも買うものリスト、あとで買うものリストの表示
 	@PostMapping(value = "/select2")
 	public String getItems(@RequestParam(value = "dishIds", required = false) Long[] dishIds, Model model) {
+		model.addAttribute("title" , "買い物リストを作る②");
 		shoppingListService.getItems(dishIds, model);
 		return "shoppinglist/select2";
 	}
 
 	// 選択した買うものを買い物リストを作成するページに表示
 	@PostMapping(value = "/select3")
-	public String selectItems(@ModelAttribute SelectForm selectForm, Model model,
-			RedirectAttributes redirectAttributes) {
-		List<Shop> shopList = shopRepository.findAll();
+	public String selectItems(@ModelAttribute SelectForm selectForm, Model model) {
+		model.addAttribute("title", "買い物リストを作る③");
 		model.addAttribute("selectedIngredient", selectForm.getIngredients());
 		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());
+		List<Shop> shopList = shopRepository.findAll();
 		model.addAttribute("shopList", shopList);
 		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
 		return "shoppinglist/select3";
@@ -119,9 +120,10 @@ public class ShoppingListController {
 	// 買い物リスト再作成時・選択した買うものを買い物リストを作成するページに表示
 	@GetMapping(value = "/select3")
 	public String selectItemsEdit(SelectForm selectForm, Model model) {
-		List<Shop> shopList = shopRepository.findAll();
+		model.addAttribute("title", "買い物リストを作る③");
 		model.addAttribute("selectedIngredient", selectForm.getIngredients());
 		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());
+		List<Shop> shopList = shopRepository.findAll();
 		model.addAttribute("shopList", shopList);
 		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
 		// 先に登録された買い物リストを表示する

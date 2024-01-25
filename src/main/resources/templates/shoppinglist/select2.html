@@ -12,18 +12,19 @@
 <body>
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
+		<h1 class="title" th:text="${title}"></h1>
 		<p>step2:買うものを選択する</p>
 		<div class="select-items">
 			<form method="post" th:action="@{/shoppinglist/select3}">
 				<div class="ingredientList">
-					<p>選択した料理に必要な材料の中から買うものを選択する</p>
+					<p>選択した料理の材料で買うものを選択する</p>
 					<th:block th:each="item:${ingredientList}">
 						<input type="checkbox" th:text="${item.ingredientName}" th:value="${item.ingredientId}" name="ingredients"/>
 						<a th:text="${item.quantity}"></a>
 					</th:block>
 				</div>
 				<div class="seasoningList">
-					<p>選択した料理に必要な調味料の中から買うものを選択する</p>
+					<p>選択した料理の調味料で買うものを選択する</p>
 					<th:block th:each="item:${seasoningList}">
 						<input type="checkbox" th:text="${item.seasoningName}" th:value="${item.seasoningId}" name="seasonings"/>
 					</th:block>
