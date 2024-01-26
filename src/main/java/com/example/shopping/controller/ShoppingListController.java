@@ -74,8 +74,8 @@ public class ShoppingListController {
 	@Autowired
 	ShoppingListService shoppingListService;
 
-	// 作成した買い物リスト表示用
-	private List<ShoppingList> shoppingLists = new ArrayList<>();
+	// 作成したタイミングで買い物リストを表示する用
+	private List<ShoppingList> shoppingLists;
 
 	// セッションに格納するフォームオブジェクトの生成
 	@ModelAttribute(value = "selectForm")
