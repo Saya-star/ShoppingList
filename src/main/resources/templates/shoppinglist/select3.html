@@ -11,7 +11,7 @@
 
 <body>
 	<header th:replace="~{layouts/common.html :: header}"></header>
-	<main>
+	<input>
 		<h1 class="title" th:text="${title}"></h1>
 		<p>step3：買うものとお店を選択して買い物リストを作成する</p>
 		<div class="make-shoppinglist">
@@ -43,10 +43,9 @@
 			</form>
 		</div>
 		<p>作成した買い物リスト</p>
-		<article id="posts"　th:if="${shoppingLists} != null" th:each="shoppingList: ${shoppingLists}">
+		<article id="posts"　th:if="${shoppingLists} != null" th:each="shoppingList : ${shoppingLists}">
 			<ul>
-				<div class="contents">
-					<p th:text="${shoppingList.createdDate}"></p>
+					<!--p th:text="${shoppingList.createdDate}"></p-->
 					<p th:if="${shoppingList.shop} != null" th:text="${shoppingList.shop.shopName}"></p>
 					<th:block th:each="item:${shoppingList.shoppingListIngredients}">
 						<a th:text="${item.ingredient.ingredientName}"></a>

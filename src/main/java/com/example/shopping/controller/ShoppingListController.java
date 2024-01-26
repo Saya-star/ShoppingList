@@ -3,6 +3,7 @@ package com.example.shopping.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,6 +110,8 @@ public class ShoppingListController {
 	// 選択した買うものを買い物リストを作成するページに表示
 	@PostMapping(value = "/select3")
 	public String selectItems(@ModelAttribute SelectForm selectForm, Model model) {
+		System.out.println("create");
+		shoppingLists = new ArrayList<>();
 		model.addAttribute("title", "買い物リストを作る③");
 		model.addAttribute("selectedIngredient", selectForm.getIngredients());
 		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());
@@ -121,6 +124,7 @@ public class ShoppingListController {
 	// 買い物リスト再作成時・選択した買うものを買い物リストを作成するページに表示
 	@GetMapping(value = "/select3")
 	public String selectItemsEdit(SelectForm selectForm, Model model) {
+		System.out.println("recreate");
 		model.addAttribute("title", "買い物リストを作る③");
 		model.addAttribute("selectedIngredient", selectForm.getIngredients());
 		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());
@@ -128,7 +132,8 @@ public class ShoppingListController {
 		model.addAttribute("shopList", shopList);
 		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
 		// 先に登録された買い物リストを表示する
-		model.addAttribute("shoppingLists", model.getAttribute("shoppingLists"));
+//		model.addAttribute("shoppingLists", model.getAttribute("shoppingLists"));
+		model.addAttribute("shoppingLists", shoppingLists);
 		return "shoppinglist/select3";
 	}
 
@@ -137,8 +142,8 @@ public class ShoppingListController {
 	public String createList(@ModelAttribute ShoppingListForm shoppingListForm, Model model) {
 		ShoppingList newList = shoppingListService.createShoppingList(shoppingListForm);
 		shoppingLists.add(newList);
-		model.addAttribute("shoppingLists", shoppingLists);
-		return "forward:/shoppinglist/select3";
+//		model.addAttribute("shoppingLists", shoppingLists);
+		return "redirect:/shoppinglist/select3";
 	}
 
 	// セッションの破棄（完了ボタンを押下したとき）
