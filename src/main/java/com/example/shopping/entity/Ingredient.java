@@ -34,7 +34,7 @@ public class Ingredient {
 	@Column
 	@Enumerated(EnumType.ORDINAL)
 	private IngredientType ingredientType;
-	
+
 	@Column
 	private String quantity;
 
@@ -43,15 +43,15 @@ public class Ingredient {
 
 	@Column
 	private LocalDate updatedDate;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "dishId")
 	private Dish dish;
-	
+
 	@Column
 	private boolean ingredientDeleted = false;
-	
-	@OneToMany(mappedBy="ingredient" )//Allかな？
+
+	@OneToMany(mappedBy = "ingredient")
 	private List<ShoppingListIngredient> shoppingListIngredient;
-	
+
 }
