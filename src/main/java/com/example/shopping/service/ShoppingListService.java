@@ -17,6 +17,7 @@ import com.example.shopping.entity.Dish;
 import com.example.shopping.entity.Ingredient;
 import com.example.shopping.entity.Seasoning;
 import com.example.shopping.entity.ShoppingList;
+import com.example.shopping.entity.ShoppingListAlwaysBuy;
 import com.example.shopping.entity.ShoppingListIngredient;
 import com.example.shopping.entity.ShoppingListSeasoning;
 import com.example.shopping.form.SelectForm;
@@ -25,6 +26,7 @@ import com.example.shopping.repository.AlwaysBuyRepository;
 import com.example.shopping.repository.DishRepository;
 import com.example.shopping.repository.IngredientRepository;
 import com.example.shopping.repository.SeasoningRepository;
+import com.example.shopping.repository.ShoppingListAlwaysBuyRepository;
 import com.example.shopping.repository.ShoppingListIngredientRepository;
 import com.example.shopping.repository.ShoppingListRepository;
 import com.example.shopping.repository.ShoppingListSeasoningRepository;
@@ -53,6 +55,9 @@ public class ShoppingListService {
 
 	@Autowired
 	ShoppingListSeasoningRepository shoppingListSeasoningRepository;
+	
+	@Autowired
+	ShoppingListAlwaysBuyRepository shoppingListAlwaysBuyRepository;
 	
 	//選択された料理の材料を検索
 	public List<Ingredient> findIngredient(Long[] dishIds){
@@ -139,6 +144,29 @@ public class ShoppingListService {
 			// 保存
 			shoppingListSeasoningRepository.saveAllAndFlush(shoppingListSeasonings);
 			newList.setShoppingListSeasonings(shoppingListSeasonings);
+			
+		}
+		
+		/*
+		 * ShoppingListAlwaysBuyエンティティにデータを保存
+		 */
+
+		// shoppingListFormに入っている調味料のデータの取り出し
+		Optional<List<AlwaysBuy>> selectedAlwaysBuys = Optional.ofNullable(shoppingListForm.getAlwaysBuyList());
+		
+		if (selectedAlwaysBuys.isPresent()) {
+			// ShoppingListAlwaysBuyエンティティにいつも買うものIdを保存するためのArrayListを作成
+			List<ShoppingListAlwaysBuy> shoppingListAlwaysBuys = new ArrayList<>();
+			// 調味料Idをセット
+			for (AlwaysBuy alwaysBuy : selectedAlwaysBuys.get()) {
+				ShoppingListAlwaysBuy shoppingListAlwaysBuy = new ShoppingListAlwaysBuy();
+				shoppingListAlwaysBuy.setAlwaysBuy(alwaysBuy);
+				shoppingListAlwaysBuy.setShoppingList(newList);
+				shoppingListAlwaysBuys.add(shoppingListAlwaysBuy);
+			}
+			// 保存
+			shoppingListAlwaysBuyRepository.saveAllAndFlush(shoppingListAlwaysBuys);
+//			newList.setShoppingListAlwaysBuys(shoppingListAlwaysBuys);
 			
 		}
 

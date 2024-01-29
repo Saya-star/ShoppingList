@@ -39,6 +39,9 @@ public class ShoppingList {
 	@OneToMany(mappedBy="shoppingList",cascade = CascadeType.ALL)
 	private List<ShoppingListSeasoning> shoppingListSeasonings;
 	
+	@OneToMany(mappedBy="shoppingList", cascade = CascadeType.ALL)
+	private List<ShoppingListAlwaysBuy> shoppingListAlwaysBuys;
+	
 	@Column
 	private boolean shoppingListDeleted = false;
 	
