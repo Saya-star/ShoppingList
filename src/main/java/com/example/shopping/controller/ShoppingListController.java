@@ -1,11 +1,7 @@
 package com.example.shopping.controller;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,16 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.example.shopping.entity.AlwaysBuy;
 import com.example.shopping.entity.Dish;
-import com.example.shopping.entity.Ingredient;
-import com.example.shopping.entity.Seasoning;
 import com.example.shopping.entity.Shop;
 import com.example.shopping.entity.ShoppingList;
-import com.example.shopping.entity.ShoppingListIngredient;
-import com.example.shopping.entity.ShoppingListSeasoning;
 import com.example.shopping.form.SelectForm;
 import com.example.shopping.form.ShoppingListForm;
 import com.example.shopping.repository.AlwaysBuyRepository;
@@ -134,10 +123,10 @@ public class ShoppingListController {
 		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());
 		List<Shop> shopList = shopRepository.findAll();
 		model.addAttribute("shopList", shopList);
-		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
 		model.addAttribute("selectedAlwaysBuy", selectForm.getAlwaysBuys());
-		// 先に登録された買い物リストを表示する
-//		model.addAttribute("shoppingLists", model.getAttribute("shoppingLists"));
+		// TODO あとで買うものリストの表示の処理
+		
+		// 登録した買い物リストを表示する
 		model.addAttribute("shoppingLists", shoppingLists);
 		return "shoppinglist/select3";
 	}
@@ -147,7 +136,6 @@ public class ShoppingListController {
 	public String createList(@ModelAttribute ShoppingListForm shoppingListForm, Model model) {
 		ShoppingList newList = shoppingListService.createShoppingList(shoppingListForm);
 		shoppingLists.add(newList);
-//		model.addAttribute("shoppingLists", shoppingLists);
 		return "redirect:/shoppinglist/select3";
 	}
 
