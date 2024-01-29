@@ -3,15 +3,10 @@ package com.example.shopping.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.example.shopping.entity.AlwaysBuy;
 import com.example.shopping.entity.Dish;
 import com.example.shopping.entity.Ingredient;
@@ -20,7 +15,6 @@ import com.example.shopping.entity.ShoppingList;
 import com.example.shopping.entity.ShoppingListAlwaysBuy;
 import com.example.shopping.entity.ShoppingListIngredient;
 import com.example.shopping.entity.ShoppingListSeasoning;
-import com.example.shopping.form.SelectForm;
 import com.example.shopping.form.ShoppingListForm;
 import com.example.shopping.repository.AlwaysBuyRepository;
 import com.example.shopping.repository.DishRepository;
