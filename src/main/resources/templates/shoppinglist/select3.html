@@ -31,6 +31,13 @@
 							name="seasoningList" />
 					</th:block>
 				</div>
+				<div class="alwaysBuyList">
+					<p>・選択した"いつも買うもの"</p>
+					<th:block th:each="item:${selectedAlwaysBuy}">
+						<input type="checkbox" th:text="${item.alwaysBuyName}" th:value="${item.alwaysBuyId}"
+							name="alwaysBuyList" />
+					</th:block>
+				</div>
 				<div class="shopList">
 					<p>・買うお店を選択する</p>
 					<th:block th:each="item:${shopList}">

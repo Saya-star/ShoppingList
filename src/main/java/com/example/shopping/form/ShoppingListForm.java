@@ -3,6 +3,7 @@ package com.example.shopping.form;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.example.shopping.entity.AlwaysBuy;
 import com.example.shopping.entity.Ingredient;
 import com.example.shopping.entity.Seasoning;
 import com.example.shopping.entity.Shop;
@@ -26,4 +27,5 @@ public class ShoppingListForm {
 	private List<Seasoning> seasoningList;
 	
 	//TODO AlwaysBuy/LaterBuyもそれぞれ追加
+	private List<AlwaysBuy> alwaysBuyList;
 }

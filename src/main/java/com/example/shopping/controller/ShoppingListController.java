@@ -91,7 +91,7 @@ public class ShoppingListController {
 		return "redirect:/shoppinglist/select1";
 	}
 
-	// 料理を選択する画面の表示
+	// 【画面１】料理を選択する画面の表示
 	@GetMapping(value = "/select1")
 	public String getPage(Dish dish, Model model) {
 		model.addAttribute("title", "買い物リストを作る①");
@@ -100,35 +100,32 @@ public class ShoppingListController {
 		return "shoppinglist/select1";
 	}
 
-	// 選択された料理の材料・調味料と、いつも買うものリスト、あとで買うものリストの表示
+	// 【画面２】選択された料理の材料・調味料と、いつも買うものリスト、あとで買うものリストの表示
 	@PostMapping(value = "/select2")
 	public String getItems(@RequestParam(value = "dishIds", required = false) Long[] dishIds, Model model) {
 		model.addAttribute("title", "買い物リストを作る②");
-		model.addAttribute("ingredientList", shoppingListService.findIngredient(dishIds));
-		model.addAttribute("seasoningList", shoppingListService.findSeasoning(dishIds));
-		// いつも買うものリストの検索
-//		List<AlwaysBuy> alwaysBuyList = alwaysBuyRepository.findAll();
-//		model.addAttribute("alwaysBuy", alwaysBuyList);
-//		model.addAttribute("alwaysBuy",alwaysBuyRepository.findAll());
-//		shoppingListService.getItems(dishIds, model);
+		model.addAttribute("ingredientList", shoppingListService.findIngredient(dishIds)); //材料の検索
+		model.addAttribute("seasoningList", shoppingListService.findSeasoning(dishIds)); //調味料の検索
+		model.addAttribute("alwaysBuy", alwaysBuyRepository.findAll()); // いつも買うものの検索
 		return "shoppinglist/select2";
 	}
 
-	// 選択した買うものを買い物リストを作成するページに表示
+	// 【画面３】選択した買うものを買い物リストを作成するページに表示
 	@PostMapping(value = "/select3")
 	public String selectItems(@ModelAttribute SelectForm selectForm, Model model) {
 		System.out.println("create");
-		shoppingLists = new ArrayList<>();//同時に作成した買い物リストだけを画面に表示するため、ここで初期化
+		shoppingLists = new ArrayList<>();//同じタイミングで作成した買い物リストだけを画面に表示するため、ここで初期化
 		model.addAttribute("title", "買い物リストを作る③");
 		model.addAttribute("selectedIngredient", selectForm.getIngredients());
 		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());
 		List<Shop> shopList = shopRepository.findAll();
 		model.addAttribute("shopList", shopList);
 		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
+		model.addAttribute("selectedAlwaysBuy", selectForm.getAlwaysBuys());
 		return "shoppinglist/select3";
 	}
 
-	// 買い物リスト再作成時・選択した買うものを買い物リストを作成するページに表示
+	// 【画面３・再】買い物リスト再作成時・選択した買うものを買い物リストを作成するページに表示
 	@GetMapping(value = "/select3")
 	public String selectItemsEdit(SelectForm selectForm, Model model) {
 		System.out.println("recreate");
@@ -138,6 +135,7 @@ public class ShoppingListController {
 		List<Shop> shopList = shopRepository.findAll();
 		model.addAttribute("shopList", shopList);
 		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
+		model.addAttribute("selectedAlwaysBuy", selectForm.getAlwaysBuys());
 		// 先に登録された買い物リストを表示する
 //		model.addAttribute("shoppingLists", model.getAttribute("shoppingLists"));
 		model.addAttribute("shoppingLists", shoppingLists);
