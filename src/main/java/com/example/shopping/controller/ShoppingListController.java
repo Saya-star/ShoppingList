@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.shopping.entity.AlwaysBuy;
 import com.example.shopping.entity.Dish;
 import com.example.shopping.entity.Ingredient;
 import com.example.shopping.entity.Seasoning;
@@ -83,7 +84,7 @@ public class ShoppingListController {
 		return new SelectForm();
 	}
 
-	// セッションに格納されているオブジェクトを削除（操作途中のオブジェクトがセッションに格納されていたときのため）
+	// セッションの初期化（操作途中のオブジェクトがセッションに格納されていたときのため）
 	@GetMapping(value = "/initialize")
 	public String initializeSelectForm(SessionStatus sessionStatus) {
 		sessionStatus.setComplete();
@@ -103,7 +104,13 @@ public class ShoppingListController {
 	@PostMapping(value = "/select2")
 	public String getItems(@RequestParam(value = "dishIds", required = false) Long[] dishIds, Model model) {
 		model.addAttribute("title", "買い物リストを作る②");
-		shoppingListService.getItems(dishIds, model);
+		model.addAttribute("ingredientList", shoppingListService.findIngredient(dishIds));
+		model.addAttribute("seasoningList", shoppingListService.findSeasoning(dishIds));
+		// いつも買うものリストの検索
+//		List<AlwaysBuy> alwaysBuyList = alwaysBuyRepository.findAll();
+//		model.addAttribute("alwaysBuy", alwaysBuyList);
+//		model.addAttribute("alwaysBuy",alwaysBuyRepository.findAll());
+//		shoppingListService.getItems(dishIds, model);
 		return "shoppinglist/select2";
 	}
 
@@ -111,7 +118,7 @@ public class ShoppingListController {
 	@PostMapping(value = "/select3")
 	public String selectItems(@ModelAttribute SelectForm selectForm, Model model) {
 		System.out.println("create");
-		shoppingLists = new ArrayList<>();
+		shoppingLists = new ArrayList<>();//同時に作成した買い物リストだけを画面に表示するため、ここで初期化
 		model.addAttribute("title", "買い物リストを作る③");
 		model.addAttribute("selectedIngredient", selectForm.getIngredients());
 		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());

@@ -53,14 +53,10 @@ public class ShoppingListService {
 
 	@Autowired
 	ShoppingListSeasoningRepository shoppingListSeasoningRepository;
-
-	// 選択された料理の材料・調味料と、いつも買うものリスト、あとで買うものリストの表示
-	public void getItems(@RequestParam(value = "dishIds", required = false) Long[] dishIds, Model model) {
-
+	
+	//選択された料理の材料を検索
+	public List<Ingredient> findIngredient(Long[] dishIds){
 		List<Ingredient> ingredientList = new ArrayList<>();
-		List<Seasoning> seasoningList = new ArrayList<>();
-
-		// 選択された料理から材料と調味料を検索
 		for (int i = 0; i < dishIds.length; i++) {
 			// dishIdで選択された料理を検索
 			Optional<Dish> selectedDish = dishRepository.findById(dishIds[i]);
@@ -68,26 +64,24 @@ public class ShoppingListService {
 			// 選択された料理に必要な材料を検索し、ingredientListに追加
 			List<Ingredient> selectedDishIngredient = selectedDish.get().getIngredient();
 			ingredientList.addAll(selectedDishIngredient);
-
+		}
+		return ingredientList;
+	}
+	
+	//選択された料理の調味料を検索
+	public List<Seasoning> findSeasoning(Long[] dishIds){
+		List<Seasoning> seasoningList = new ArrayList<>();
+		for (int i = 0; i < dishIds.length; i++) {
+			// dishIdで選択された料理を検索
+			Optional<Dish> selectedDish = dishRepository.findById(dishIds[i]);
 			// 選択された料理に必要な調味料を検索し、seasoningListに追加
 			List<Seasoning> selectedDishSeasoning = selectedDish.get().getSeasoning();
 			seasoningList.addAll(selectedDishSeasoning);
 		}
-
-		// TODO 以下の処理はControllerクラスで実装する
-		model.addAttribute("ingredientList", ingredientList);
-		model.addAttribute("seasoningList", seasoningList);
-
-		// いつも買うものリストをalwaysBuyListに追加
-		List<AlwaysBuy> alwaysBuyList = alwaysBuyRepository.findAll();
-
-		// TODO 以下の処理はControllerクラスで実装する
-		model.addAttribute("alwaysBuy", alwaysBuyList);
-
-		// TODO あとで買うものをリストに詰める //あとで買うものリストを作ってから着手
-
+		return seasoningList;
 	}
 
+	//買い物リストの作成
 	public ShoppingList createShoppingList(ShoppingListForm shoppingListForm) {
 
 		/*
