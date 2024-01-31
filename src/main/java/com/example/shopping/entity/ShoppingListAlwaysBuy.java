@@ -32,8 +32,20 @@ public class ShoppingListAlwaysBuy {
 	private boolean deleted = false;
 	
 	@Override
+	public boolean equals(Object object) {
+		if (this == object) {
+			return true;
+		}
+		if (object == null || getClass() != object.getClass()) {
+			return false;
+		}
+		// 主キーが等しいかどうかを確認
+		return Objects.equals(this.shoppingListAlwaysBuyId, ((ShoppingListAlwaysBuy) object).shoppingListAlwaysBuyId);
+	}
+	
+	@Override
 	public int hashCode() {
-	    return Objects.hash(shoppingListAlwaysBuyId);
+		return Objects.hash(shoppingListAlwaysBuyId);
 	}
 
 }
