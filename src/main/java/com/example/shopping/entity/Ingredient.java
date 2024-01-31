@@ -51,7 +51,7 @@ public class Ingredient {
 	@Column
 	private boolean ingredientDeleted = false;
 
-	@OneToMany(mappedBy = "ingredient")
-	private List<ShoppingListIngredient> shoppingListIngredient;
+//	@OneToMany(mappedBy = "ingredient")
+//	private List<ShoppingListIngredient> shoppingListIngredient;
 
 }

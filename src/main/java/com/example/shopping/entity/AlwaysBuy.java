@@ -33,7 +33,7 @@ public class AlwaysBuy {
 	@Column
 	private boolean deleted = false;
 	
-	@OneToMany(mappedBy = "alwaysBuy")
-	private List<ShoppingListAlwaysBuy> shoppingListAlwaysBuy;
+//	@OneToMany(mappedBy = "alwaysBuy")
+//	private List<ShoppingListAlwaysBuy> shoppingListAlwaysBuy;
 	
 }

@@ -38,7 +38,7 @@ public class Seasoning {
 	@Column
 	private boolean seasoningDeleted = false;
 	
-	@OneToMany(mappedBy="seasoning")
-	private List<ShoppingListSeasoning> shoppingListSeasonings;
+//	@OneToMany(mappedBy="seasoning")
+//	private List<ShoppingListSeasoning> shoppingListSeasonings;
 
 }
