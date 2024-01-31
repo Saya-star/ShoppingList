@@ -99,11 +99,12 @@ public class ShoppingListService {
 		/*
 		 * ShoppingListIngredientエンティティにデータを保存
 		 */
+		
 		// shoppingListFormに入っている材料のデータの取り出し
 		Optional<List<Ingredient>> selectedIngredients = Optional.ofNullable(shoppingListForm.getIngredientList());
 		
 		if (selectedIngredients.isPresent()) {
-			// ShoppingListIngredientエンティティに材料Idを保存するためのArrayListを作成
+			// 材料Idを保存するためのArrayList
 			List<ShoppingListIngredient> shoppingListIngredients = new ArrayList<>();
 			// 材料Idをセット
 			for (Ingredient ingredient : selectedIngredients.get()) {
@@ -126,7 +127,7 @@ public class ShoppingListService {
 		Optional<List<Seasoning>> selectedSeasonings = Optional.ofNullable(shoppingListForm.getSeasoningList());
 		
 		if (selectedSeasonings.isPresent()) {
-			// ShoppingListSeasoningエンティティに調味料Idを保存するためのArrayListを作成
+			// 調味料Idを保存するためのArrayList
 			List<ShoppingListSeasoning> shoppingListSeasonings = new ArrayList<>();
 			// 調味料Idをセット
 			for (Seasoning seasoning : selectedSeasonings.get()) {
@@ -149,9 +150,9 @@ public class ShoppingListService {
 		Optional<List<AlwaysBuy>> selectedAlwaysBuys = Optional.ofNullable(shoppingListForm.getAlwaysBuyList());
 		
 		if (selectedAlwaysBuys.isPresent()) {
-			// ShoppingListAlwaysBuyエンティティにいつも買うものIdを保存するためのArrayListを作成
+			// いつも買うものIdを保存するためのArrayList
 			List<ShoppingListAlwaysBuy> shoppingListAlwaysBuys = new ArrayList<>();
-			// 調味料Idをセット
+			// いつも買うものIdをセット
 			for (AlwaysBuy alwaysBuy : selectedAlwaysBuys.get()) {
 				ShoppingListAlwaysBuy shoppingListAlwaysBuy = new ShoppingListAlwaysBuy();
 				shoppingListAlwaysBuy.setAlwaysBuy(alwaysBuy);
@@ -160,17 +161,9 @@ public class ShoppingListService {
 			}
 			// 保存
 			shoppingListAlwaysBuyRepository.saveAllAndFlush(shoppingListAlwaysBuys);
-//			newList.setShoppingListAlwaysBuys(shoppingListAlwaysBuys);
+			newList.setShoppingListAlwaysBuys(shoppingListAlwaysBuys);
 			
 		}
-
-		/*
-		 * ShoppingListとShoppingListIngredient/ShoppingListSeasoningの紐付け
-		 */
-//		newList.setShoppingListIngredients(shoppingListIngredients);
-//		newList.setShoppingListSeasonings(shoppingListSeasonings);
-//		shoppingListRepository.saveAndFlush(newList);
-
 		return newList;
 	}
 	
