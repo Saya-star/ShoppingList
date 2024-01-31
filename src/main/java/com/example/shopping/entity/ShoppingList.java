@@ -33,13 +33,13 @@ public class ShoppingList {
 	@Column
 	private LocalDate createdDate;
 	
-	@OneToMany(mappedBy="shoppingList",cascade = CascadeType.ALL ) //CascadeType.ALLでいいのか？
+	@OneToMany(mappedBy="shoppingList")
 	private List<ShoppingListIngredient> shoppingListIngredients;
 	
-	@OneToMany(mappedBy="shoppingList",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="shoppingList")
 	private List<ShoppingListSeasoning> shoppingListSeasonings;
 	
-	@OneToMany(mappedBy="shoppingList", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="shoppingList")
 	private List<ShoppingListAlwaysBuy> shoppingListAlwaysBuys;
 	
 	@Column
