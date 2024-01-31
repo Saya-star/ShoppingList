@@ -12,60 +12,60 @@
 <body>
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<input>
-		<h1 class="title" th:text="${title}"></h1>
-		<p>step3：買うものとお店を選択して買い物リストを作成する</p>
-		<div class="make-shoppinglist">
-			<form method="post" th:action="@{/shoppinglist/select3/create}" th:object="${shoppingList}">
-				<div class="ingredientList">
-					<p>・選択した材料</p>
-					<th:block th:each="item:${selectedIngredient}">
-						<input type="checkbox" th:text="${item.ingredientName}" th:value="${item.ingredientId}"
-							name="ingredientList" />
-						<a th:text="${item.quantity}"></a>
-					</th:block>
-				</div>
-				<div class="seasoningList">
-					<p>・選択した調味料</p>
-					<th:block th:each="item:${selectedSeasoning}">
-						<input type="checkbox" th:text="${item.seasoningName}" th:value="${item.seasoningId}"
-							name="seasoningList" />
-					</th:block>
-				</div>
-				<div class="alwaysBuyList">
-					<p>・選択した"いつも買うもの"</p>
-					<th:block th:each="item:${selectedAlwaysBuy}">
-						<input type="checkbox" th:text="${item.alwaysBuyName}" th:value="${item.alwaysBuyId}"
-							name="alwaysBuyList" />
-					</th:block>
-				</div>
-				<div class="shopList">
-					<p>・買うお店を選択する</p>
-					<th:block th:each="item:${shopList}">
-						<input type="radio" th:text="${item.shopName}" th:value="${item.shopId}" name="shop" />
-				</div>
-				<button type="submit">買い物リストを作成</button>
-			</form>
-			<form class="move-to-shoppingList" method="get" th:action="@{/shoppinglist/complete}">
-				<button type="submit">完了(買い物リスト一覧画面へ)</button>
-			</form>
-		</div>
-		<p>作成した買い物リスト</p>
-		<article id="posts"　th:if="${shoppingLists} != null" th:each="shoppingList : ${shoppingLists}">
-			<ul>
-					<!--p th:text="${shoppingList.createdDate}"></p-->
-					<p th:if="${shoppingList.shop} != null" th:text="${shoppingList.shop.shopName}"></p>
-					<th:block th:each="item:${shoppingList.shoppingListIngredients}">
-						<a th:text="${item.ingredient.ingredientName}"></a>
-						<a th:text="${item.ingredient.quantity}"></a>
-					</th:block>
-					<th:block th:each="item:${shoppingList.shoppingListSeasonings}">
-						<a th:text="${item.seasoning.seasoningName}"></a>
-					</th:block>
-					<th:block th:each="item:${shoppingList.shoppingListAlwaysBuys}">
-						<a th:text="${item.alwaysBuy.alwaysBuyName}"></a>
-					</th:block>
-			</ul>
-		</article>
+	<h1 class="title" th:text="${title}"></h1>
+	<p>step3：買うものとお店を選択して買い物リストを作成する</p>
+	<div class="make-shoppinglist">
+		<form method="post" th:action="@{/shoppinglist/select3/create}" th:object="${shoppingList}">
+			<div class="ingredientList">
+				<p>・選択した材料</p>
+				<th:block th:each="item:${selectedIngredient}">
+					<input type="checkbox" th:text="${item.ingredientName}" th:value="${item.ingredientId}"
+						name="ingredientList" />
+					<a th:text="${item.quantity}"></a>
+				</th:block>
+			</div>
+			<div class="seasoningList">
+				<p>・選択した調味料</p>
+				<th:block th:each="item:${selectedSeasoning}">
+					<input type="checkbox" th:text="${item.seasoningName}" th:value="${item.seasoningId}"
+						name="seasoningList" />
+				</th:block>
+			</div>
+			<div class="alwaysBuyList">
+				<p>・選択した"いつも買うもの"</p>
+				<th:block th:each="item:${selectedAlwaysBuy}">
+					<input type="checkbox" th:text="${item.alwaysBuyName}" th:value="${item.alwaysBuyId}"
+						name="alwaysBuyList" />
+				</th:block>
+			</div>
+			<div class="shopList">
+				<p>・買うお店を選択する</p>
+				<th:block th:each="item:${shopList}">
+					<input type="radio" th:text="${item.shopName}" th:value="${item.shopId}" name="shop" />
+			</div>
+			<button type="submit">買い物リストを作成</button>
+		</form>
+		<form class="move-to-shoppingList" method="get" th:action="@{/shoppinglist/complete}">
+			<button type="submit">完了(買い物リスト一覧画面へ)</button>
+		</form>
+	</div>
+	<p>作成した買い物リスト</p>
+	<article id="posts" 　th:if="${shoppingLists} != null" th:each="shoppingList : ${shoppingLists}">
+		<ul>
+			<!--p th:text="${shoppingList.createdDate}"></p-->
+			<p th:if="${shoppingList.shop} != null" th:text="${shoppingList.shop.shopName}"></p>
+			<th:block th:each="item:${shoppingList.shoppingListIngredients}">
+				<a th:text="${item.ingredient.ingredientName}"></a>
+				<a th:text="${item.ingredient.quantity}"></a>
+			</th:block>
+			<th:block th:each="item:${shoppingList.shoppingListSeasonings}">
+				<a th:text="${item.seasoning.seasoningName}"></a>
+			</th:block>
+			<th:block th:each="item:${shoppingList.shoppingListAlwaysBuys}">
+				<a th:text="${item.alwaysBuy.alwaysBuyName}"></a>
+			</th:block>
+		</ul>
+	</article>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
 </body>
