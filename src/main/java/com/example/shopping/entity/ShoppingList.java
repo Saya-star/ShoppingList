@@ -2,6 +2,7 @@ package com.example.shopping.entity;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -22,27 +23,32 @@ public class ShoppingList {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private long shoppingListId;
-	
+
 	@Column
 	private long appUserId;
-	
+
 	@OneToOne
 	@JoinColumn(name = "shopId")
 	private Shop shop;
-	
+
 	@Column
 	private LocalDate createdDate;
-	
-	@OneToMany(mappedBy="shoppingList")
+
+	@OneToMany(mappedBy = "shoppingList")
 	private List<ShoppingListIngredient> shoppingListIngredients;
-	
-	@OneToMany(mappedBy="shoppingList")
+
+	@OneToMany(mappedBy = "shoppingList")
 	private List<ShoppingListSeasoning> shoppingListSeasonings;
-	
-	@OneToMany(mappedBy="shoppingList")
+
+	@OneToMany(mappedBy = "shoppingList")
 	private List<ShoppingListAlwaysBuy> shoppingListAlwaysBuys;
-	
+
 	@Column
 	private boolean shoppingListDeleted = false;
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(shoppingListId);
+	}
+
 }

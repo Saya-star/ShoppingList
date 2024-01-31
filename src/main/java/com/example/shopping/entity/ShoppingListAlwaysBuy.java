@@ -1,5 +1,7 @@
 package com.example.shopping.entity;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,4 +30,10 @@ public class ShoppingListAlwaysBuy {
 	
 	@Column
 	private boolean deleted = false;
+	
+	@Override
+	public int hashCode() {
+	    return Objects.hash(shoppingListAlwaysBuyId);
+	}
+
 }
