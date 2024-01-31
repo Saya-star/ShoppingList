@@ -32,6 +32,6 @@ public class Shop {
 	@Column
 	private boolean deleted = false;
 	
-	@OneToOne(mappedBy = "shop")
-	private ShoppingList shoppingList;
+//	@OneToOne(mappedBy = "shop")
+//	private ShoppingList shoppingList;
 }
