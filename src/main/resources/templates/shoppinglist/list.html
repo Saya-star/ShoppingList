@@ -13,7 +13,8 @@
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
 		<p>買い物リスト一覧</p>
-		<article id="posts" 　th:if="${shoppingLists} != null" th:each="shoppingList: ${shoppingLists}" th:unless="${shoppingList.shoppingListDeleted}">
+		<article id="posts" 　th:if="${shoppingLists} != null" th:each="shoppingList: ${shoppingLists}"
+			th:unless="${shoppingList.shoppingListDeleted}">
 			<ul>
 				<div class="contents">
 					<p th:text="${shoppingList.createdDate}"></p>
@@ -24,6 +25,9 @@
 					</th:block>
 					<th:block th:each="item:${shoppingList.shoppingListSeasonings}">
 						<a th:text="${item.seasoning.seasoningName}"></a>
+					</th:block>
+					<th:block th:each="item:${shoppingList.shoppingListAlwaysBuys}">
+						<a th:text="${item.alwaysBuy.alwaysBuyName}"></a>
 					</th:block>
 			</ul>
 			<form class="remove-shoppingList" method="post"
