@@ -174,6 +174,8 @@ public class ShoppingListService {
 			deleteShoppingList.get().setShoppingListDeleted(true);
 			deleteShoppingList.get().getShoppingListIngredients().forEach(shoppingListIngredient -> shoppingListIngredient.setDeleted(true));
 			deleteShoppingList.get().getShoppingListSeasonings().forEach(shoppingListSeasoning -> shoppingListSeasoning.setDeleted(true));
+			deleteShoppingList.get().getShoppingListAlwaysBuys().forEach(shoppingListAlwaysBuys -> shoppingListAlwaysBuys.setDeleted(true));
+			
 		}
 		shoppingListRepository.saveAndFlush(deleteShoppingList.get());
 	}
