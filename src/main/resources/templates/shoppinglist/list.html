@@ -1,0 +1,42 @@
+<!-- 作成した買い物リストを表示するページ-->
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<header th:replace="~{layouts/common.html :: header}"></header>
+	<main>
+		<p>買い物リスト一覧</p>
+		<article id="posts" 　th:if="${shoppingLists} != null" th:each="shoppingList: ${shoppingLists}"
+			th:unless="${shoppingList.shoppingListDeleted}">
+			<ul>
+				<div class="contents">
+					<p th:text="${shoppingList.createdDate}"></p>
+					<p th:if="${shoppingList.shop} != null" th:text="${shoppingList.shop.shopName}"></p>
+					<th:block th:each="item:${shoppingList.shoppingListIngredients}">
+						<a th:text="${item.ingredient.ingredientName}"></a>
+						<a th:text="${item.ingredient.quantity}"></a>
+					</th:block>
+					<th:block th:each="item:${shoppingList.shoppingListSeasonings}">
+						<a th:text="${item.seasoning.seasoningName}"></a>
+					</th:block>
+					<th:block th:each="item:${shoppingList.shoppingListAlwaysBuys}">
+						<a th:text="${item.alwaysBuy.alwaysBuyName}"></a>
+					</th:block>
+			</ul>
+			<form class="remove-shoppingList" method="post"
+				th:action="@{/shoppinglist/delete/__${#strings.toString(shoppingList.shoppingListId)}__}">
+				<input type="submit" value="削除">
+			</form>
+		</article>
+	</main>
+	<footer th:replace="~{layouts/common.html :: footer}"></footer>
+</body>
+
+</html>

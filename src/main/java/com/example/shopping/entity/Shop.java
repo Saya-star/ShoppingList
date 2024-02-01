@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Entity
@@ -30,4 +31,7 @@ public class Shop {
 	
 	@Column
 	private boolean deleted = false;
+	
+//	@OneToOne(mappedBy = "shop")
+//	private ShoppingList shoppingList;
 }

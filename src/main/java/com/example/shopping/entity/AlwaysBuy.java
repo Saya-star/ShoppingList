@@ -1,12 +1,14 @@
 package com.example.shopping.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -30,5 +32,8 @@ public class AlwaysBuy {
 	
 	@Column
 	private boolean deleted = false;
+	
+//	@OneToMany(mappedBy = "alwaysBuy")
+//	private List<ShoppingListAlwaysBuy> shoppingListAlwaysBuy;
 	
 }

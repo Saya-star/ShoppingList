@@ -10,4 +10,7 @@ INSERT INTO ingredient (ingredient_id, ingredient_name, ingredient_type, quantit
 INSERT INTO ingredient (ingredient_id, ingredient_name, ingredient_type, quantity, created_date, updated_date, dish_id, ingredient_deleted) values (10007, '米', 7, '2合', LOCALTIME(), LOCALTIME(), 10002, FALSE);
 INSERT INTO seasoning (seasoning_id, seasoning_name, created_date, updated_date, dish_id, seasoning_deleted) values (10002, 'ケチャップ', LOCALTIME(), LOCALTIME(), 10002, FALSE);
 INSERT INTO seasoning (seasoning_id, seasoning_name, created_date, updated_date, dish_id, seasoning_deleted) values (10003, 'しょうゆ', LOCALTIME(), LOCALTIME(), 10002, FALSE);
-
+INSERT INTO shop (shop_id, app_user_id, shop_name, created_date, deleted) values (10001, 1, 'イトーヨーカドー', LOCALTIME(), FALSE);
+INSERT INTO shop (shop_id, app_user_id, shop_name, created_date, deleted) values (10002, 1, 'イオン', LOCALTIME(), FALSE);
+INSERT INTO always_buy(always_buy_id, app_user_id, always_buy_name, created_date, deleted) values (10001, 1, '食パン', LOCALTIME(), FALSE);
+INSERT INTO always_buy(always_buy_id, app_user_id, always_buy_name, created_date, deleted) values (10002, 1, '牛乳', LOCALTIME(), FALSE);

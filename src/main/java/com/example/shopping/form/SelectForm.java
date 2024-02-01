@@ -1,22 +1,19 @@
 package com.example.shopping.form;
 
+import java.util.List;
+
+import com.example.shopping.entity.AlwaysBuy;
+import com.example.shopping.entity.Ingredient;
+import com.example.shopping.entity.Seasoning;
+
+import lombok.Data;
+
+@Data
 public class SelectForm {
 
-	private String dishName;
-	private String dishNames[];
+	private List<Ingredient> ingredients;//Longから変更
 	
-	public String getDishName() {
-		return dishName;
-	}
-	public void setDishName(String dishName) {
-		this.dishName = dishName;
-	}
-	public String[] getDishNames() {
-		return dishNames;
-	}
-	public void setDishNames(String[] dishNames) {
-		this.dishNames = dishNames;
-	}
+	private List<Seasoning> seasonings;//Longから変更
 	
-	
+	private List<AlwaysBuy> alwaysBuys;//Longから変更
 }

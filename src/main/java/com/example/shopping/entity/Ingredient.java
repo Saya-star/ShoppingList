@@ -1,9 +1,11 @@
 package com.example.shopping.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.example.shopping.enums.IngredientType;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,6 +15,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Entity
@@ -30,7 +34,7 @@ public class Ingredient {
 	@Column
 	@Enumerated(EnumType.ORDINAL)
 	private IngredientType ingredientType;
-	
+
 	@Column
 	private String quantity;
 
@@ -39,11 +43,15 @@ public class Ingredient {
 
 	@Column
 	private LocalDate updatedDate;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "dishId")
 	private Dish dish;
-	
+
 	@Column
 	private boolean ingredientDeleted = false;
+
+//	@OneToMany(mappedBy = "ingredient")
+//	private List<ShoppingListIngredient> shoppingListIngredient;
+
 }

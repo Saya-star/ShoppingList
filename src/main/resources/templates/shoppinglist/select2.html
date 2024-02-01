@@ -1,4 +1,4 @@
-<!-- 買い物リスト作成・選択した料理の材料を表示するページ-->
+<!-- 買い物リスト作成ページ②：選択した料理に必要なものと保存した買うものリストから買うものを選択するページ-->
 <!DOCTYPE html>
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
@@ -12,34 +12,31 @@
 <body>
 	<header th:replace="~{layouts/common.html :: header}"></header>
 	<main>
-		<!--h1 class="title" th:text="${title}"></h1-->
+		<h1 class="title" th:text="${title}"></h1>
 		<p>step2:買うものを選択する</p>
-		<!--div class="container">
-			<form method="post">
-				<div class="select-ingredients-and-seasonings">
-					<div th:each="item:${ingredientData}">
-						<input type="checkbox" name="ingredientName" th:text="${item.ingredientName}">
-					</div>
-					<div th:each="item:${seasoningData}">
-						<input type="checkbox" name="seasoningName" th:text="${item.seasoningName}">
-					</div>
+		<div class="select-items">
+			<form method="post" th:action="@{/shoppinglist/select3}">
+				<div class="ingredientList">
+					<p>選択した料理の材料で買うものを選択する</p>
+					<th:block th:each="item:${ingredientList}">
+						<input type="checkbox" th:text="${item.ingredientName}" th:value="${item.ingredientId}" name="ingredients"/>
+						<a th:text="${item.quantity}"></a>
+					</th:block>
 				</div>
-				<div>
-					<input type="submit" value="送信">
+				<div class="seasoningList">
+					<p>選択した料理の調味料で買うものを選択する</p>
+					<th:block th:each="item:${seasoningList}">
+						<input type="checkbox" th:text="${item.seasoningName}" th:value="${item.seasoningId}" name="seasonings"/>
+					</th:block>
 				</div>
+				<div class="alwaysBuyItems">
+					<p>いつも買うものを選択する</p>
+					<th:block th:each="item:${alwaysBuy}">
+						<input type="checkbox" th:text="${item.alwaysBuyName}" th:value="${item.alwaysBuyId}" name="alwaysBuys"/>
+					</th:block>
+				</div>
+				<input type="submit" value="送信">
 			</form>
-		</div-->
-		<div class="ingredientList">
-			<p>選択した料理に必要な材料の中から買うものを選択する</p>
-			<th:block th:each="item:${ingredientList}">
-				<p th:text="${item.ingredientName}"></p>				
-			</th:block>
-		</div>
-		<div class="alwaysBuyItems">
-			<p>いつも買うものを選択する</p>
-			<th:block th:each="item:${alwaysBuy}">
-				<p th:text="${item.alwaysBuyName}"></p>				
-			</th:block>
 		</div>
 	</main>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
