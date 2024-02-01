@@ -17,7 +17,7 @@ public class HomeController {
 	
 	//あとで別のコントローラーへ移動するかも
 	//最初に表示されるページ
-	@GetMapping(value = "/")
+	@GetMapping(value = "/index")
 	public String index() {
 		return "index";
 	}
