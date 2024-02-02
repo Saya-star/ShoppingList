@@ -10,38 +10,46 @@
 </head>
 
 <body>
+	<div th:if="${hasMessage}" class="alert alert-dismissible fade show" th:classappend="${class}" role='alert'>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		<span th:text="${message}"></span>
+	</div>
 	<header th:replace="layouts/common.html :: header"></header>
 	<main>
 		<h1>Sign in</h1>
-		<form method="post"> <!--th:action="@{/user}" th:object="${form}"-->
+		<form method="post" th:action="@{/user}" th:object="${form}">
+			<div layout:replace="~{layouts/common::messages"></div>
 			<div class="register-name">
 				<label>Name</label>
-				<input type="text" class="form-control"/> <!--th:field="*{name}" /-->
-				<!--p th:if="${#fields.hasErrors('name')}" class="error-message" th:errors="*{name}">
-				</p-->
+				<input type="text" class="form-control" th:field="*{name}" />
+				<p th:if="${#fields.hasErrors('name')}" class="error-message" th:errors="*{name}"></p>
 			</div>
 			<div class="register-Email">
 				<label>Email</label>
-				<input type="text" class="form-control"/> <!--th:field="*{email}" /-->
-				<!--p th:if="${#fields.hasErrors('email')}" class="error-message" th:errors="*{email}">
-				</p-->
+				<input type="text" class="form-control" th:field="*{email}" />
+				<p th:if="${#fields.hasErrors('email')}" class="error-message" th:errors="*{email}"></p>
 			</div>
 			<div class="register-password">
 				<label>Password</label>
-				<input class="form-control"/><!-- type="password" th:field="*{password}" /-->
-				<!--p th:if="${#fields.hasErrors('password')}" class="error-message" th:errors="*{password}">
-				</p-->
+				<input class="form-control" type="password" th:field="*{password}" />
+				<p th:if="${#fields.hasErrors('password')}" class="error-message" th:errors="*{password}"></p>
 			</div>
 			<div class="password-confirmation">
 				<label>Password confirmation</label>
-				<input type="password" /><!--class="form-control" th:field="*{passwordConfirmation}" /-->
-				<!--p th:if="${#fields.hasErrors('passwordConfirmation')}" class="error-message"
-					th:errors="*{passwordConfirmation}"></p-->
+				<input type="password" class="form-control" th:field="*{passwordConfirmation}" />
+				<p th:if="${#fields.hasErrors('passwordConfirmation')}" class="error-message"
+					th:errors="*{passwordConfirmation}"></p>
 			</div>
 			<input type="submit" value="登録" />
 		</form>
 	</main>
 	<footer th:replace="layouts/common.html :: footer"></footer>
+	<script>
+		$(function () {
+			$(".alert").fadeOut(3000);
+		});
+	</script>
+
 </body>
 
 </html>
