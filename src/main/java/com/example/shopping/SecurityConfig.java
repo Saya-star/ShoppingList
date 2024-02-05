@@ -47,7 +47,7 @@ public class SecurityConfig {
 		.permitAll().anyRequest().authenticated())//antMatchersで指定したパス以外認証する
 		.formLogin(login -> login.loginProcessingUrl("/login")//ログイン情報の送信先
 		.loginPage("/login") //ログイン画面
-		.defaultSuccessUrl("/topics") //ログイン成功時の遷移先
+		.defaultSuccessUrl("/home") //ログイン成功時の遷移先
 		.failureUrl("/login-failure") //ログイン失敗時の遷移先
 		.permitAll()) //未ログインでもアクセス可能
 		.logout(logout -> logout.logoutSuccessUrl("/logout-complete") //ログアウト成功時の遷移先

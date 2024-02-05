@@ -19,7 +19,7 @@ import com.example.shopping.form.UserForm;
 import com.example.shopping.repository.UserRepository;
 
 @Controller
-@RequestMapping(value = "/users")
+//@RequestMapping(value = "/users")
 public class UsersController {
 
 	@Autowired
@@ -29,7 +29,7 @@ public class UsersController {
 	private UserRepository userRepository;
 
 	// ユーザー登録画面へ
-	@GetMapping(value = "/new")
+	@GetMapping(value = "users/new")
 	public String newUser(Model model) {
 		model.addAttribute("form", new UserForm());
 		return "users/new";
@@ -40,6 +40,7 @@ public class UsersController {
 	public String createUser(@Validated @ModelAttribute("form") UserForm userForm, BindingResult bindingResult,
 			Model model, RedirectAttributes ridirectAttributes) {
 
+		System.out.println("newUser");
 		String name = userForm.getName();
 		String email = userForm.getEmail();
 		String password = userForm.getPassword();
@@ -47,6 +48,7 @@ public class UsersController {
 		// Emailアドレスのチェック
 		if (userRepository.findByUsername(email) != null) {
 			FieldError fieldError = new FieldError(bindingResult.getObjectName(), "email", "そのメールアドレスはすでに使用されています。");
+			bindingResult.addError(fieldError);
 		}
 
 		// バリデーションエラーが発生したときは登録画面を返す
@@ -61,7 +63,7 @@ public class UsersController {
 		model.addAttribute("hasMessage", true);
 		model.addAttribute("class", "alert-info");
 		model.addAttribute("message", "ユーザー登録が完了しました。");
-		return "users/login";
+		return "sessions/new";
 	}
 
 }
