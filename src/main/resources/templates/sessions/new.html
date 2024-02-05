@@ -1,0 +1,51 @@
+<!-- ログインページ -->
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<header th:replace="layouts/common.html :: header"></header>
+	<div class="users-new-wrapper" layout:fragment="contents">
+		<div class="container">
+			<div class="row p-form-top d-none d-lg-block d-xl-block d-xxl-block"></div>
+			<div class="row">
+				<main class="col-md-4 mx-auto">
+					<h1 class="text-center text-white">Log in</h1>
+					<form method="post" th:action="@{/login}">
+						<div class="mb-3">
+							<label class="form-label text-white" for="session_email">Email</label>
+							<input class="form-control" type="text" name="username" id="session_email" />
+						</div>
+						<div class="mb-3">
+							<label class="form-label text-white" for="session_password">Password</label>
+							<input class="form-control" type="password" name="password" id="session_password" />
+						</div>
+						<input type="submit" value="ログイン" class="btn w-100 btn-outline-light" />
+					</form>
+					<p>新規登録はこちらから</p>
+					<form class="new-user" method="get" th:action="@{/users/new}">
+						<input type="submit" value="新規登録する"/>
+					</form>
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="layouts/common.html :: footer"></footer>
+</body>
+
+<script>
+	$(function () {
+		$(".alert").fadeOut(3000);
+	});
+</script>
+
+</body>
+
+</html>
