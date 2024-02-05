@@ -18,7 +18,7 @@
 	<main>
 		<h1>Sign in</h1>
 		<form method="post" th:action="@{/user}" th:object="${form}">
-			<div layout:replace="~{layouts/common::messages"></div>
+			<div layout:replace="~{layouts/common::messages}"></div>
 			<div class="register-name">
 				<label>Name</label>
 				<input type="text" class="form-control" th:field="*{name}" />
