@@ -16,12 +16,11 @@ import lombok.Data;
 public class AlwaysBuy {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private long alwaysBuyId;
 
 	@Column
-	 /** ManyToOne */
 	private long userId;
 	
 	@Column
@@ -32,8 +31,5 @@ public class AlwaysBuy {
 	
 	@Column
 	private boolean deleted = false;
-	
-//	@OneToMany(mappedBy = "alwaysBuy")
-//	private List<ShoppingListAlwaysBuy> shoppingListAlwaysBuy;
 	
 }

@@ -15,12 +15,11 @@ import lombok.Data;
 public class Shop {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private long shopId;
 
 	@Column
-	 /** ManyToOne */
 	private long userId;
 	
 	@Column
@@ -32,6 +31,4 @@ public class Shop {
 	@Column
 	private boolean deleted = false;
 	
-//	@OneToOne(mappedBy = "shop")
-//	private ShoppingList shoppingList;
 }
