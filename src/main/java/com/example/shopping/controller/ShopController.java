@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.example.shopping.entity.Shop;
 import com.example.shopping.repository.ShopRepository;
 import com.example.shopping.service.ShopService;
