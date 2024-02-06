@@ -1,5 +1,6 @@
 package com.example.shopping.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -59,9 +60,9 @@ public class DishController {
 
 	// 料理の登録
 	@PostMapping(value = "/list")
-	public String add(@ModelAttribute Dish dish, Model model) {
+	public String add(@ModelAttribute Dish dish, Model model, Principal principal) {
 		System.out.println("add");//確認用
-		List<Dish> result = dishService.add(dish);
+		List<Dish> result = dishService.add(dish, principal);
 		model.addAttribute("data", result);
 		return "dish/list";
 	}

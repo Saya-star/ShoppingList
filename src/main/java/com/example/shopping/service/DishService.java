@@ -1,17 +1,20 @@
 package com.example.shopping.service;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.shopping.entity.Dish;
 import com.example.shopping.entity.Ingredient;
 import com.example.shopping.entity.Seasoning;
+import com.example.shopping.entity.UserInf;
 import com.example.shopping.enums.IngredientType;
 import com.example.shopping.repository.DishRepository;
 import com.example.shopping.repository.IngredientRepository;
@@ -36,7 +39,12 @@ public class DishService {
 	}
 
 	// 料理の登録
-	public List<Dish> add(Dish dish) {
+	public List<Dish> add(Dish dish, Principal principal) {
+		//ログイン情報を取得し、ユーザーの紐付け
+		Authentication authentication = (Authentication) principal;
+		UserInf user = (UserInf) authentication.getPrincipal();
+		dish.setUserId(user.getUserId());
+		
 		// 材料と調味料のテーブルにDishIdを保存
 		dish.getIngredient().stream().forEach(ingredient -> ingredient.setDish(dish));
 		dish.getSeasoning().stream().forEach(seasoning -> seasoning.setDish(dish));
