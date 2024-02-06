@@ -29,11 +29,11 @@ public class AlwaysBuyController {
 	@Autowired
 	AlwaysBuyService alwaysBuyService;
 
-	// 店名の一覧表示
+	// いつも買うものの一覧表示
 	@GetMapping
 	public String get(@ModelAttribute("formModel") AlwaysBuy alwaysBuy, Model model, Principal principal) {
-		List<AlwaysBuy> list = alwaysBuyService.get(alwaysBuy, principal);
-		model.addAttribute("data", list);
+		List<AlwaysBuy> alwaysBuyList = alwaysBuyService.get(alwaysBuy, principal);
+		model.addAttribute("data", alwaysBuyList);
 		return "alwaysBuy";
 	}
 
@@ -45,7 +45,7 @@ public class AlwaysBuyController {
 		return "redirect:/alwaysBuy";
 	}
 
-	// いつも買うものの削除
+	// いつも買うものを削除
 	@PostMapping(value = "/delete")
 	public String delete(@RequestParam("id") long id) {
 		alwaysBuyService.delete(id);
