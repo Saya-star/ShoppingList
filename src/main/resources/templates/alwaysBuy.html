@@ -13,7 +13,7 @@
 	<header th:replace="layouts/common.html :: header"></header>
 	<main>
 		<div class="container">
-			<h1 class="title" th:text="${title}"></h1>
+			<h1 class="title">いつも買うものを登録する</h1>
 			<form method="post" th:action="@{/alwaysBuy}" th:object="${formModel}">
 				<p>いつも買うものを入力してください</p>
 				<input type="text" name="alwaysBuyName" th:value="*{alwaysBuyName}" />
@@ -21,7 +21,7 @@
 			</form>
 			<table class="table">
 				<thead>
-					<th>登録済みの買うもの</th>
+					<th>登録済みの買うもの一覧</th>
 				</thead>
 				<tbody>
 					<tr th:each="item: ${data}" th:unless="${item.deleted}">
