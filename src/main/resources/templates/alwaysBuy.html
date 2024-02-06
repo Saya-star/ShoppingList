@@ -14,7 +14,7 @@
 	<main>
 		<div class="container">
 			<h1 class="title">いつも買うものを登録する</h1>
-			<form method="post" th:action="@{/alwaysBuy}" th:object="${formModel}">
+			<form method="post" th:action="@{/alwaysBuy}" th:object="${form}">
 				<p>いつも買うものを入力してください</p>
 				<input type="text" name="alwaysBuyName" th:value="*{alwaysBuyName}" />
 				<input type="submit" value="保存">

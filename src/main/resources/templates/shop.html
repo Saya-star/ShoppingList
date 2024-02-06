@@ -15,7 +15,7 @@
 	<main>
 		<div class="container">
 			<h1 class="title">お店を登録する</h1>
-			<form method="post" th:action="@{/shop}" th:object="${formModel}">
+			<form method="post" th:action="@{/shop}" th:object="${form}">
 				<p>追加する店名を入力してください</p>
 				<input type="text" name="shopName" th:value="*{shopName}" />
 				<input type="submit" value="保存">

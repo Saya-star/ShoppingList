@@ -31,7 +31,7 @@ public class AlwaysBuyController {
 
 	// いつも買うものの一覧表示
 	@GetMapping
-	public String get(@ModelAttribute("formModel") AlwaysBuy alwaysBuy, Model model, Principal principal) {
+	public String get(@ModelAttribute("form") AlwaysBuy alwaysBuy, Model model, Principal principal) {
 		List<AlwaysBuy> alwaysBuyList = alwaysBuyService.get(alwaysBuy, principal);
 		model.addAttribute("data", alwaysBuyList);
 		return "alwaysBuy";
@@ -40,7 +40,7 @@ public class AlwaysBuyController {
 	// いつも買うものをDBに保存
 	@PostMapping
 	@Transactional
-	public String add(@ModelAttribute("formModel") AlwaysBuy alwaysBuy, Principal principal) {
+	public String add(@ModelAttribute("form") AlwaysBuy alwaysBuy, Principal principal) {
 		alwaysBuyService.add(alwaysBuy, principal);
 		return "redirect:/alwaysBuy";
 	}

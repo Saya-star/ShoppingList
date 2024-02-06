@@ -29,7 +29,7 @@ public class ShopController {
 
 	// 店名の一覧表示
 	@GetMapping
-	public String get(@ModelAttribute("formModel") Shop shop, Model model, Principal principal) {
+	public String get(@ModelAttribute("form") Shop shop, Model model, Principal principal) {
 		model.addAttribute("title", "お店リスト");
 		List<Shop> shopList = shopService.get(shop, principal);
 		model.addAttribute("data", shopList);
@@ -39,7 +39,7 @@ public class ShopController {
 	// 店名を追加
 	@PostMapping
 	@Transactional
-	public String add(@ModelAttribute("formModel") Shop shop, Model model, Principal principal) {
+	public String add(@ModelAttribute("form") Shop shop, Model model, Principal principal) {
 		shopService.add(shop, principal);
 		return "redirect:/shop";
 	}
