@@ -1,5 +1,6 @@
 package com.example.shopping.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,8 +42,8 @@ public class ShopController {
 	// 店名を追加
 	@PostMapping
 	@Transactional
-	public String add(@ModelAttribute("formModel") Shop shop, Model model) {
-		shopService.add(shop);
+	public String add(@ModelAttribute("formModel") Shop shop, Model model, Principal principal) {
+		shopService.add(shop, principal);
 		return "redirect:/shop";
 	}
 

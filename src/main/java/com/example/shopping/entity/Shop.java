@@ -21,7 +21,7 @@ public class Shop {
 
 	@Column
 	 /** ManyToOne */
-	private long appUserId;
+	private long userId;
 	
 	@Column
 	private String shopName;
