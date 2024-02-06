@@ -23,11 +23,11 @@ public class SessionsController {
 	}
 
 	// ログアウト
-	@GetMapping(value = "/logout-complete")
+	@GetMapping(value = "/logout")
 	public String logoutComplete(Model model) {
 		model.addAttribute("hasMessage", true);
 		model.addAttribute("class", "alert-info");
 		model.addAttribute("message", "ログアウトしました");
-		return "layouts/complete";
+		return "index.html";
 	}
 }

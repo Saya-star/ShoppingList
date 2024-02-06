@@ -50,7 +50,7 @@ public class SecurityConfig {
 		.defaultSuccessUrl("/home") //ログイン成功時の遷移先
 		.failureUrl("/login-failure") //ログイン失敗時の遷移先
 		.permitAll()) //未ログインでもアクセス可能
-		.logout(logout -> logout.logoutSuccessUrl("/logout-complete") //ログアウト成功時の遷移先
+		.logout(logout -> logout.logoutSuccessUrl("/logout") //ログアウト成功時の遷移先
 		.invalidateHttpSession(true)
 		.deleteCookies("JSESSIONID").permitAll())
 		.csrf(csrf -> csrf.ignoringRequestMatchers(h2RequestMatcher))
