@@ -34,17 +34,20 @@ public class DishService {
 	SeasoningRepository seasoningRepository;
 
 	// 保存してある料理リストの取り出し
-	public List<Dish> getList(Dish dish) {
-		return dishRepository.findAll();
+	public List<Dish> getList(Dish dish, Principal principal) {
+		// ログイン中のユーザーが登録した料理のみ一覧表示
+		Authentication authentication = (Authentication) principal;
+		UserInf user = (UserInf) authentication.getPrincipal();
+		return dishRepository.findAllByUserId(user.getUserId());
 	}
 
 	// 料理の登録
 	public List<Dish> add(Dish dish, Principal principal) {
-		//ログイン情報を取得し、ユーザーの紐付け
+		// ログイン情報を取得し、ユーザーの紐付け
 		Authentication authentication = (Authentication) principal;
 		UserInf user = (UserInf) authentication.getPrincipal();
 		dish.setUserId(user.getUserId());
-		
+
 		// 材料と調味料のテーブルにDishIdを保存
 		dish.getIngredient().stream().forEach(ingredient -> ingredient.setDish(dish));
 		dish.getSeasoning().stream().forEach(seasoning -> seasoning.setDish(dish));
@@ -58,16 +61,20 @@ public class DishService {
 		// 料理の保存
 		dishRepository.saveAndFlush(dish);
 
-		return dishRepository.findAll();
+		return dishRepository.findAllByUserId(user.getUserId());
 	}
 
 	// idをキーに料理を探す
 	public Optional<Dish> findDish(long id) {
 		return dishRepository.findById(id);
 	}
-	
+
 	// 編集
-	public List<Dish> edit(Dish form) {
+	public List<Dish> edit(Dish form, Principal principal) {
+		// ログイン情報を取得
+		Authentication authentication = (Authentication) principal;
+		UserInf user = (UserInf) authentication.getPrincipal();
+
 		// 更新前のデータを取得
 		Optional<Dish> currentDish = dishRepository.findById(form.getDishId());
 		// 編集内容を登録
@@ -95,6 +102,6 @@ public class DishService {
 		// 編集内容の保存
 		dishRepository.saveAndFlush(currentDish.get());
 
-		return dishRepository.findAll();
+		return dishRepository.findAllByUserId(user.getUserId());
 	}
 }

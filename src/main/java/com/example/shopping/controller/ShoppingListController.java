@@ -1,5 +1,6 @@
 package com.example.shopping.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,9 +83,9 @@ public class ShoppingListController {
 
 	// 【画面１】料理を選択する画面の表示
 	@GetMapping(value = "/select1")
-	public String getPage(Dish dish, Model model) {
+	public String getPage(Dish dish, Model model, Principal principal) {
 		model.addAttribute("title", "買い物リストを作る①");
-		List<Dish> list = dishService.getList(dish);
+		List<Dish> list = dishService.getList(dish, principal);
 		model.addAttribute("data", list);
 		return "shoppinglist/select1";
 	}

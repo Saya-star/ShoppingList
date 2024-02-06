@@ -43,8 +43,8 @@ public class DishController {
 
 	// 料理一覧画面の表示
 	@GetMapping(value = "/list")
-	public String getList(Dish dish, Model model) {
-		List<Dish> list = dishService.getList(dish);
+	public String getList(Dish dish, Model model, Principal principal) {
+		List<Dish> list = dishService.getList(dish, principal);
 		model.addAttribute("data", list);
 		return "dish/list";
 	}
@@ -108,9 +108,9 @@ public class DishController {
 
 	// 編集内容を登録
 	@PostMapping(value = "/edit")
-	public String update(@ModelAttribute Dish form, Model model) {
+	public String update(@ModelAttribute Dish form, Model model, Principal principal) {
 		System.out.println("update");//確認用
-		List<Dish> result = dishService.edit(form);
+		List<Dish> result = dishService.edit(form, principal);
 		model.addAttribute("data", result);
 		return "redirect:/dish/list";
 	}
