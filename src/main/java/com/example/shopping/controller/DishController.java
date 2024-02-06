@@ -121,6 +121,8 @@ public class DishController {
 		Optional<Dish> deleteDish = dishRepository.findById(dishId);
 		if(deleteDish.isPresent()) {
 			deleteDish.get().setDishDeleted(true);
+			deleteDish.get().getIngredient().forEach(ingredient -> ingredient.setIngredientDeleted(true));
+			deleteDish.get().getSeasoning().forEach(seasoning -> seasoning.setSeasoningDeleted(true));
 		}
 		dishRepository.saveAndFlush(deleteDish.get());
 		return "redirect:/dish/list";
