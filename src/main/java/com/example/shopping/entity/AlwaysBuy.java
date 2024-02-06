@@ -22,7 +22,7 @@ public class AlwaysBuy {
 
 	@Column
 	 /** ManyToOne */
-	private long appUserId;
+	private long userId;
 	
 	@Column
 	private String alwaysBuyName;

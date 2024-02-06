@@ -1,5 +1,6 @@
 package com.example.shopping.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +37,11 @@ public class AlwaysBuyController {
 		return "alwaysBuy";
 	}
 
-	// いつも買うものを追加
+	// いつも買うものをDBに保存
 	@PostMapping
 	@Transactional
-	public String add(@ModelAttribute("formModel") AlwaysBuy alwaysBuy, Model model) {
-		alwaysBuyService.add(alwaysBuy);
+	public String add(@ModelAttribute("formModel") AlwaysBuy alwaysBuy, Principal principal) {
+		alwaysBuyService.add(alwaysBuy, principal);
 		return "redirect:/alwaysBuy";
 	}
 
