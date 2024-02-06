@@ -31,8 +31,8 @@ public class AlwaysBuyController {
 
 	// 店名の一覧表示
 	@GetMapping
-	public String get(@ModelAttribute("formModel") AlwaysBuy alwaysBuy, Model model) {
-		List<AlwaysBuy> list = alwaysBuyService.get(alwaysBuy);
+	public String get(@ModelAttribute("formModel") AlwaysBuy alwaysBuy, Model model, Principal principal) {
+		List<AlwaysBuy> list = alwaysBuyService.get(alwaysBuy, principal);
 		model.addAttribute("data", list);
 		return "alwaysBuy";
 	}

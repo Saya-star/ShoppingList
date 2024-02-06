@@ -20,8 +20,10 @@ public class AlwaysBuyService {
 	AlwaysBuyRepository alwaysBuyRepository;
 
 	// いつも買うものの一覧を取得
-	public List<AlwaysBuy> get(AlwaysBuy alwaysBuy) {
-		return alwaysBuyRepository.findAll();
+	public List<AlwaysBuy> get(AlwaysBuy alwaysBuy, Principal principal) {
+		Authentication authentication = (Authentication) principal;
+		UserInf user = (UserInf) authentication.getPrincipal();
+		return alwaysBuyRepository.findAllByUserId(user.getUserId());
 	}
 
 	// いつも買うものの登録
