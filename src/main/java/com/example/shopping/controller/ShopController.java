@@ -2,8 +2,6 @@ package com.example.shopping.controller;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,10 +30,10 @@ public class ShopController {
 
 	// 店名の一覧表示
 	@GetMapping
-	public String get(@ModelAttribute("formModel") Shop shop, Model model) {
+	public String get(@ModelAttribute("formModel") Shop shop, Model model, Principal principal) {
 		model.addAttribute("title", "お店リスト");
-		List<Shop> list = shopService.get(shop);
-		model.addAttribute("data", list);
+		List<Shop> shopList = shopService.get(shop, principal);
+		model.addAttribute("data", shopList);
 		return "shop";
 	}
 

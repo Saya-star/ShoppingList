@@ -20,8 +20,10 @@ public class ShopService {
 	ShopRepository shopRepository;
 
 	// Shopのリストを取得
-	public List<Shop> get(Shop shop) {
-		return shopRepository.findAll();
+	public List<Shop> get(Shop shop, Principal principal) {
+		Authentication authentication = (Authentication) principal;
+		UserInf user = (UserInf) authentication.getPrincipal();
+		return shopRepository.findAllByUserId(user.getUserId());
 	}
 
 	// お店の登録
