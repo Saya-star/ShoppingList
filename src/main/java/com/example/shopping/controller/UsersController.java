@@ -10,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.shopping.entity.User;
@@ -19,7 +18,6 @@ import com.example.shopping.form.UserForm;
 import com.example.shopping.repository.UserRepository;
 
 @Controller
-//@RequestMapping(value = "/users")
 public class UsersController {
 
 	@Autowired
@@ -40,7 +38,7 @@ public class UsersController {
 	public String createUser(@Validated @ModelAttribute("form") UserForm userForm, BindingResult bindingResult,
 			Model model, RedirectAttributes ridirectAttributes) {
 
-		System.out.println("newUser");
+		System.out.println("newUser");//確認用
 		String name = userForm.getName();
 		String email = userForm.getEmail();
 		String password = userForm.getPassword();
@@ -58,8 +56,10 @@ public class UsersController {
 			return "users/new";
 		}
 
+		//ユーザーの保存
 		User newUser = new User(email, name, passwordEncoder.encode(password), Authority.ROLE_USER);
 		userRepository.saveAndFlush(newUser);
+		
 		model.addAttribute("hasMessage", true);
 		model.addAttribute("class", "alert-info");
 		model.addAttribute("message", "ユーザー登録が完了しました。");
