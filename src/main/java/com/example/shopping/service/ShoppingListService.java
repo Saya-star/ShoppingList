@@ -52,12 +52,12 @@ public class ShoppingListService {
 
 	@Autowired
 	ShoppingListSeasoningRepository shoppingListSeasoningRepository;
-	
+
 	@Autowired
 	ShoppingListAlwaysBuyRepository shoppingListAlwaysBuyRepository;
-	
-	//選択された料理の材料を検索
-	public List<Ingredient> findIngredient(Long[] dishIds){
+
+	// 選択された料理の材料を検索
+	public List<Ingredient> findIngredient(Long[] dishIds) {
 		List<Ingredient> ingredientList = new ArrayList<>();
 		for (int i = 0; i < dishIds.length; i++) {
 			// dishIdで選択された料理を検索
@@ -68,9 +68,9 @@ public class ShoppingListService {
 		}
 		return ingredientList;
 	}
-	
-	//選択された料理の調味料を検索
-	public List<Seasoning> findSeasoning(Long[] dishIds){
+
+	// 選択された料理の調味料を検索
+	public List<Seasoning> findSeasoning(Long[] dishIds) {
 		List<Seasoning> seasoningList = new ArrayList<>();
 		for (int i = 0; i < dishIds.length; i++) {
 			// dishIdで選択された料理を検索
@@ -82,16 +82,16 @@ public class ShoppingListService {
 		return seasoningList;
 	}
 
-	//買い物リストの作成
+	// 買い物リストの作成
 	public ShoppingList createShoppingList(ShoppingListForm shoppingListForm, Principal principal) {
 
 		/*
 		 * ShoppingListエンティティにデータを保存
 		 */
-		
+
 		ShoppingList newList = new ShoppingList();
-		
-		//ログイン中のユーザー情報を紐付け
+
+		// ログイン中のユーザー情報を紐付け
 		Authentication authentication = (Authentication) principal;
 		UserInf user = (UserInf) authentication.getPrincipal();
 		newList.setUserId(user.getUserId());
@@ -106,10 +106,10 @@ public class ShoppingListService {
 		/*
 		 * ShoppingListIngredientエンティティにデータを保存
 		 */
-		
+
 		// shoppingListFormに入っている材料のデータの取り出し
 		Optional<List<Ingredient>> selectedIngredients = Optional.ofNullable(shoppingListForm.getIngredientList());
-		
+
 		if (selectedIngredients.isPresent()) {
 			// 材料Idを保存するためのArrayList
 			List<ShoppingListIngredient> shoppingListIngredients = new ArrayList<>();
@@ -131,7 +131,7 @@ public class ShoppingListService {
 
 		// shoppingListFormに入っている調味料のデータの取り出し
 		Optional<List<Seasoning>> selectedSeasonings = Optional.ofNullable(shoppingListForm.getSeasoningList());
-		
+
 		if (selectedSeasonings.isPresent()) {
 			// 調味料Idを保存するためのArrayList
 			List<ShoppingListSeasoning> shoppingListSeasonings = new ArrayList<>();
@@ -146,14 +146,14 @@ public class ShoppingListService {
 			shoppingListSeasoningRepository.saveAllAndFlush(shoppingListSeasonings);
 			newList.setShoppingListSeasonings(shoppingListSeasonings);
 		}
-		
+
 		/*
 		 * ShoppingListAlwaysBuyエンティティにデータを保存
 		 */
 
 		// shoppingListFormに入っている調味料のデータの取り出し
 		Optional<List<AlwaysBuy>> selectedAlwaysBuys = Optional.ofNullable(shoppingListForm.getAlwaysBuyList());
-		
+
 		if (selectedAlwaysBuys.isPresent()) {
 			// いつも買うものIdを保存するためのArrayList
 			List<ShoppingListAlwaysBuy> shoppingListAlwaysBuys = new ArrayList<>();
@@ -168,20 +168,31 @@ public class ShoppingListService {
 			shoppingListAlwaysBuyRepository.saveAllAndFlush(shoppingListAlwaysBuys);
 			newList.setShoppingListAlwaysBuys(shoppingListAlwaysBuys);
 		}
-		
+
 		return newList;
 	}
-	
-	//買い物リストの削除
+
+	// 買い物リストの削除
 	public void deleteShoppingList(long shoppingListId) {
 		Optional<ShoppingList> deleteShoppingList = shoppingListRepository.findById(shoppingListId);
 		if (deleteShoppingList.isPresent()) {
 			deleteShoppingList.get().setShoppingListDeleted(true);
-			deleteShoppingList.get().getShoppingListIngredients().forEach(shoppingListIngredient -> shoppingListIngredient.setDeleted(true));
-			deleteShoppingList.get().getShoppingListSeasonings().forEach(shoppingListSeasoning -> shoppingListSeasoning.setDeleted(true));
-			deleteShoppingList.get().getShoppingListAlwaysBuys().forEach(shoppingListAlwaysBuys -> shoppingListAlwaysBuys.setDeleted(true));
-			
+			deleteShoppingList.get().getShoppingListIngredients()
+					.forEach(shoppingListIngredient -> shoppingListIngredient.setDeleted(true));
+			deleteShoppingList.get().getShoppingListSeasonings()
+					.forEach(shoppingListSeasoning -> shoppingListSeasoning.setDeleted(true));
+			deleteShoppingList.get().getShoppingListAlwaysBuys()
+					.forEach(shoppingListAlwaysBuys -> shoppingListAlwaysBuys.setDeleted(true));
+
 		}
 		shoppingListRepository.saveAndFlush(deleteShoppingList.get());
+	}
+
+	// 買い物リストの検索
+	public List<ShoppingList> getShoppingLists(Principal principal) {
+		// ログイン中のユーザーが登録した料理のみ一覧表示
+		Authentication authentication = (Authentication) principal;
+		UserInf user = (UserInf) authentication.getPrincipal();
+		return shoppingListRepository.findAllByUserId(user.getUserId());
 	}
 }
