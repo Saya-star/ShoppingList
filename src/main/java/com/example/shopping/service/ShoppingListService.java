@@ -13,6 +13,7 @@ import com.example.shopping.entity.AlwaysBuy;
 import com.example.shopping.entity.Dish;
 import com.example.shopping.entity.Ingredient;
 import com.example.shopping.entity.Seasoning;
+import com.example.shopping.entity.Shop;
 import com.example.shopping.entity.ShoppingList;
 import com.example.shopping.entity.ShoppingListAlwaysBuy;
 import com.example.shopping.entity.ShoppingListIngredient;
@@ -27,6 +28,7 @@ import com.example.shopping.repository.ShoppingListAlwaysBuyRepository;
 import com.example.shopping.repository.ShoppingListIngredientRepository;
 import com.example.shopping.repository.ShoppingListRepository;
 import com.example.shopping.repository.ShoppingListSeasoningRepository;
+import com.example.shopping.repository.ShopRepository;
 
 @Service
 public class ShoppingListService {
@@ -34,6 +36,9 @@ public class ShoppingListService {
 	// TODO コンストラクタインジェクションに修正
 	@Autowired
 	DishRepository dishRepository;
+	
+	@Autowired
+	ShopRepository shopRepository;
 
 	@Autowired
 	AlwaysBuyRepository alwaysBuyRepository;
@@ -80,6 +85,13 @@ public class ShoppingListService {
 			seasoningList.addAll(selectedDishSeasoning);
 		}
 		return seasoningList;
+	}
+	
+	//ログイン中のユーザーが登録したお店の検索
+	public List<Shop> findShop(Principal principal){
+		Authentication authentication = (Authentication) principal;
+		UserInf user = (UserInf) authentication.getPrincipal();
+		return shopRepository.findAllByUserId(user.getUserId());
 	}
 
 	// 買い物リストの作成
