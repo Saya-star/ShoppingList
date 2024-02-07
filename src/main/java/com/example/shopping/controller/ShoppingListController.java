@@ -150,7 +150,6 @@ public class ShoppingListController {
 	// 買い物リストの一覧表示
 	@GetMapping(value = "/list")
 	public String getShoppingLists(Model model, Principal principal) {
-//		List<ShoppingList> shoppingLists = shoppingListRepository.findAll();
 		model.addAttribute("shoppingLists", shoppingListService.getShoppingLists(principal));
 		return "shoppinglist/list";
 	}
