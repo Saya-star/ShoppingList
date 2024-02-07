@@ -85,7 +85,7 @@ public class ShoppingListController {
 	@GetMapping(value = "/select1")
 	public String getPage(Dish dish, Model model, Principal principal) {
 		model.addAttribute("title", "買い物リストを作る①");
-		List<Dish> list = dishService.getList(dish, principal);
+		List<Dish> list = dishService.getDishes(dish, principal);
 		model.addAttribute("data", list);
 		return "shoppinglist/select1";
 	}
