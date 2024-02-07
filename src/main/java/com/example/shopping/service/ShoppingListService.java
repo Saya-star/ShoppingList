@@ -62,7 +62,6 @@ public class ShoppingListService {
 		for (int i = 0; i < dishIds.length; i++) {
 			// dishIdで選択された料理を検索
 			Optional<Dish> selectedDish = dishRepository.findById(dishIds[i]);
-
 			// 選択された料理に必要な材料を検索し、ingredientListに追加
 			List<Ingredient> selectedDishIngredient = selectedDish.get().getIngredient();
 			ingredientList.addAll(selectedDishIngredient);
@@ -89,6 +88,7 @@ public class ShoppingListService {
 		/*
 		 * ShoppingListエンティティにデータを保存
 		 */
+		
 		ShoppingList newList = new ShoppingList();
 		
 		//ログイン中のユーザー情報を紐付け
@@ -123,7 +123,6 @@ public class ShoppingListService {
 			// 保存
 			shoppingListIngredientRepository.saveAllAndFlush(shoppingListIngredients);
 			newList.setShoppingListIngredients(shoppingListIngredients);
-			
 		}
 
 		/*
@@ -146,7 +145,6 @@ public class ShoppingListService {
 			// 保存
 			shoppingListSeasoningRepository.saveAllAndFlush(shoppingListSeasonings);
 			newList.setShoppingListSeasonings(shoppingListSeasonings);
-			
 		}
 		
 		/*
@@ -169,8 +167,8 @@ public class ShoppingListService {
 			// 保存
 			shoppingListAlwaysBuyRepository.saveAllAndFlush(shoppingListAlwaysBuys);
 			newList.setShoppingListAlwaysBuys(shoppingListAlwaysBuys);
-			
 		}
+		
 		return newList;
 	}
 	
