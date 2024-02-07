@@ -134,8 +134,8 @@ public class ShoppingListController {
 
 	// 買い物リストを作成（DBに保存）
 	@PostMapping(value = "/select3/create")
-	public String createList(@ModelAttribute ShoppingListForm shoppingListForm, Model model) {
-		ShoppingList newList = shoppingListService.createShoppingList(shoppingListForm);
+	public String createList(@ModelAttribute ShoppingListForm shoppingListForm, Model model, Principal principal) {
+		ShoppingList newList = shoppingListService.createShoppingList(shoppingListForm, principal);
 		shoppingLists.add(newList);
 		return "redirect:/shoppinglist/select3";
 	}

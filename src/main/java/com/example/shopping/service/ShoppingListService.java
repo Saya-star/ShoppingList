@@ -1,11 +1,13 @@
 package com.example.shopping.service;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import com.example.shopping.entity.AlwaysBuy;
 import com.example.shopping.entity.Dish;
@@ -15,6 +17,7 @@ import com.example.shopping.entity.ShoppingList;
 import com.example.shopping.entity.ShoppingListAlwaysBuy;
 import com.example.shopping.entity.ShoppingListIngredient;
 import com.example.shopping.entity.ShoppingListSeasoning;
+import com.example.shopping.entity.UserInf;
 import com.example.shopping.form.ShoppingListForm;
 import com.example.shopping.repository.AlwaysBuyRepository;
 import com.example.shopping.repository.DishRepository;
@@ -81,13 +84,17 @@ public class ShoppingListService {
 	}
 
 	//買い物リストの作成
-	public ShoppingList createShoppingList(ShoppingListForm shoppingListForm) {
+	public ShoppingList createShoppingList(ShoppingListForm shoppingListForm, Principal principal) {
 
 		/*
 		 * ShoppingListエンティティにデータを保存
 		 */
-
 		ShoppingList newList = new ShoppingList();
+		
+		//ログイン中のユーザー情報を紐付け
+		Authentication authentication = (Authentication) principal;
+		UserInf user = (UserInf) authentication.getPrincipal();
+		newList.setUserId(user.getUserId());
 		// 買い物リストにお店Idを登録
 		newList.setShop(shoppingListForm.getShop());
 		// 日時を登録

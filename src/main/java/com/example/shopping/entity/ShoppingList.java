@@ -24,7 +24,7 @@ public class ShoppingList {
 	private long shoppingListId;
 
 	@Column
-	private long appUserId;
+	private long userId;
 
 	@ManyToOne
 	@JoinColumn(name = "shopId")
