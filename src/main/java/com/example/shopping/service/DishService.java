@@ -104,4 +104,15 @@ public class DishService {
 
 		return dishRepository.findAllByUserId(user.getUserId());
 	}
+	
+	//料理の削除(論理削除)
+	public void delete (long dishId) {
+		Optional<Dish> deleteDish = dishRepository.findById(dishId);
+		if(deleteDish.isPresent()) {
+			deleteDish.get().setDishDeleted(true);
+			deleteDish.get().getIngredient().forEach(ingredient -> ingredient.setIngredientDeleted(true));
+			deleteDish.get().getSeasoning().forEach(seasoning -> seasoning.setSeasoningDeleted(true));
+		}
+		dishRepository.saveAndFlush(deleteDish.get());
+	}
 }

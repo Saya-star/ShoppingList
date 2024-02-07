@@ -118,13 +118,7 @@ public class DishController {
 	// 削除メソッド
 	@PostMapping(value = "delete/{id}")
 	public String delete(@PathVariable("id") long dishId, Model model) {
-		Optional<Dish> deleteDish = dishRepository.findById(dishId);
-		if(deleteDish.isPresent()) {
-			deleteDish.get().setDishDeleted(true);
-			deleteDish.get().getIngredient().forEach(ingredient -> ingredient.setIngredientDeleted(true));
-			deleteDish.get().getSeasoning().forEach(seasoning -> seasoning.setSeasoningDeleted(true));
-		}
-		dishRepository.saveAndFlush(deleteDish.get());
+		dishService.delete(dishId);
 		return "redirect:/dish/list";
 	}
 }
