@@ -34,7 +34,7 @@ public class DishService {
 	SeasoningRepository seasoningRepository;
 
 	// 保存してある料理リストの取り出し
-	public List<Dish> getDishes(Dish dish, Principal principal) {
+	public List<Dish> getDishes(Principal principal) {
 		// ログイン中のユーザーが登録した料理のみ一覧表示
 		Authentication authentication = (Authentication) principal;
 		UserInf user = (UserInf) authentication.getPrincipal();

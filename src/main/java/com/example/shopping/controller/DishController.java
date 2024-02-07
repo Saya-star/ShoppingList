@@ -40,8 +40,8 @@ public class DishController {
 
 	// 料理一覧画面の表示
 	@GetMapping(value = "/list")
-	public String getList(Dish dish, Model model, Principal principal) {
-		List<Dish> list = dishService.getDishes(dish, principal);
+	public String getList(Model model, Principal principal) {
+		List<Dish> list = dishService.getDishes(principal);
 		model.addAttribute("data", list);
 		return "dish/list";
 	}

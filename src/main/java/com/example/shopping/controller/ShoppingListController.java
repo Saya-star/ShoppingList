@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import com.example.shopping.entity.Dish;
-import com.example.shopping.entity.Shop;
 import com.example.shopping.entity.ShoppingList;
 import com.example.shopping.form.SelectForm;
 import com.example.shopping.form.ShoppingListForm;
@@ -83,10 +81,9 @@ public class ShoppingListController {
 
 	// 【画面１】料理を選択する画面の表示
 	@GetMapping(value = "/select1")
-	public String getPage(Dish dish, Model model, Principal principal) {
+	public String getPage(Model model, Principal principal) {
 		model.addAttribute("title", "買い物リストを作る①");
-		List<Dish> list = dishService.getDishes(dish, principal);
-		model.addAttribute("data", list);
+		model.addAttribute("data", dishService.getDishes(principal));
 		return "shoppinglist/select1";
 	}
 
@@ -102,21 +99,22 @@ public class ShoppingListController {
 
 	// 【画面３】選択した買うものを買い物リストを作成するページに表示
 	@PostMapping(value = "/select3")
-	public String selectItems(@ModelAttribute SelectForm selectForm, Model model, Principal principal) {
+	public String select(@ModelAttribute SelectForm selectForm, Model model, Principal principal) {
 		System.out.println("create");
 		shoppingLists = new ArrayList<>();//同じタイミングで作成した買い物リストだけを画面に表示するため、ここで初期化
 		model.addAttribute("title", "買い物リストを作る③");
 		model.addAttribute("selectedIngredient", selectForm.getIngredients());
 		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());
 		model.addAttribute("shopList", shoppingListService.findShop(principal));
-		// TODO いつも買うものリスト・あとで買うものリストの表示の処理
+		// TODO あとで買うものリストの表示の処理
+		
 		model.addAttribute("selectedAlwaysBuy", selectForm.getAlwaysBuys());
 		return "shoppinglist/select3";
 	}
 
 	// 【画面３・再】買い物リスト再作成時・選択した買うものを買い物リストを作成するページに表示
 	@GetMapping(value = "/select3")
-	public String selectItemsEdit(SelectForm selectForm, Model model, Principal principal) {
+	public String select2(SelectForm selectForm, Model model, Principal principal) {
 		System.out.println("recreate");
 		model.addAttribute("title", "買い物リストを作る③");
 		model.addAttribute("selectedIngredient", selectForm.getIngredients());
@@ -132,7 +130,7 @@ public class ShoppingListController {
 
 	// 買い物リストを作成（DBに保存）
 	@PostMapping(value = "/select3/create")
-	public String createList(@ModelAttribute ShoppingListForm shoppingListForm, Model model, Principal principal) {
+	public String create(@ModelAttribute ShoppingListForm shoppingListForm, Model model, Principal principal) {
 		ShoppingList newList = shoppingListService.createShoppingList(shoppingListForm, principal);
 		shoppingLists.add(newList);
 		return "redirect:/shoppinglist/select3";
