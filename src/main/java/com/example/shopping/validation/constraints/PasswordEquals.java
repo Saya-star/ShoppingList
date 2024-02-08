@@ -17,7 +17,7 @@ import jakarta.validation.ReportAsSingleViolation;
 @ReportAsSingleViolation
 public @interface PasswordEquals {
 
-	String message() default "{com.example.shopping.validation.constraints.PasswordEuals.message}";
+	String message() default "{com.example.shopping.validation.constraints.PasswordEquals.message}";
 	
 	Class<?>[] groups() default {};
 	
