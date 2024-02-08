@@ -10,8 +10,12 @@
 </head>
 
 <body>
+	<div th:if="${hasMessage}" class="alert alert-dismissible fade show" th:classappend="${class}" role='alert'>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		<span th:text="${message}"></span>
+	</div>
 	<div id="wrap">
-		<header>Title</header>
+		<!--<header>Title</header>-->
 		<main>
 			<div class="container">
 				<div class="row justify-content-center">

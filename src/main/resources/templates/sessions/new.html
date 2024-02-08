@@ -11,7 +11,11 @@
 </head>
 
 <body>
-	<header>Title</header>
+	<div th:if="${hasMessage}" class="alert alert-dismissible fade show" th:classappend="${class}" role='alert'>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		<span th:text="${message}"></span>
+	</div>
+	<!--<header>Title</header>-->
 	<div class="users-new-wrapper" layout:fragment="contents">
 		<div class="container">
 			<div class="row p-form-top d-none d-lg-block d-xl-block d-xxl-block"></div>
