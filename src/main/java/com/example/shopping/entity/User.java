@@ -1,5 +1,6 @@
 package com.example.shopping.entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -61,6 +62,9 @@ public class User implements UserDetails, UserInf{
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Authority authority;
+	
+	@Column
+	private LocalDate createdDate;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities(){
