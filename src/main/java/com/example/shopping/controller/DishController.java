@@ -1,6 +1,6 @@
 package com.example.shopping.controller;
 
-import java.util.ArrayList;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.example.shopping.entity.Dish;
 import com.example.shopping.entity.Ingredient;
 import com.example.shopping.entity.Seasoning;
@@ -42,8 +40,8 @@ public class DishController {
 
 	// 料理一覧画面の表示
 	@GetMapping(value = "/list")
-	public String getList(Dish dish, Model model) {
-		List<Dish> list = dishService.getList(dish);
+	public String getList(Model model, Principal principal) {
+		List<Dish> list = dishService.getDishes(principal);
 		model.addAttribute("data", list);
 		return "dish/list";
 	}
@@ -59,9 +57,9 @@ public class DishController {
 
 	// 料理の登録
 	@PostMapping(value = "/list")
-	public String add(@ModelAttribute Dish dish, Model model) {
+	public String add(@ModelAttribute Dish dish, Model model, Principal principal) {
 		System.out.println("add");//確認用
-		List<Dish> result = dishService.add(dish);
+		List<Dish> result = dishService.add(dish, principal);
 		model.addAttribute("data", result);
 		return "dish/list";
 	}
@@ -107,9 +105,9 @@ public class DishController {
 
 	// 編集内容を登録
 	@PostMapping(value = "/edit")
-	public String update(@ModelAttribute Dish form, Model model) {
+	public String update(@ModelAttribute Dish form, Model model, Principal principal) {
 		System.out.println("update");//確認用
-		List<Dish> result = dishService.edit(form);
+		List<Dish> result = dishService.edit(form, principal);
 		model.addAttribute("data", result);
 		return "redirect:/dish/list";
 	}
@@ -117,11 +115,7 @@ public class DishController {
 	// 削除メソッド
 	@PostMapping(value = "delete/{id}")
 	public String delete(@PathVariable("id") long dishId, Model model) {
-		Optional<Dish> deleteDish = dishRepository.findById(dishId);
-		if(deleteDish.isPresent()) {
-			deleteDish.get().setDishDeleted(true);
-		}
-		dishRepository.saveAndFlush(deleteDish.get());
+		dishService.delete(dishId);
 		return "redirect:/dish/list";
 	}
 }

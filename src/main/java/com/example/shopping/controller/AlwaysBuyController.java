@@ -1,5 +1,6 @@
 package com.example.shopping.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,24 +29,23 @@ public class AlwaysBuyController {
 	@Autowired
 	AlwaysBuyService alwaysBuyService;
 
-	// 店名の一覧表示
+	// いつも買うものの一覧表示
 	@GetMapping
-	public String get(@ModelAttribute("formModel") AlwaysBuy alwaysBuy, Model model) {
-		model.addAttribute("title", "いつも買うものリスト");
-		List<AlwaysBuy> list = alwaysBuyService.get(alwaysBuy);
-		model.addAttribute("data", list);
+	public String get(@ModelAttribute("form") AlwaysBuy alwaysBuy, Model model, Principal principal) {
+		List<AlwaysBuy> alwaysBuyList = alwaysBuyService.get(alwaysBuy, principal);
+		model.addAttribute("data", alwaysBuyList);
 		return "alwaysBuy";
 	}
 
-	// いつも買うものを追加
+	// いつも買うものをDBに保存
 	@PostMapping
 	@Transactional
-	public String add(@ModelAttribute("formModel") AlwaysBuy alwaysBuy, Model model) {
-		alwaysBuyService.add(alwaysBuy);
+	public String add(@ModelAttribute("form") AlwaysBuy alwaysBuy, Principal principal) {
+		alwaysBuyService.add(alwaysBuy, principal);
 		return "redirect:/alwaysBuy";
 	}
 
-	// いつも買うものの削除
+	// いつも買うものを削除
 	@PostMapping(value = "/delete")
 	public String delete(@RequestParam("id") long id) {
 		alwaysBuyService.delete(id);

@@ -1,0 +1,55 @@
+<!-- ユーザー登録ページ -->
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<div th:if="${hasMessage}" class="alert alert-dismissible fade show" th:classappend="${class}" role='alert'>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		<span th:text="${message}"></span>
+	</div>
+	<!--<header>Title</header>-->
+	<main>
+		<h1>Sign in</h1>
+		<form method="post" th:action="@{/user}" th:object="${form}">
+			<div layout:replace="~{layouts/common::messages}"></div>
+			<div class="register-name">
+				<label>Name</label>
+				<input type="text" class="form-control" th:field="*{name}" />
+				<p th:if="${#fields.hasErrors('name')}" class="error-message" th:errors="*{name}"></p>
+			</div>
+			<div class="register-Email">
+				<label>Email</label>
+				<input type="text" class="form-control" th:field="*{email}" />
+				<p th:if="${#fields.hasErrors('email')}" class="error-message" th:errors="*{email}"></p>
+			</div>
+			<div class="register-password">
+				<label>Password</label>
+				<input class="form-control" type="password" th:field="*{password}" />
+				<p th:if="${#fields.hasErrors('password')}" class="error-message" th:errors="*{password}"></p>
+			</div>
+			<div class="password-confirmation">
+				<label>Password confirmation</label>
+				<input type="password" class="form-control" th:field="*{passwordConfirmation}" />
+				<p th:if="${#fields.hasErrors('passwordConfirmation')}" class="error-message"
+					th:errors="*{passwordConfirmation}"></p>
+			</div>
+			<input type="submit" value="登録" />
+		</form>
+	</main>
+	<footer th:replace="layouts/common.html :: footer"></footer>
+	<script>
+		$(function () {
+			$(".alert").fadeOut(3000);
+		});
+	</script>
+
+</body>
+
+</html>

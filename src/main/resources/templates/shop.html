@@ -1,6 +1,7 @@
 <!-- お店情報の登録ページ -->
 <!DOCTYPE html>
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
 
@@ -13,8 +14,8 @@
 	<header th:replace="layouts/common.html :: header"></header>
 	<main>
 		<div class="container">
-			<h1 class="title" th:text="${title}"></h1>
-			<form method="post" action="/shop" th:object="${formModel}">
+			<h1 class="title">お店を登録する</h1>
+			<form method="post" th:action="@{/shop}" th:object="${form}">
 				<p>追加する店名を入力してください</p>
 				<input type="text" name="shopName" th:value="*{shopName}" />
 				<input type="submit" value="保存">

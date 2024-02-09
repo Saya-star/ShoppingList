@@ -22,7 +22,7 @@ public class Dish {
 	private long dishId;
 
 	@Column
-	private long appUserId;
+	private long userId;
 
 	@Column
 	private String dishName;
