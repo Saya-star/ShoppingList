@@ -188,7 +188,7 @@ public class ShoppingListService {
 	public void deleteShoppingList(long shoppingListId) {
 		Optional<ShoppingList> deleteShoppingList = shoppingListRepository.findById(shoppingListId);
 		if (deleteShoppingList.isPresent()) {
-			deleteShoppingList.get().setShoppingListDeleted(true);
+			deleteShoppingList.get().setDeleted(true);
 			deleteShoppingList.get().getShoppingListIngredients()
 					.forEach(shoppingListIngredient -> shoppingListIngredient.setDeleted(true));
 			deleteShoppingList.get().getShoppingListSeasonings()

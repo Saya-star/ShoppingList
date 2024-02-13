@@ -27,7 +27,7 @@ public class ShoppingList {
 	private long userId;
 
 	@ManyToOne
-	@JoinColumn(name = "shopId")
+	@JoinColumn(name = "shop_id")
 	private Shop shop;
 
 	@Column
@@ -43,7 +43,7 @@ public class ShoppingList {
 	private List<ShoppingListAlwaysBuy> shoppingListAlwaysBuys;
 
 	@Column
-	private boolean shoppingListDeleted = false;
+	private boolean deleted = false;
 
 	@Override
 	public boolean equals(Object object) {
