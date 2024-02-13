@@ -21,11 +21,11 @@ public class ShoppingListIngredient {
 	private long shoppingListIngredientId;
 
 	@ManyToOne
-	@JoinColumn(name = "ingredientId")
+	@JoinColumn(name = "ingredient_id")
 	private Ingredient ingredient;
 
 	@ManyToOne
-	@JoinColumn(name = "shoppingListId")
+	@JoinColumn(name = "shopping_list_id")
 	private ShoppingList shoppingList;
 
 	@Column

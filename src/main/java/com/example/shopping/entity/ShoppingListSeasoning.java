@@ -21,11 +21,11 @@ public class ShoppingListSeasoning {
 	private long shoppingListSeasoningId;
 	
 	@ManyToOne
-	@JoinColumn(name = "seasoningId")
+	@JoinColumn(name = "seasoning_id")
 	private Seasoning seasoning;
 	
 	@ManyToOne
-	@JoinColumn(name = "shoppingListId")
+	@JoinColumn(name = "shoppingList_id")
 	private ShoppingList shoppingList;
 	
 	@Column
