@@ -1,13 +1,13 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS dish;
-DROP TABLE IF EXISTS ingredient;
-DROP TABLE IF EXISTS seasoning;
-DROP TABLE IF EXISTS shop;
-DROP TABLE IF EXISTS always_buy;
-DROP TABLE IF EXISTS shopping_list;
-DROP TABLE IF EXISTS shopping_list_ingredient;
-DROP TABLE IF EXISTS shopping_list_seasoning;
-DROP TABLE IF EXISTS shopping_list_always_buy;
+DROP TABLE IF EXISTS shopping_list_always_buy CASCADE;
+DROP TABLE IF EXISTS shopping_list_seasoning CASCADE;
+DROP TABLE IF EXISTS shopping_list_ingredient CASCADE;
+DROP TABLE IF EXISTS shopping_list CASCADE;
+DROP TABLE IF EXISTS always_buy CASCADE;
+DROP TABLE IF EXISTS shop CASCADE;
+DROP TABLE IF EXISTS seasoning CASCADE;
+DROP TABLE IF EXISTS ingredient CASCADE;
+DROP TABLE IF EXISTS dish CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE IF NOT EXISTS users (
  user_id SERIAL NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS users (
  name VARCHAR(255) NOT NULL,
  password VARCHAR(255) NOT NULL,
  authority VARCHAR(255) NOT NULL,
- created_date TIMESTAMP NOT NULL,
+ created_date TIMESTAMP,
  PRIMARY KEY(user_id)
 );
 
@@ -123,3 +123,6 @@ CREATE TABLE IF NOT EXISTS shopping_list_always_buy (
 
 ALTER TABLE shopping_list_always_buy ADD CONSTRAINT FK_shopping_list_sl_always_buy FOREIGN KEY (shopping_list_id) REFERENCES shopping_list;
 ALTER TABLE shopping_list_always_buy ADD CONSTRAINT FK_always_buy_sl_always_buy FOREIGN KEY (always_buy_id) REFERENCES always_buy;
+
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO shoppinglist;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO shoppinglist;
