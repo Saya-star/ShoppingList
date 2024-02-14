@@ -30,7 +30,7 @@ public class SecurityConfig {
 	private FormAuthenticationProvider formAuthenticationProvider;
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, HandlerMappingIntrospector introspector)
+	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, HandlerMappingIntrospector introspector)
 			throws Exception {
 
 		MvcRequestMatcher h2RequestMatcher = new MvcRequestMatcher(introspector, "/**");
