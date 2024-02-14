@@ -99,8 +99,8 @@ CREATE TABLE IF NOT EXISTS shopping_list_ingredient (
  PRIMARY KEY(shopping_list_ingredient_id)
 );
 
-ALTER TABLE shopping_list_ingredient ADD CONSTRAINT FK_shopping_list_slingredient FOREIGN KEY (shopping_list_id) REFERENCES shopping_list;
-ALTER TABLE shopping_list_ingredient ADD CONSTRAINT FK_ingredient_slingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient;
+ALTER TABLE shopping_list_ingredient ADD CONSTRAINT FK_shopping_list_sl_ingredient FOREIGN KEY (shopping_list_id) REFERENCES shopping_list;
+ALTER TABLE shopping_list_ingredient ADD CONSTRAINT FK_ingredient_sl_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient;
 
 CREATE TABLE IF NOT EXISTS shopping_list_seasoning (
  shopping_list_seasoning_id SERIAL NOT NULL,
@@ -110,8 +110,8 @@ CREATE TABLE IF NOT EXISTS shopping_list_seasoning (
  PRIMARY KEY(shopping_list_seasoning_id)
 );
 
-ALTER TABLE shopping_list_seasoning ADD CONSTRAINT FK_shopping_list_slseasoning FOREIGN KEY (shopping_list_id) REFERENCES shopping_list;
-ALTER TABLE shopping_list_seasoning ADD CONSTRAINT FK_seasoning_slseasoning FOREIGN KEY (seasoning_id) REFERENCES seasoning;
+ALTER TABLE shopping_list_seasoning ADD CONSTRAINT FK_shopping_list_sl_seasoning FOREIGN KEY (shopping_list_id) REFERENCES shopping_list;
+ALTER TABLE shopping_list_seasoning ADD CONSTRAINT FK_seasoning_sl_seasoning FOREIGN KEY (seasoning_id) REFERENCES seasoning;
 
 CREATE TABLE IF NOT EXISTS shopping_list_always_buy (
  shopping_list_always_buy_id SERIAL NOT NULL,
