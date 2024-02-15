@@ -14,7 +14,7 @@
 	<main>
 		<p>買い物リスト一覧</p>
 		<article id="posts" 　th:if="${shoppingLists} != null" th:each="shoppingList: ${shoppingLists}"
-			th:unless="${shoppingList.shoppingListDeleted}">
+			th:unless="${shoppingList.deleted}">
 			<ul>
 				<div class="contents">
 					<p th:text="${shoppingList.createdDate}"></p>

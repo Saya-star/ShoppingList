@@ -2,20 +2,14 @@ package com.example.shopping.service;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import com.example.shopping.entity.Dish;
-import com.example.shopping.entity.Ingredient;
-import com.example.shopping.entity.Seasoning;
 import com.example.shopping.entity.UserInf;
-import com.example.shopping.enums.IngredientType;
 import com.example.shopping.repository.DishRepository;
 import com.example.shopping.repository.IngredientRepository;
 import com.example.shopping.repository.SeasoningRepository;

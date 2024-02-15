@@ -40,7 +40,7 @@ public class Ingredient {
 	private LocalDate updatedDate;
 
 	@ManyToOne
-	@JoinColumn(name = "dishId")
+	@JoinColumn(name = "dish_id")
 	private Dish dish;
 
 	@Column

@@ -21,11 +21,11 @@ public class ShoppingListAlwaysBuy {
 	private long shoppingListAlwaysBuyId;
 	
 	@ManyToOne
-	@JoinColumn(name = "alwaysBuyId")
+	@JoinColumn(name = "always_buy_id")
 	private AlwaysBuy alwaysBuy;
 	
 	@ManyToOne
-	@JoinColumn(name = "shoppingListId")
+	@JoinColumn(name = "shopping_list_id")
 	private ShoppingList shoppingList;
 	
 	@Column

@@ -1,5 +1,6 @@
-INSERT INTO dish (dish_id, app_user_id, dish_name, created_date, updated_date, dish_deleted) values (10001, 1, 'カレー', LOCALTIME(), LOCALTIME(), FALSE);
-INSERT INTO dish (dish_id, app_user_id, dish_name, created_date, updated_date, dish_deleted) values (10002, 1, 'オムライス', LOCALTIME(), LOCALTIME(), FALSE);
+INSERT INTO users (user_id, username, name, password, authority, created_date) values (10001, 'test@test.com', '佐藤　花子', 'test', 'ROLE_USER', LOCALTIME()); 
+INSERT INTO dish (dish_id, user_id, dish_name, created_date, updated_date, dish_deleted) values (10001, 10001, 'カレー', LOCALTIME(), LOCALTIME(), FALSE);
+INSERT INTO dish (dish_id, user_id, dish_name, created_date, updated_date, dish_deleted) values (10002, 10001, 'オムライス', LOCALTIME(), LOCALTIME(), FALSE);
 INSERT INTO ingredient (ingredient_id, ingredient_name, ingredient_type, quantity, created_date, updated_date, dish_id, ingredient_deleted) values (10001, '玉ねぎ', 1, '1個', LOCALTIME(), LOCALTIME(), 10001, FALSE);
 INSERT INTO ingredient (ingredient_id, ingredient_name, ingredient_type, quantity, created_date, updated_date, dish_id, ingredient_deleted) values (10002, '人参', 1, '1本', LOCALTIME(), LOCALTIME(), 10001, FALSE);
 INSERT INTO ingredient (ingredient_id, ingredient_name, ingredient_type, quantity, created_date, updated_date, dish_id, ingredient_deleted) values (10003, 'ジャガイモ', 1, '3個', LOCALTIME(), LOCALTIME(), 10001, FALSE);
@@ -10,7 +11,7 @@ INSERT INTO ingredient (ingredient_id, ingredient_name, ingredient_type, quantit
 INSERT INTO ingredient (ingredient_id, ingredient_name, ingredient_type, quantity, created_date, updated_date, dish_id, ingredient_deleted) values (10007, '米', 7, '2合', LOCALTIME(), LOCALTIME(), 10002, FALSE);
 INSERT INTO seasoning (seasoning_id, seasoning_name, created_date, updated_date, dish_id, seasoning_deleted) values (10002, 'ケチャップ', LOCALTIME(), LOCALTIME(), 10002, FALSE);
 INSERT INTO seasoning (seasoning_id, seasoning_name, created_date, updated_date, dish_id, seasoning_deleted) values (10003, 'しょうゆ', LOCALTIME(), LOCALTIME(), 10002, FALSE);
-INSERT INTO shop (shop_id, app_user_id, shop_name, created_date, deleted) values (10001, 1, 'イトーヨーカドー', LOCALTIME(), FALSE);
-INSERT INTO shop (shop_id, app_user_id, shop_name, created_date, deleted) values (10002, 1, 'イオン', LOCALTIME(), FALSE);
-INSERT INTO always_buy(always_buy_id, app_user_id, always_buy_name, created_date, deleted) values (10001, 1, '食パン', LOCALTIME(), FALSE);
-INSERT INTO always_buy(always_buy_id, app_user_id, always_buy_name, created_date, deleted) values (10002, 1, '牛乳', LOCALTIME(), FALSE);
+INSERT INTO shop (shop_id, user_id, shop_name, created_date, deleted) values (10001, 10001, 'イトーヨーカドー', LOCALTIME(), FALSE);
+INSERT INTO shop (shop_id, user_id, shop_name, created_date, deleted) values (10002, 10001, 'イオン', LOCALTIME(), FALSE);
+INSERT INTO always_buy(always_buy_id, user_id, always_buy_name, created_date, deleted) values (10001, 10001, '食パン', LOCALTIME(), FALSE);
+INSERT INTO always_buy(always_buy_id, user_id, always_buy_name, created_date, deleted) values (10002, 10001, '牛乳', LOCALTIME(), FALSE);
