@@ -30,15 +30,13 @@ main {
 	padding: 200px 80px;
 }
 
-.contents-item {
-	float: left;
+.card {
+	text-align: center;
 }
 
-.contents-item img {
+.card img {
 	width: 250px;
 	height: 250px;
-}
-
-.contents-item p {
-	text-align: center;
+	margin: auto;
+	display: block;
 }
