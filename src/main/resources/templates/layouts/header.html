@@ -21,13 +21,26 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item">
-						<a class="nav-link " href="#">リンク１</a>
+						<a class="nav-link" th:href="@{/shoppinglist/list}">買い物リストを見る</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link " href="#">リンク2</a>
+						<a class="nav-link" th:href="@{/shoppinglist/initialize}">買い物リストを作る</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link " href="#">リンク3</a>
+						<a class="nav-link" th:href="@{/dish/list}">料理を登録する</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/shop}">お店を登録する</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/alwaysBuy}">いつも買うものリスト</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">あとで買うものリスト</a>
+					</li>
+					<li class="nav-item">
+						<a th:href="@{/logout}" class="nav-link convert" data-method="post"
+							th:data-_csrf="${_csrf.token}">ログアウト</a>
 					</li>
 				</ul>
 			</div>
