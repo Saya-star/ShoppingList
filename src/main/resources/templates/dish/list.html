@@ -1,44 +1,37 @@
 <!-- 材料の一覧表示ページ-->
 <!DOCTYPE html>
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
-
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/common}">
 
 <body>
-	<header th:replace="~{layouts/common.html :: header}"></header>
-	<main>
-		<h1>登録した料理一覧</h1>
-		<form class="register-dish" method="get" th:action="@{/dish/register}">
-			<input type="submit" value="料理を追加する">
-		</form>
-		<div class="container">
-			<table class="table">
-				<thead>
-					<th>id</th>
-					<th>登録した料理</th>
-					<th>操作</th><!-- 仮の名前 -->
-				</thead>
-				<tbody th:each="item: ${data}" th:unless="${item.dishDeleted}">
-					<form th:action="@{/dish/detail/__${#strings.toString(item.dishId)}__}">
-						<tr>
-							<td th:text="${item.dishId}"></td>
-							<td th:text=${item.dishName}></td>
-							<td>
-								<input type="submit" value="詳細"></input> <!-- ボタンを追加 -->
-							</td>
-						</tr>
-					</form>
-				</tbody>
-			</table>
-
-		</div>
-	</main>
-	<footer th:replace="~{layouts/common.html :: footer}"></footer>
+	<div class="wrap" layout:fragment="contents">
+		<main>
+			<h1>登録した料理一覧</h1>
+			<form class="register-dish" method="get" th:action="@{/dish/register}">
+				<input type="submit" value="料理を追加する">
+			</form>
+			<div class="container">
+				<table class="table">
+					<thead>
+						<th>id</th>
+						<th>登録した料理</th>
+						<th>操作</th><!-- 仮の名前 -->
+					</thead>
+					<tbody th:each="item: ${data}" th:unless="${item.dishDeleted}">
+						<form th:action="@{/dish/detail/__${#strings.toString(item.dishId)}__}">
+							<tr>
+								<td th:text="${item.dishId}"></td>
+								<td th:text=${item.dishName}></td>
+								<td>
+									<input type="submit" value="詳細"></input> <!-- ボタンを追加 -->
+								</td>
+							</tr>
+						</form>
+					</tbody>
+				</table>
+			</div>
+		</main>
+	</div>
 </body>
 
 </html>

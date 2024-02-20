@@ -1,45 +1,42 @@
-<!-- 買い物リスト作成ページ②：選択した料理に必要なものと保存した買うものリストから買うものを選択するページ-->
+<!-- 買い物リスト作成ページ②：選択した料理に必要なものと、保存した買うものリストから買うものを選択するページ-->
 <!DOCTYPE html>
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
-
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/common}">
 
 <body>
-	<header th:replace="~{layouts/common.html :: header}"></header>
-	<main>
-		<h1 class="title" th:text="${title}"></h1>
-		<p>step2:買うものを選択する</p>
-		<div class="select-items">
-			<form method="post" th:action="@{/shoppinglist/select3}">
-				<div class="ingredientList">
-					<p>選択した料理の材料で買うものを選択する</p>
-					<th:block th:each="item:${ingredientList}">
-						<input type="checkbox" th:text="${item.ingredientName}" th:value="${item.ingredientId}" name="ingredients"/>
-						<a th:text="${item.quantity}"></a>
-					</th:block>
-				</div>
-				<div class="seasoningList">
-					<p>選択した料理の調味料で買うものを選択する</p>
-					<th:block th:each="item:${seasoningList}">
-						<input type="checkbox" th:text="${item.seasoningName}" th:value="${item.seasoningId}" name="seasonings"/>
-					</th:block>
-				</div>
-				<div class="alwaysBuyItems">
-					<p>いつも買うものを選択する</p>
-					<th:block th:each="item:${alwaysBuy}">
-						<input type="checkbox" th:text="${item.alwaysBuyName}" th:value="${item.alwaysBuyId}" name="alwaysBuys"/>
-					</th:block>
-				</div>
-				<input type="submit" value="送信">
-			</form>
-		</div>
-	</main>
-	<footer th:replace="~{layouts/common.html :: footer}"></footer>
+	<div class="wrap" layout:fragment="contents">
+		<main>
+			<h1 class="title" th:text="${title}"></h1>
+			<p>step2:買うものを選択する</p>
+			<div class="select-items">
+				<form method="post" th:action="@{/shoppinglist/select3}">
+					<div class="ingredientList">
+						<p>選択した料理の材料で買うものを選択する</p>
+						<th:block th:each="item:${ingredientList}">
+							<input type="checkbox" th:text="${item.ingredientName}" th:value="${item.ingredientId}"
+								name="ingredients" />
+							<a th:text="${item.quantity}"></a>
+						</th:block>
+					</div>
+					<div class="seasoningList">
+						<p>選択した料理の調味料で買うものを選択する</p>
+						<th:block th:each="item:${seasoningList}">
+							<input type="checkbox" th:text="${item.seasoningName}" th:value="${item.seasoningId}"
+								name="seasonings" />
+						</th:block>
+					</div>
+					<div class="alwaysBuyItems">
+						<p>いつも買うものを選択する</p>
+						<th:block th:each="item:${alwaysBuy}">
+							<input type="checkbox" th:text="${item.alwaysBuyName}" th:value="${item.alwaysBuyId}"
+								name="alwaysBuys" />
+						</th:block>
+					</div>
+					<input type="submit" value="送信">
+				</form>
+			</div>
+		</main>
+	</div>
 </body>
 
 </html>
