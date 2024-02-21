@@ -8,22 +8,25 @@
 		<main>
 			<div class="container">
 				<h1 class="title">お店を登録する</h1>
-				<form method="post" th:action="@{/shop}" th:object="${form}">
+				<form class="input-form" method="post" th:action="@{/shop}" th:object="${form}">
 					<p>追加する店名を入力してください</p>
 					<input type="text" name="shopName" th:value="*{shopName}" />
-					<input type="submit" value="保存">
+					<input type="submit" class="btn btn-warning submit-button" value="保存">
 				</form>
 				<table class="table">
-					<thead>
-						<th>登録したお店</th>
-					</thead>
+					<!--<thead>
+						<tr>
+							<th scope="col">登録したお店</th>
+						</tr>
+					</thead>-->
+					<caption align="top" class="table-title">登録したお店</caption>
 					<tbody>
 						<tr th:each="item: ${data}" th:unless="${item.deleted}">
 							<td th:text="${item.shopName}"></td>
 							<td>
 								<form th:action="@{/shop/delete}" method="post">
 									<input type="hidden" name="id" th:value="${item.shopId}">
-									<input type="submit" class="btn delete" value="削除">
+									<input type="submit" class="btn btn-light" value="削除">
 								</form>
 							</td>
 						</tr>
