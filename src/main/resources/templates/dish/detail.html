@@ -7,47 +7,45 @@
 	<div class="wrap" layout:fragment="contents">
 		<main>
 			<div class="container">
-				<h1 class="title" th:text="${title}"></h1>
-				<div class="dish-detail">
-					<p>料理名</p>
-					<p class="name" th:text="${detail.dishName}"></p>
-					<form class="edit-dish" method="get"
-						th:action="@{/dish/edit/__${#strings.toString(detail.dishId)}__}">
-						<input type="submit" value="編集">
-					</form>
-					<form class="remove-dish" method="post"
-						th:action="@{/dish/delete/__${#strings.toString(detail.dishId)}__}">
-						<input type="submit" value="削除">
-					</form>
-					<table class="ingredient-table">
-						<thead>
-							<th>材料名</th>
-							<th>材料の種類</th>
-							<th>分量</th>
-						</thead>
-						<tbody th:each="item: ${ingredientDetail}" th:unless="${item.ingredientDeleted}">
-							<tr>
-								<td th:text="${item.ingredientName}"></td>
-								<td th:text="${item.ingredientType.typeName}"></td>
-								<td th:text=${item.quantity}></td>
-							</tr>
-						</tbody>
-					</table>
-					<table class="seasoning-table">
-						<thead>
-							<th>調味料名</th>
-						</thead>
-						<tbody th:each="item: ${seasoningDetail}" th:unless="${item.seasoningDeleted}">
-							<tr>
-								<td th:text="${item.seasoningName}"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<form class="back-to-dishList" method="get" th:action="@{/dish/list}">
-					<input type="submit" value="料理一覧に戻る">
+				<h1 class="dish-name" th:text="${detail.dishName}"></h1>
+				<form class="edit-remove-button" method="get"
+					th:action="@{/dish/edit/__${#strings.toString(detail.dishId)}__}">
+					<input type="submit" class="btn btn-light" value="編集">
 				</form>
+				<form class="edit-remove-button" method="post"
+					th:action="@{/dish/delete/__${#strings.toString(detail.dishId)}__}">
+					<input type="submit" class="btn btn-light" value="削除">
+				</form>
+				<table class="table">
+					<caption align="top" class="table-title">材料</caption>
+					<thead>
+						<tr>
+							<th scope="col">材料名</th>
+							<th scope="col">分量</th>
+							<th scope="col">材料の種類</th>
+						</tr>
+					</thead>
+					<tbody th:each="item: ${ingredientDetail}" th:unless="${item.ingredientDeleted}">
+						<tr>
+							<td th:text="${item.ingredientName}"></td>
+							<td th:text=${item.quantity}></td>
+							<td th:text="${item.ingredientType.typeName}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="table">
+					<caption align="top" class="table-title">調味料</caption>
+					<tbody th:each="item: ${seasoningDetail}" th:unless="${item.seasoningDeleted}">
+						<tr>
+							<td th:text="${item.seasoningName}"></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
+			<form class="back-to-dishList" method="get" th:action="@{/dish/list}">
+				<input type="submit" value="料理一覧に戻る">
+			</form>
+			<!--/div-->
 		</main>
 	</div>
 </body>
