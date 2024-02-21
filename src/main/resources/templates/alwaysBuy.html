@@ -7,13 +7,15 @@
 	<div class="wrap" layout:fragment="contents">
 		<main>
 			<div class="container">
-				<h1 class="title">いつも買うものを登録する</h1>
+				<h1>いつも買うものを登録する</h1>
+				<h2>登録したものは、買い物リストに追加することが出来ます。</h2>
+				<img class="top-img" src="/images/icons/1.png" alt="買い物中の人のイラスト">
 				<form class="input-form" method="post" th:action="@{/alwaysBuy}" th:object="${form}">
 					<p>いつも買うものを入力してください</p>
 					<input type="text" name="alwaysBuyName" th:value="*{alwaysBuyName}" />
 					<input type="submit" class="btn btn-warning" value="保存">
 				</form>
-				<table class="table">
+				<table class="table contents-table">
 					<caption align="top" class="table-title">いつも買うものリスト</caption>
 					<tbody>
 						<tr th:each="item: ${data}" th:unless="${item.deleted}">
@@ -21,7 +23,7 @@
 							<td>
 								<form th:action="@{/alwaysBuy/delete}" method="post">
 									<input type="hidden" name="id" th:value="${item.alwaysBuyId}">
-									<input type="submit" class="btn btn-light" value="削除">
+									<input class="btn btn-light" type="submit" value="削除">
 								</form>
 							</td>
 						</tr>

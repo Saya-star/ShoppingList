@@ -7,13 +7,15 @@
 	<div class="wrap" layout:fragment="contents">
 		<main>
 			<div class="container">
-				<h1 class="title">お店を登録する</h1>
+				<h1>お店を登録する</h1>
+				<h2>よく買い物をするお店を登録しましょう。<br>買い物リスト作成ページでお店ごとの買い物リストを作ることが出来ます。</h2> 
+				<img class="top-img" src="/images/icons/1041.png" alt="コンビニのイラスト">
 				<form class="input-form" method="post" th:action="@{/shop}" th:object="${form}">
 					<p>追加する店名を入力してください</p>
 					<input type="text" name="shopName" th:value="*{shopName}" />
-					<input type="submit" class="btn btn-warning submit-button" value="保存">
+					<input type="submit" class="btn btn-warning" value="保存">
 				</form>
-				<table class="table">
+				<table class="table contents-table">
 					<caption align="top" class="table-title">登録したお店</caption>
 					<tbody>
 						<tr th:each="item: ${data}" th:unless="${item.deleted}">
