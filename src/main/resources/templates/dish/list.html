@@ -1,4 +1,4 @@
-<!-- 材料の一覧表示ページ-->
+<!-- 料理の一覧表示ページ-->
 <!DOCTYPE html>
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/common}">
@@ -6,24 +6,23 @@
 <body>
 	<div class="wrap" layout:fragment="contents">
 		<main>
-			<h1>登録した料理一覧</h1>
+			<h1>料理を登録する</h1>
+			<h2>よく作る料理の材料と調味料を入力して登録しましょう。</h2>
+			<img class="dish-img" src="/images/icons/1517.png" alt="料理人のイラスト">
 			<form class="register-dish" method="get" th:action="@{/dish/register}">
-				<input type="submit" value="料理を追加する">
+				<input class="btn btn-warning btn-lg dish-add-button" type="submit" value="料理を追加する">
 			</form>
 			<div class="container">
+				<p class="discription-top">登録した料理は以下より確認出来ます</p>
+				<p class="discription">詳細ボタンを押すと、登録した料理の内容を見られます。<br>その画面から料理の内容の編集や削除も出来ます。</p>
 				<table class="table">
-					<thead>
-						<th>id</th>
-						<th>登録した料理</th>
-						<th>操作</th><!-- 仮の名前 -->
-					</thead>
+					<caption class="table-title" align="top">登録した料理一覧</caption>
 					<tbody th:each="item: ${data}" th:unless="${item.dishDeleted}">
 						<form th:action="@{/dish/detail/__${#strings.toString(item.dishId)}__}">
 							<tr>
-								<td th:text="${item.dishId}"></td>
 								<td th:text=${item.dishName}></td>
 								<td>
-									<input type="submit" value="詳細"></input> <!-- ボタンを追加 -->
+									<input class="btn btn-light" type="submit" value="詳細"></input> <!-- ボタンを追加 -->
 								</td>
 							</tr>
 						</form>
