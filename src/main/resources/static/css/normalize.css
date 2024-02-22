@@ -85,3 +85,26 @@ caption {
 .edit-remove-button {
 	display: inline-block;
 }
+
+/* 買い物リストページに使用　*/
+.card-container {
+	display: flex;
+	align-items: center;
+}
+
+.shoppinglist-contents {
+	margin-right: 10px;
+}
+
+.remove-shoppinglist {
+	width: 20px;
+	height: 20px;
+}
+
+.shoppinglist-ingredients {
+	display: flex;
+}
+
+.ingredient-contents {
+	margin-right: 10px;
+}
