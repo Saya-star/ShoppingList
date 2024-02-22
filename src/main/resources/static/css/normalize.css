@@ -52,8 +52,8 @@ caption {
 	color: darkslategrey
 }
 
-.card {
-	text-align: center;
+.card-text {
+	text-align: left;
 }
 
 .card img {
