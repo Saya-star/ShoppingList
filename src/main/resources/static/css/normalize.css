@@ -52,6 +52,10 @@ caption {
 	color: darkslategrey
 }
 
+.card {
+	margin: 0 auto;	
+}
+
 .card-text {
 	text-align: left;
 }
