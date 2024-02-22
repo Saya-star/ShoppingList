@@ -6,29 +6,24 @@
 <body>
 	<div class="wrap" layout:fragment="contents">
 		<main>
-			<p>買い物リスト一覧</p>
-			<article id="posts" 　th:if="${shoppingLists} != null" th:each="shoppingList: ${shoppingLists}"
+			<h1>作成した買い物リスト一覧</h1>
+			<div class="card text-bg-light mb-3" style="max-width: 18rem;" th:if="${shoppingLists} != null" th:each="shoppingList: ${shoppingLists}"
 				th:unless="${shoppingList.deleted}">
-				<ul>
-					<div class="contents">
-						<p th:text="${shoppingList.createdDate}"></p>
-						<p th:if="${shoppingList.shop} != null" th:text="${shoppingList.shop.shopName}"></p>
-						<th:block th:each="item:${shoppingList.shoppingListIngredients}">
-							<a th:text="${item.ingredient.ingredientName}"></a>
-							<a th:text="${item.ingredient.quantity}"></a>
-						</th:block>
-						<th:block th:each="item:${shoppingList.shoppingListSeasonings}">
-							<a th:text="${item.seasoning.seasoningName}"></a>
-						</th:block>
-						<th:block th:each="item:${shoppingList.shoppingListAlwaysBuys}">
-							<a th:text="${item.alwaysBuy.alwaysBuyName}"></a>
-						</th:block>
-				</ul>
-				<form class="remove-shoppingList" method="post"
-					th:action="@{/shoppinglist/delete/__${#strings.toString(shoppingList.shoppingListId)}__}">
-					<input type="submit" value="削除">
-				</form>
-			</article>
+  				<div class="card-header" th:text="${shoppingList.createdDate}"></div>
+  				<div class="card-body">
+    				<h5 class="card-title" th:if="${shoppingList.shop} != null" th:text="${shoppingList.shop.shopName}"></h5>
+    				<th:block th:each="item:${shoppingList.shoppingListIngredients}">
+						<p class="card-text" th:text="${item.ingredient.ingredientName}"></p>
+						<p class="card-text" th:text="${item.ingredient.quantity}"></p>
+					</th:block>
+					<th:block th:each="item:${shoppingList.shoppingListSeasonings}">
+						<p class="card-text" th:text="${item.seasoning.seasoningName}"></p>
+					</th:block>
+					<th:block th:each="item:${shoppingList.shoppingListAlwaysBuys}">
+						<p class="card-text" th:text="${item.alwaysBuy.alwaysBuyName}"></p>
+					</th:block>
+				</div>
+			</div>
 		</main>
 	</div>
 </body>
