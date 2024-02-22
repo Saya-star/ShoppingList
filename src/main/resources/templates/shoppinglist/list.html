@@ -7,7 +7,7 @@
 	<div class="wrap" layout:fragment="contents">
 		<main>
 			<h1>作成した買い物リスト一覧</h1>
-			<div class="card text-bg-light mb-3" style="max-width: 18rem;" th:if="${shoppingLists} != null" th:each="shoppingList: ${shoppingLists}"
+			<div class="card text-bg-light mb-3" style="max-width: 20rem;" th:if="${shoppingLists} != null" th:each="shoppingList: ${shoppingLists}"
 				th:unless="${shoppingList.deleted}">
   				<div class="card-header" th:text="${shoppingList.createdDate}"></div>
   				<div class="card-body">
