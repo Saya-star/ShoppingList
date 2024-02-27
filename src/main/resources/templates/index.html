@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
 	<title>タイトル</title>　<!--タイトルを入力-->
 </head>
 
@@ -19,20 +19,28 @@
 	</div>
 	<div id="wrap">
 		<!--<header>Title</header>-->
+		<!--nav th:replace="layouts/common.html :: nav"></nav-->
 		<main>
 			<div class="container">
+				<img class="home" src="/images/icons/22547127.png" alt="カフェでチェックリストを作成する女性" width="600" height="450">
+				<h1 class="home">タイトル</h1>
+				<h2>＜タイトル＞は買い物リストを作ることのできるアプリです。</h2>	
+				<h3>よく作る料理やいつも買うもの、今度買おうと思っているものを登録してお店ごとの買い物リストを作りましょう。<br>買い物リストを作るときに登録した料理を選択すると、その料理の材料が画面に表示されるので、わざわざレシピ本を探す必要がありません。</h3>
 				<div class="row justify-content-center">
 					<div class="col-3">
-						<a class="btn w-100 btn-outline-light" href="/users/new">Sign up</a>
+						<a class="btn w-100 btn-warning" href="/users/new">Sign up</a>
 					</div>
 					<div class="col-3">
-						<a class="btn w-100 btn-outline-light" href="/login">Log in</a>
+						<a class="btn w-100 btn-warning" href="/login">Log in</a>
 					</div>
 				</div>
 			</div>
 		</main>
 		<footer th:replace="layouts/common.html :: footer"></footer>
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+		</script>
 </body>
 
 </html>
