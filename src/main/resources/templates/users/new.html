@@ -21,34 +21,34 @@
 	<!--<header>Title</header>-->
 	<main>
 		<div class="container">
-		<h1>新規会員登録</h1>
-		<div class="row">
-		<form method="post" th:action="@{/user}" th:object="${form}">
-			<!--div layout:replace="~{layouts/common::messages}"></div-->
-			<div class="col col-md-8 mb-2">
-				<label>Name</label>
-				<input type="text" class="form-control" th:field="*{name}" />
-				<p th:if="${#fields.hasErrors('name')}" class="error-message" th:errors="*{name}"></p>
+			<h1>新規会員登録</h1>
+			<div class="row">
+				<form method="post" th:action="@{/user}" th:object="${form}">
+					<!--div layout:replace="~{layouts/common::messages}"></div-->
+					<div class="col col-md-8 mb-2">
+						<label>Name</label>
+						<input type="text" class="form-control" th:field="*{name}" />
+						<p th:if="${#fields.hasErrors('name')}" class="error-message" th:errors="*{name}"></p>
+					</div>
+					<div class="col col-md-8 mb-2">
+						<label>Email</label>
+						<input type="text" class="form-control" th:field="*{email}" />
+						<p th:if="${#fields.hasErrors('email')}" class="error-message" th:errors="*{email}"></p>
+					</div>
+					<div class="col col-md-8 mb-2">
+						<label>Password</label>
+						<input class="form-control" type="password" th:field="*{password}" />
+						<p th:if="${#fields.hasErrors('password')}" class="error-message" th:errors="*{password}"></p>
+					</div>
+					<div class="col col-md-8 mb-2">
+						<label>Password confirmation</label>
+						<input type="password" class="form-control" th:field="*{passwordConfirmation}" />
+						<p th:if="${#fields.hasErrors('passwordConfirmation')}" class="error-message"
+							th:errors="*{passwordConfirmation}"></p>
+					</div>
+					<input class="btn btn-warning mt-3" type="submit" value="登録" />
+				</form>
 			</div>
-			<div class="col col-md-8 mb-2">
-				<label>Email</label>
-				<input type="text" class="form-control" th:field="*{email}" />
-				<p th:if="${#fields.hasErrors('email')}" class="error-message" th:errors="*{email}"></p>
-			</div>
-			<div class="col col-md-8 mb-2">
-				<label>Password</label>
-				<input class="form-control" type="password" th:field="*{password}" />
-				<p th:if="${#fields.hasErrors('password')}" class="error-message" th:errors="*{password}"></p>
-			</div>
-			<div class="col col-md-8 mb-2">
-				<label>Password confirmation</label>
-				<input type="password" class="form-control" th:field="*{passwordConfirmation}" />
-				<p th:if="${#fields.hasErrors('passwordConfirmation')}" class="error-message"
-					th:errors="*{passwordConfirmation}"></p>
-			</div>
-			<input class="btn btn-warning mt-3" type="submit" value="登録" />
-		</form>
-		</div>
 		</div>
 	</main>
 	<footer th:replace="layouts/common.html :: footer"></footer>
