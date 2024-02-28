@@ -40,27 +40,31 @@
 						<div class="ingredient_input_field row d-flex me-1 mb-1">
 							<div class="col-3">
 								<input type="text" class="form-control" data-model-name="ingredient"
-								data-attr-name="ingredientName" />
+									data-attr-name="ingredientName" />
 							</div>
 							<div class="col-3">
-								<select class="form-select" data-model-name="ingredient" data-attr-name="ingredientType">
-								<option
-									th:each="ingredientTypeOpt : ${T(com.example.shopping.enums.IngredientType).values()}"
-									th:value="${ingredientTypeOpt}" th:text="${ingredientTypeOpt.typeName}"></option>
+								<select class="form-select" data-model-name="ingredient"
+									data-attr-name="ingredientType">
+									<option
+										th:each="ingredientTypeOpt : ${T(com.example.shopping.enums.IngredientType).values()}"
+										th:value="${ingredientTypeOpt}" th:text="${ingredientTypeOpt.typeName}">
+									</option>
 								</select>
 							</div>
 							<div class="col-3">
 								<input type="text" class="form-control" data-model-name="ingredient"
-								data-attr-name="quantity" />
+									data-attr-name="quantity" />
 							</div>
 							<div class="col-1">
-								<button class="remove_ingredient btn btn-outline-secondary text-nowrap" type="button">削除</button>
+								<button class="remove_ingredient btn btn-outline-secondary text-nowrap"
+									type="button">削除</button>
 							</div>
 						</div>
 					</div>
 					<div class="add_button row">
 						<div class="col-9 d-flex justify-content-center">
-							<button id="add_ingredient" class="btn btn-outline-warning mt-1 mb-3" type="button">材料を追加</button>
+							<button id="add_ingredient" class="btn btn-outline-warning mt-1 mb-3"
+								type="button">材料を追加</button>
 						</div>
 					</div>
 					<div id="seasonings_input_fields">
@@ -71,13 +75,15 @@
 									data-attr-name="seasoningName" />
 							</div>
 							<div class="col-1">
-								<button class="remove_seasoning btn btn-outline-secondary text-nowrap" type="button">削除</button>
-								</div>
+								<button class="remove_seasoning btn btn-outline-secondary text-nowrap"
+									type="button">削除</button>
+							</div>
 						</div>
 					</div>
 					<div class="add_button row">
 						<div class="col-9 d-flex justify-content-center">
-							<button id="add_seasoning" class="btn btn-outline-warning mt-1 mb-5" type="button">調味料を追加</button>
+							<button id="add_seasoning" class="btn btn-outline-warning mt-1 mb-5"
+								type="button">調味料を追加</button>
 						</div>
 					</div>
 					<div class="col-9 d-flex justify-content-center">
@@ -90,11 +96,11 @@
 			</div>
 		</main>
 	</div>
-		<footer th:replace="~{layouts/common.html :: footer}"></footer>
-		<script th:src="@{/JavaScript/dish/index.js}"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-			</script>
+	<footer th:replace="~{layouts/common.html :: footer}"></footer>
+	<script th:src="@{/JavaScript/dish/index.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+		</script>
 </body>
 
 </html>
