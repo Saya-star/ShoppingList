@@ -43,30 +43,33 @@
 								<!--label for="name" class="form-label">材料</label-->
 								<div class="col-3">
 									<input type="text" class="form-control" data-model-name="ingredient"
-									data-attr-name="ingredientName" th:value="${item.ingredientName}" />
+										data-attr-name="ingredientName" th:value="${item.ingredientName}" />
 								</div>
 								<div class="col-3">
-									<select class="form-select" data-model-name="ingredient" data-attr-name="ingredientType">
+									<select class="form-select" data-model-name="ingredient"
+										data-attr-name="ingredientType">
 										<option
-										th:each="ingredientTypeOpt : ${T(com.example.shopping.enums.IngredientType).values()}"
-										th:value="${ingredientTypeOpt}" th:text="${ingredientTypeOpt.typeName}"
-										th:selected="${ingredientTypeOpt == item.ingredientType}"></option>
+											th:each="ingredientTypeOpt : ${T(com.example.shopping.enums.IngredientType).values()}"
+											th:value="${ingredientTypeOpt}" th:text="${ingredientTypeOpt.typeName}"
+											th:selected="${ingredientTypeOpt == item.ingredientType}"></option>
 									</select>
 								</div>
 								<!--label for="name" class="form-label">分量</label-->
 								<div class="col-3">
 									<input type="text" class="form-control" data-model-name="ingredient"
-									data-attr-name="quantity" th:value="${item.quantity}" />
+										data-attr-name="quantity" th:value="${item.quantity}" />
 								</div>
 								<div class="col-1">
-									<button class="remove_ingredient btn btn-outline-secondary text-nowrap" type="button">削除</button>
+									<button class="remove_ingredient btn btn-outline-secondary text-nowrap"
+										type="button">削除</button>
 								</div>
 							</div>
 						</th:block>
 					</div>
 					<div class="add_button row">
 						<div class="col-9 d-flex justify-content-center">
-							<button id="add_ingredient" class="btn btn-outline-warning mt-1 mb-3" type="button">材料を追加</button>
+							<button id="add_ingredient" class="btn btn-outline-warning mt-1 mb-3"
+								type="button">材料を追加</button>
 						</div>
 					</div>
 					<div id="seasonings_input_fields">
@@ -76,17 +79,19 @@
 								<!--label for="name" class="form-label">調味料</label-->
 								<div class="col-9">
 									<input type="text" class="form-control" data-model-name="seasoning"
-									data-attr-name="seasoningName" th:value="${item.seasoningName}" />
+										data-attr-name="seasoningName" th:value="${item.seasoningName}" />
 								</div>
 								<div class="col-1">
-									<button class="remove_seasoning btn btn-outline-secondary text-nowrap" type="button">削除</button>
+									<button class="remove_seasoning btn btn-outline-secondary text-nowrap"
+										type="button">削除</button>
 								</div>
 							</div>
 						</th:block>
 					</div>
 					<div class="add_button row">
 						<div class="col-9 d-flex justify-content-center">
-							<button id="add_seasoning" class="btn btn-outline-warning mt-1 mb-5" type="button">調味料を追加</button>
+							<button id="add_seasoning" class="btn btn-outline-warning mt-1 mb-5"
+								type="button">調味料を追加</button>
 						</div>
 					</div>
 					<div class="col-9 d-flex justify-content-center">
