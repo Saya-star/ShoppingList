@@ -13,7 +13,7 @@
 				<form class="input-form" method="post" th:action="@{/alwaysBuy}" th:object="${form}">
 					<p>いつも買うものを入力してください</p>
 					<input type="text" name="alwaysBuyName" th:value="*{alwaysBuyName}" />
-					<input type="submit" class="btn btn-warning" value="保存">
+					<input class="btn btn-warning" type="submit" value="保存">
 				</form>
 				<table class="table contents-table">
 					<caption align="top" class="table-title">いつも買うものリスト</caption>
