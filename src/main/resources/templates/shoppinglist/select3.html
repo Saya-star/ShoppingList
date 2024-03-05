@@ -7,40 +7,50 @@
 	<div class="wrap" layout:fragment="contents">
 		<main>
 			<h1 class="title" th:text="${title}"></h1>
-			<p>step3：買うものとお店を選択して買い物リストを作成する</p>
+			<h2>step3：買うものとお店を選択して買い物リストを作成する</h2>
+			<h3 class="mb-5">買うものとお店の組み合わせを決めてお店ごとの買い物リストを作成しましょう。<br>作成した買い物リストは画面下部に表示されます。</h3>
 			<div class="make-shoppinglist">
 				<form method="post" th:action="@{/shoppinglist/select3/create}" th:object="${shoppingList}">
 					<div class="ingredientList">
-						<p>・選択した材料</p>
-						<th:block th:each="item:${selectedIngredient}">
-							<input type="checkbox" th:text="${item.ingredientName}" th:value="${item.ingredientId}"
-								name="ingredientList" />
-							<a th:text="${item.quantity}"></a>
-						</th:block>
+						<p class="m-4" style="background-color: lightgray;">買い物予定の材料</p>
+						<div class="form-check d-flex justify-content-center" th:each="item:${selectedIngredient}">
+							<label class="form-check-label m-1">
+								<input class="form-check-input" type="checkbox" th:text="${item.ingredientName}" th:value="${item.ingredientId}"
+									name="ingredientList" />
+							</label>
+							<p class="m-1" th:text="${item.quantity}"></p>
+						</div>
 					</div>
 					<div class="seasoningList">
-						<p>・選択した調味料</p>
-						<th:block th:each="item:${selectedSeasoning}">
-							<input type="checkbox" th:text="${item.seasoningName}" th:value="${item.seasoningId}"
-								name="seasoningList" />
-						</th:block>
+						<p class="m-4" style="background-color: lightgray;">買い物予定の調味料</p>
+						<div class="form-check" th:each="item:${selectedSeasoning}">
+							<label class="form-check-label m-1">
+								<input class="form-check-input" type="checkbox" th:text="${item.seasoningName}" th:value="${item.seasoningId}"
+									name="seasoningList" />
+							</label>
+						</div>
 					</div>
 					<div class="alwaysBuyList">
-						<p>・選択した"いつも買うもの"</p>
-						<th:block th:each="item:${selectedAlwaysBuy}">
-							<input type="checkbox" th:text="${item.alwaysBuyName}" th:value="${item.alwaysBuyId}"
-								name="alwaysBuyList" />
-						</th:block>
+						<p class="m-4" style="background-color: lightgray;">買い物予定の"いつも買うもの"</p>
+						<div class="form-check" th:each="item:${selectedAlwaysBuy}">
+							<label class="form-check-label m-1">
+								<input class="form-check-input" type="checkbox" th:text="${item.alwaysBuyName}" th:value="${item.alwaysBuyId}"
+									name="alwaysBuyList" />
+							</label>
+						</div>
 					</div>
 					<div class="shopList">
-						<p>・買うお店を選択する</p>
-						<th:block th:each="item:${shopList}" th:unless="${item.deleted}">
-							<input type="radio" th:text="${item.shopName}" th:value="${item.shopId}" name="shop" />
+						<p class="m-4" style="background-color: orange">買うお店を選択してください</p>
+						<div class="form-check" th:each="item:${shopList}" th:unless="${item.deleted}">
+							<label class="form-check-label m-1">
+								<input class="form-check-input" type="radio" th:text="${item.shopName}" th:value="${item.shopId}" name="shop" />
+							</label>
+						</div>
 					</div>
-					<button type="submit">買い物リストを作成</button>
+					<input class="btn btn-warning mt-4 mb-2" type="submit" value="買い物リストを作成">
 				</form>
 				<form class="move-to-shoppingList" method="get" th:action="@{/shoppinglist/complete}">
-					<button type="submit">完了(買い物リスト一覧画面へ)</button>
+					<input class="btn btn-outline-info text-nowrap" type="submit" value="買い物リスト作成を完了（買い物リスト一覧画面へ）">
 				</form>
 			</div>
 			<p>作成した買い物リスト</p>
