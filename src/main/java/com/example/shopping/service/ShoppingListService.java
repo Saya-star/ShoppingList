@@ -205,6 +205,6 @@ public class ShoppingListService {
 		// ログイン中のユーザーが登録した料理のみ一覧表示
 		Authentication authentication = (Authentication) principal;
 		UserInf user = (UserInf) authentication.getPrincipal();
-		return shoppingListRepository.findAllByUserId(user.getUserId());
+		return shoppingListRepository.findAllByUserIdOrderByShoppingListIdDesc(user.getUserId());
 	}
 }
