@@ -88,6 +88,13 @@ public class ShoppingListService {
 	}
 	
 	//ログイン中のユーザーが登録したお店の検索
+	public List<AlwaysBuy> findAlwaysBuy(Principal principal){
+		Authentication authentication = (Authentication) principal;
+		UserInf user = (UserInf) authentication.getPrincipal();
+		return alwaysBuyRepository.findAllByUserId(user.getUserId());
+	}
+	
+	//ログイン中のユーザーが登録したお店の検索
 	public List<Shop> findShop(Principal principal){
 		Authentication authentication = (Authentication) principal;
 		UserInf user = (UserInf) authentication.getPrincipal();
