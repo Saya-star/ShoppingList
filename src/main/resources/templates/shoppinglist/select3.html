@@ -50,26 +50,26 @@
 					<input class="btn btn-warning mt-4 mb-2" type="submit" value="買い物リストを作成">
 				</form>
 				<form class="move-to-shoppingList" method="get" th:action="@{/shoppinglist/complete}">
-					<input class="btn btn-outline-info text-nowrap" type="submit" value="買い物リスト作成を完了（買い物リスト一覧画面へ）">
+					<input class="btn btn-outline-info text-nowrap mb-5" type="submit" value="買い物リスト作成を完了（買い物リスト一覧画面へ）">
 				</form>
 			</div>
 			<p>作成した買い物リスト</p>
-			<article id="posts" 　th:if="${shoppingLists} != null" th:each="shoppingList : ${shoppingLists}">
-				<ul>
-					<!--p th:text="${shoppingList.createdDate}"></p-->
-					<p th:if="${shoppingList.shop} != null" th:text="${shoppingList.shop.shopName}"></p>
-					<th:block th:each="item:${shoppingList.shoppingListIngredients}">
-						<a th:text="${item.ingredient.ingredientName}"></a>
-						<a th:text="${item.ingredient.quantity}"></a>
-					</th:block>
-					<th:block th:each="item:${shoppingList.shoppingListSeasonings}">
-						<a th:text="${item.seasoning.seasoningName}"></a>
-					</th:block>
-					<th:block th:each="item:${shoppingList.shoppingListAlwaysBuys}">
-						<a th:text="${item.alwaysBuy.alwaysBuyName}"></a>
-					</th:block>
-				</ul>
-			</article>
+			<div id="posts" 　th:if="${shoppingLists} != null" th:each="shoppingList : ${shoppingLists}">
+					<div class="card text-bg-light mb-3 d-flex align-items-center" style="max-width: 20em;">
+						<!--p th:text="${shoppingList.createdDate}"></p-->
+						<h5 class="card-title" th:if="${shoppingList.shop} != null" th:text="${shoppingList.shop.shopName}"></h5>
+						<div class="d-flex" th:each="item:${shoppingList.shoppingListIngredients}">
+							<p class="card-text me-1" th:text="${item.ingredient.ingredientName}"></p>
+							<p class="card-text" th:text="${item.ingredient.quantity}"></p>
+						</div>
+						<div th:each="item:${shoppingList.shoppingListSeasonings}">
+							<p class="card-text" th:text="${item.seasoning.seasoningName}"></p>
+						</div>
+						<div th:each="item:${shoppingList.shoppingListAlwaysBuys}">
+							<p class="card-text" th:text="${item.alwaysBuy.alwaysBuyName}"></a>
+						</div>
+				</div>
+			</div>
 		</main>
 	</div>
 </body>
