@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -36,7 +37,7 @@ public class ShoppingListService {
 	// TODO コンストラクタインジェクションに修正
 	@Autowired
 	DishRepository dishRepository;
-	
+
 	@Autowired
 	ShopRepository shopRepository;
 
@@ -84,18 +85,20 @@ public class ShoppingListService {
 			List<Seasoning> selectedDishSeasoning = selectedDish.get().getSeasoning();
 			seasoningList.addAll(selectedDishSeasoning);
 		}
-		return seasoningList;
+		//重複する調味料の削除
+		List<Seasoning> dupicateRemoved = seasoningList.stream().distinct().collect(Collectors.toList());
+		return dupicateRemoved;
 	}
-	
-	//ログイン中のユーザーが登録したお店の検索
-	public List<AlwaysBuy> findAlwaysBuy(Principal principal){
+
+	// ログイン中のユーザーが登録したお店の検索
+	public List<AlwaysBuy> findAlwaysBuy(Principal principal) {
 		Authentication authentication = (Authentication) principal;
 		UserInf user = (UserInf) authentication.getPrincipal();
 		return alwaysBuyRepository.findAllByUserId(user.getUserId());
 	}
-	
-	//ログイン中のユーザーが登録したお店の検索
-	public List<Shop> findShop(Principal principal){
+
+	// ログイン中のユーザーが登録したお店の検索
+	public List<Shop> findShop(Principal principal) {
 		Authentication authentication = (Authentication) principal;
 		UserInf user = (UserInf) authentication.getPrincipal();
 		return shopRepository.findAllByUserId(user.getUserId());
