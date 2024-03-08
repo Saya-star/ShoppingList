@@ -3,6 +3,7 @@ package com.example.shopping.service;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -72,6 +73,8 @@ public class ShoppingListService {
 			List<Ingredient> selectedDishIngredient = selectedDish.get().getIngredient();
 			ingredientList.addAll(selectedDishIngredient);
 		}
+		//検索された材料の並び替え（材料種類順）
+		ingredientList.sort(Comparator.comparingInt(i -> i.getIngredientType().getTypeId()));
 		return ingredientList;
 	}
 
