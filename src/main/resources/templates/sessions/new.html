@@ -21,30 +21,30 @@
 	</div>
 	<!--<header>Title</header>-->
 	<div class="user-wrapper">
-	  <main>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-5 mx-auto">
-					<h1 class="text-center">ログイン</h1>
-					<form method="post" th:action="@{/login}">
-						<div class="mb-3">
-							<label class="form-label" for="session_email">Email</label>
-							<input class="form-control" type="text" name="username" id="session_email" />
-						</div>
-						<div class="mb-3">
-							<label class="form-label" for="session_password">パスワード</label>
-							<input class="form-control" type="password" name="password" id="session_password" />
-						</div>
-						<input class="btn btn-warning mt-3 mb-5 w-100"  type="submit" value="ログイン"/>
-					</form>
-					<h5 class="mt-5 text-center">新規登録はこちらから</h5>
-					<form class="new-user" method="get" th:action="@{/users/new}">
-						<input class="btn btn-outline-warning mt-3 mb-5 w-100" type="submit" value="新規登録する"/>
-					</form>
-			 	</div>
+		<main>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-5 mx-auto">
+						<h1 class="text-center">ログイン</h1>
+						<form method="post" th:action="@{/login}">
+							<div class="mb-3">
+								<label class="form-label" for="session_email">Email</label>
+								<input class="form-control" type="text" name="username" id="session_email" />
+							</div>
+							<div class="mb-3">
+								<label class="form-label" for="session_password">パスワード</label>
+								<input class="form-control" type="password" name="password" id="session_password" />
+							</div>
+							<input class="btn btn-warning mt-3 mb-5 w-100" type="submit" value="ログイン" />
+						</form>
+						<h5 class="mt-5 text-center">新規登録はこちらから</h5>
+						<form class="new-user" method="get" th:action="@{/users/new}">
+							<input class="btn btn-outline-warning mt-3 mb-5 w-100" type="submit" value="新規登録する" />
+						</form>
+					</div>
+				</div>
 			</div>
-		</div>
-	  </main>
+		</main>
 	</div>
 	<footer th:replace="layouts/common.html :: footer"></footer>
 </body>
