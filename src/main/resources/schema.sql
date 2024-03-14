@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS shopping_list_always_buy CASCADE;
 DROP TABLE IF EXISTS shopping_list_seasoning CASCADE;
 DROP TABLE IF EXISTS shopping_list_ingredient CASCADE;
 DROP TABLE IF EXISTS shopping_list CASCADE;
+DROP TABLE IF EXISTS later_buy CASCADE;
 DROP TABLE IF EXISTS always_buy CASCADE;
 DROP TABLE IF EXISTS shop CASCADE;
 DROP TABLE IF EXISTS seasoning CASCADE;
@@ -78,6 +79,17 @@ CREATE TABLE IF NOT EXISTS always_buy (
 );
 
 ALTER TABLE always_buy ADD CONSTRAINT FK_users_always_buy FOREIGN KEY (user_id) REFERENCES users;
+
+CREATE TABLE IF NOT EXISTS later_buy (
+ later_buy_id SERIAL NOT NULL,
+ user_id BIGINT,
+ later_buy_name VARCHAR(20),
+ created_date TIMESTAMP,
+ deleted BOOLEAN,
+ PRIMARY KEY(later_buy_id)
+);
+
+ALTER TABLE later_buy ADD CONSTRAINT FK_users_later_buy FOREIGN KEY (user_id) REFERENCES users;
 
 CREATE TABLE IF NOT EXISTS shopping_list (
  shopping_list_id SERIAL NOT NULL,
