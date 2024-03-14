@@ -38,7 +38,7 @@ public class AlwaysBuyService {
 		alwaysBuyRepository.saveAndFlush(alwaysBuyEntity);
 	}
 
-	// お店の削除
+	// いつも買うものの削除
 	public void delete(long id) {
 		Optional<AlwaysBuy> findItem = alwaysBuyRepository.findById(id);
 		if (findItem.isPresent()) {
