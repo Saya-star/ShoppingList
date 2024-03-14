@@ -18,8 +18,7 @@
 									<h5 class="card-title" th:if="${shoppingList.shop} != null"
 										th:text="${shoppingList.shop.shopName}"></h5>
 									<div class="d-flex" th:each="item:${shoppingList.shoppingListIngredients}">
-										<p class="card-text"
-											th:text="${item.ingredient.ingredientName}"></p>
+										<p class="card-text" th:text="${item.ingredient.ingredientName}"></p>
 										<p class="card-text text-nowrap" th:text="${item.ingredient.quantity}"></p>
 									</div>
 									<div th:each="item:${shoppingList.shoppingListSeasonings}">
@@ -39,6 +38,7 @@
 						</div>
 					</div>
 				</div>
+			</div>
 		</main>
 	</div>
 </body>
