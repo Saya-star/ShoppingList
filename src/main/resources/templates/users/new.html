@@ -2,11 +2,14 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
+	<title>タイトル</title>　<!--タイトルを入力-->
 </head>
 
 <body>
@@ -15,41 +18,51 @@
 		<span th:text="${message}"></span>
 	</div>
 	<!--<header>Title</header>-->
-	<main>
-		<h1>Sign in</h1>
-		<form method="post" th:action="@{/user}" th:object="${form}">
-			<div layout:replace="~{layouts/common::messages}"></div>
-			<div class="register-name">
-				<label>Name</label>
-				<input type="text" class="form-control" th:field="*{name}" />
-				<p th:if="${#fields.hasErrors('name')}" class="error-message" th:errors="*{name}"></p>
+	<div class="user-wrapper">
+		<main>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-5 mx-auto">
+						<h1 class="text-center">新規会員登録</h1>
+						<form method="post" th:action="@{/user}" th:object="${form}">
+							<div class="mb-2">
+								<label class="form-label">名前</label>
+								<input class="form-control" type="text" th:field="*{name}" />
+								<p class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+							</div>
+							<div class="mb-2">
+								<label class="form-label">Emailアドレス</label>
+								<input class="form-control" type="text" th:field="*{email}" />
+								<p class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+							</div>
+							<div class="mb-2">
+								<label class="form-label">パスワード</label>
+								<input class="form-control" type="password" th:field="*{password}" />
+								<p class="error-message" th:if="${#fields.hasErrors('password')}"
+									th:errors="*{password}"></p>
+							</div>
+							<div class="mb-2">
+								<label class="form-label">パスワード（確認）</label>
+								<input type="password" class="form-control" th:field="*{passwordConfirmation}" />
+								<p class="error-message" th:if="${#fields.hasErrors('passwordConfirmation')}"
+									th:errors="*{passwordConfirmation}"></p>
+							</div>
+							<input class="btn btn-warning mt-3 w-100" type="submit" value="登録" />
+						</form>
+					</div>
+				</div>
 			</div>
-			<div class="register-Email">
-				<label>Email</label>
-				<input type="text" class="form-control" th:field="*{email}" />
-				<p th:if="${#fields.hasErrors('email')}" class="error-message" th:errors="*{email}"></p>
-			</div>
-			<div class="register-password">
-				<label>Password</label>
-				<input class="form-control" type="password" th:field="*{password}" />
-				<p th:if="${#fields.hasErrors('password')}" class="error-message" th:errors="*{password}"></p>
-			</div>
-			<div class="password-confirmation">
-				<label>Password confirmation</label>
-				<input type="password" class="form-control" th:field="*{passwordConfirmation}" />
-				<p th:if="${#fields.hasErrors('passwordConfirmation')}" class="error-message"
-					th:errors="*{passwordConfirmation}"></p>
-			</div>
-			<input type="submit" value="登録" />
-		</form>
-	</main>
+		</main>
+	</div>
 	<footer th:replace="layouts/common.html :: footer"></footer>
 	<script>
 		$(function () {
 			$(".alert").fadeOut(3000);
 		});
 	</script>
-
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+		</script>
 </body>
 
 </html>

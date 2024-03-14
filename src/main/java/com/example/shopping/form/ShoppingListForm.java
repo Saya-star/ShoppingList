@@ -7,8 +7,6 @@ import com.example.shopping.entity.AlwaysBuy;
 import com.example.shopping.entity.Ingredient;
 import com.example.shopping.entity.Seasoning;
 import com.example.shopping.entity.Shop;
-import com.example.shopping.entity.ShoppingListIngredient;
-
 import lombok.Data;
 
 @Data

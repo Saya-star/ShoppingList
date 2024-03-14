@@ -1,29 +1,28 @@
 <!-- 買い物リスト作成ページ①：登録した料理から、買い物に必要な料理を選択するページ-->
 <!DOCTYPE html>
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
-
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/common}">
 
 <body>
-	<header th:replace="~{layouts/common.html :: header}"></header>
-	<main>
-		<h1 class="title" th:text="${title}"></h1>
-		<p>step1:料理を選択する</p>
-		<div class="select-dish">
-			<form method="post" th:action="@{/shoppinglist/select2}">
-				<div th:each="item:${data}">
-					<input type="checkbox" th:value="${item.dishId}" th:text="${item.dishName}" name="dishIds" />
-				</div>
-				<input type="submit" value="送信">
-			</form>
-		</div>
-	</main>
-	<footer th:replace="~{layouts/common.html :: footer}"></footer>
+	<div class="wrap" layout:fragment="contents">
+		<main>
+			<h1 class="title" th:text="${title}"></h1>
+			<h2>step1:料理を選択する</h2>
+			<h3 class="mb-5">買い物リストの作成に使用したい料理を選択してください。<br>料理を選択せずに進むことも出来ます。</h3>
+			<p class="mb-4" style="background-color: lightgray;">登録した料理一覧</p>
+			<div class="select-dish">
+				<form method="post" th:action="@{/shoppinglist/select2}">
+					<div th:each="item:${data}" th:unless="${item.dishDeleted}">
+						<label class="form-check-label m-1">
+							<input class="form-check-input" type="checkbox" th:value="${item.dishId}"
+								th:text="${item.dishName}" name="dishIds" />
+						</label>
+					</div>
+					<input class="btn btn-warning mt-4" type="submit" value="送信">
+				</form>
+			</div>
+		</main>
+	</div>
 </body>
 
 </html>

@@ -3,8 +3,10 @@ package com.example.shopping.service;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -36,7 +38,7 @@ public class ShoppingListService {
 	// TODO コンストラクタインジェクションに修正
 	@Autowired
 	DishRepository dishRepository;
-	
+
 	@Autowired
 	ShopRepository shopRepository;
 
@@ -71,6 +73,8 @@ public class ShoppingListService {
 			List<Ingredient> selectedDishIngredient = selectedDish.get().getIngredient();
 			ingredientList.addAll(selectedDishIngredient);
 		}
+		//検索された材料の並び替え（材料種類順）
+		ingredientList.sort(Comparator.comparingInt(i -> i.getIngredientType().getTypeId()));
 		return ingredientList;
 	}
 
@@ -84,11 +88,20 @@ public class ShoppingListService {
 			List<Seasoning> selectedDishSeasoning = selectedDish.get().getSeasoning();
 			seasoningList.addAll(selectedDishSeasoning);
 		}
-		return seasoningList;
+		//重複する調味料の削除
+		List<Seasoning> dupicateRemoved = seasoningList.stream().distinct().collect(Collectors.toList());
+		return dupicateRemoved;
 	}
-	
-	//ログイン中のユーザーが登録したお店の検索
-	public List<Shop> findShop(Principal principal){
+
+	// ログイン中のユーザーが登録したお店の検索
+	public List<AlwaysBuy> findAlwaysBuy(Principal principal) {
+		Authentication authentication = (Authentication) principal;
+		UserInf user = (UserInf) authentication.getPrincipal();
+		return alwaysBuyRepository.findAllByUserId(user.getUserId());
+	}
+
+	// ログイン中のユーザーが登録したお店の検索
+	public List<Shop> findShop(Principal principal) {
 		Authentication authentication = (Authentication) principal;
 		UserInf user = (UserInf) authentication.getPrincipal();
 		return shopRepository.findAllByUserId(user.getUserId());
@@ -205,6 +218,6 @@ public class ShoppingListService {
 		// ログイン中のユーザーが登録した料理のみ一覧表示
 		Authentication authentication = (Authentication) principal;
 		UserInf user = (UserInf) authentication.getPrincipal();
-		return shoppingListRepository.findAllByUserId(user.getUserId());
+		return shoppingListRepository.findAllByUserIdOrderByShoppingListIdDesc(user.getUserId());
 	}
 }

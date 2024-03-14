@@ -10,5 +10,5 @@ import com.example.shopping.entity.ShoppingList;
 @Repository
 public interface ShoppingListRepository extends JpaRepository<ShoppingList, Long> {
 
-	List<ShoppingList> findAllByUserId(Long userId);
+	List<ShoppingList> findAllByUserIdOrderByShoppingListIdDesc(Long userId);
 }

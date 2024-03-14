@@ -2,72 +2,113 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
 </head>
 
 <body>
-	<header th:replace="~{layouts/common.html :: header}"></header>
-	<main>
-		<div class="container">
-			<h1 class="title" th:text="${title}"></h1>
-			<form id="dish-submit-form" method="post" th:action="@{/dish/edit}" th:object="${dish}">
-				<input type="hidden" name="dishId" th:value="*{dishId}" />
-				<div id="dish-name">
-					<label for="name" class="form-label">料理名</label>
-					<input type="text" class="form-control" name="dishName" th:value="*{dishName}" />
-				</div>
-				<div id="ingredients_input_fields">
-					<th:block th:each="item : ${ingredients}" th:unless="${item.ingredientDeleted}">
-						<div class="ingredient_input_field">
-							<label for="name" class="form-label">材料</label>
-							<input type="text" class="form-control" data-model-name="ingredient"
-								data-attr-name="ingredientName" th:value="${item.ingredientName}" />
-							<select data-model-name="ingredient" data-attr-name="ingredientType">
-								<option
-									th:each="ingredientTypeOpt : ${T(com.example.shopping.enums.IngredientType).values()}"
-									th:value="${ingredientTypeOpt}" th:text="${ingredientTypeOpt.typeName}"
-									th:selected="${ingredientTypeOpt == item.ingredientType}"></option>
-							</select>
-							<label for="name" class="form-label">分量</label>
-							<input type="text" class="form-control" data-model-name="ingredient"
-								data-attr-name="quantity" th:value="${item.quantity}" />
-							<button class="remove_ingredient" type="button">削除</button>
+	<nav th:replace="~{layouts/common.html :: nav}"></nav>
+	<div class="dish-wrapper">
+		<main>
+			<div class="container">
+				<h1 th:text="${title}"></h1>
+				<form id="dish-submit-form" method="post" th:action="@{/dish/edit}" th:object="${dish}">
+					<input type="hidden" name="dishId" th:value="*{dishId}" />
+					<div id="dish-name" class="row mb-5">
+						<label for="name" class="form-label">料理名</label>
+						<div class="col-9">
+							<input type="text" class="form-control" name="dishName" th:value="*{dishName}" />
 						</div>
-					</th:block>
-				</div>
-				<div class="add_button">
-					<button id="add_ingredient" type="button">材料を追加</button>
-				</div>
-				<br> <!-- brあとで消す -->
-				<div id="seasonings_input_fields">
-					<th:block th:each="item : ${seasonings}" th:unless="${item.seasoningDeleted}">
-						<div class="seasoning_input_field">
-							<label for="name" class="form-label">調味料</label>
-							<input type="text" class="form-control" data-model-name="seasoning"
-								data-attr-name="seasoningName" th:value="${item.seasoningName}" />
-							<button class="remove_seasoning" type="button">削除</button>
+					</div>
+					<div id="ingredients_input_fields">
+						<div class="row d-flex me-1 mb-1">
+							<div class="col-3">
+								<label for="name" class="form-label">材料</label>
+							</div>
+							<div class="col-3">
+								<label for="name" class="form-label">材料の種類</label>
+							</div>
+							<div class="col-3">
+								<label for="name" class="form-label">分量</label>
+							</div>
 						</div>
-					</th:block>
-				</div>
-				<div class="add_button">
-					<button id="add_seasoning" type="button">調味料を追加</button>
-				</div>
-				<br> <!-- brあとで消す -->
-				<input type="submit" class="btn" value="保存" />
-			</form>
-			<br> <!-- brあとで消す -->
-			<form class="back-dishList" method="get" th:action="@{/dish/list}">
-				<input type="submit" value="料理一覧に戻る">
-			</form>
-		</div>
-	</main>
+						<th:block th:each="item : ${ingredients}" th:unless="${item.ingredientDeleted}">
+							<div class="ingredient_input_field row d-flex me-1 mb-1">
+								<!--label for="name" class="form-label">材料</label-->
+								<div class="col-3">
+									<input type="text" class="form-control" data-model-name="ingredient"
+										data-attr-name="ingredientName" th:value="${item.ingredientName}" />
+								</div>
+								<div class="col-3">
+									<select class="form-select" data-model-name="ingredient"
+										data-attr-name="ingredientType">
+										<option
+											th:each="ingredientTypeOpt : ${T(com.example.shopping.enums.IngredientType).values()}"
+											th:value="${ingredientTypeOpt}" th:text="${ingredientTypeOpt.typeName}"
+											th:selected="${ingredientTypeOpt == item.ingredientType}"></option>
+									</select>
+								</div>
+								<!--label for="name" class="form-label">分量</label-->
+								<div class="col-3">
+									<input type="text" class="form-control" data-model-name="ingredient"
+										data-attr-name="quantity" th:value="${item.quantity}" />
+								</div>
+								<div class="col-1">
+									<button class="remove_ingredient btn btn-outline-secondary text-nowrap"
+										type="button">削除</button>
+								</div>
+							</div>
+						</th:block>
+					</div>
+					<div class="add_button row">
+						<div class="col-9 d-flex justify-content-center">
+							<button id="add_ingredient" class="btn btn-outline-warning mt-1 mb-3"
+								type="button">材料を追加</button>
+						</div>
+					</div>
+					<div id="seasonings_input_fields">
+						<label for="name" class="form-label">調味料</label>
+						<th:block th:each="item : ${seasonings}" th:unless="${item.seasoningDeleted}">
+							<div class="seasoning_input_field row d-flex me-1 mb-1">
+								<!--label for="name" class="form-label">調味料</label-->
+								<div class="col-9">
+									<input type="text" class="form-control" data-model-name="seasoning"
+										data-attr-name="seasoningName" th:value="${item.seasoningName}" />
+								</div>
+								<div class="col-1">
+									<button class="remove_seasoning btn btn-outline-secondary text-nowrap"
+										type="button">削除</button>
+								</div>
+							</div>
+						</th:block>
+					</div>
+					<div class="add_button row">
+						<div class="col-9 d-flex justify-content-center">
+							<button id="add_seasoning" class="btn btn-outline-warning mt-1 mb-5"
+								type="button">調味料を追加</button>
+						</div>
+					</div>
+					<div class="col-9 d-flex justify-content-center">
+						<input type="submit" class="btn btn-warning" value="保存" />
+					</div>
+				</form>
+				<form class="back-dishList" method="get" th:action="@{/dish/list}">
+					<input class="btn btn-link mt-5" type="submit" value="料理一覧に戻る">
+				</form>
+			</div>
+		</main>
+	</div>
 	<footer th:replace="~{layouts/common.html :: footer}"></footer>
 	<script th:src="@{/JavaScript/dish/index.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+		</script>
 </body>
 
 </html>

@@ -89,11 +89,11 @@ public class ShoppingListController {
 
 	// 【画面２】選択された料理の材料・調味料と、いつも買うものリスト、あとで買うものリストの表示
 	@PostMapping(value = "/select2")
-	public String getItems(@RequestParam(value = "dishIds", required = false) Long[] dishIds, Model model) {
+	public String getItems(@RequestParam(value = "dishIds", required = false) Long[] dishIds, Model model, Principal principal) {
 		model.addAttribute("title", "買い物リストを作る②");
 		model.addAttribute("ingredientList", shoppingListService.findIngredient(dishIds)); //材料の検索
 		model.addAttribute("seasoningList", shoppingListService.findSeasoning(dishIds)); //調味料の検索
-		model.addAttribute("alwaysBuy", alwaysBuyRepository.findAll()); // いつも買うものの検索
+		model.addAttribute("alwaysBuy", shoppingListService.findAlwaysBuy(principal)); // いつも買うものの検索
 		return "shoppinglist/select2";
 	}
 
