@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.shopping.entity.LaterBuy;
 import com.example.shopping.repository.LaterBuyRepository;
+import com.example.shopping.service.LaterBuyService;
 
 //あとで買うものリストのページのコントローラー
 @Controller
