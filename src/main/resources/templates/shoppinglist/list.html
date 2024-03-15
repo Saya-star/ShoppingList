@@ -27,6 +27,9 @@
 									<div th:each="item:${shoppingList.shoppingListAlwaysBuys}">
 										<p class="card-text" th:text="${item.alwaysBuy.alwaysBuyName}"></p>
 									</div>
+									<div th:each="item:${shoppingList.shoppingListLaterBuys}">
+										<p class="card-text" th:text="${item.laterBuy.laterBuyName}"></p>
+									</div>
 								</div>
 							</div>
 						</div>

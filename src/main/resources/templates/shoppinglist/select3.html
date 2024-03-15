@@ -39,6 +39,15 @@
 							</label>
 						</div>
 					</div>
+					<div class="laterBuyList">
+						<p class="m-4" style="background-color: lightgray;">買い物予定の"あとで買うもの"</p>
+						<div class="form-check" th:each="item:${selectedLaterBuy}">
+							<label class="form-check-label m-1">
+								<input class="form-check-input" type="checkbox" th:text="${item.laterBuyName}" th:value="${item.laterBuyId}"
+									name="laterBuyList" />
+							</label>
+						</div>
+					</div>			
 					<div class="shopList">
 						<p class="m-4" style="background-color: orange">買うお店を選択してください</p>
 						<div class="form-check" th:each="item:${shopList}" th:unless="${item.deleted}">
@@ -68,6 +77,9 @@
 						<div th:each="item:${shoppingList.shoppingListAlwaysBuys}">
 							<p class="card-text" th:text="${item.alwaysBuy.alwaysBuyName}"></a>
 						</div>
+						<div th:each="item:${shoppingList.shoppingListLaterBuys}">
+							<p class="card-text" th:text="${item.laterBuy.laterBuyName}"></a>
+						</div>		
 				</div>
 			</div>
 		</main>
