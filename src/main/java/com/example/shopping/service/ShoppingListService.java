@@ -93,7 +93,7 @@ public class ShoppingListService {
 		return dupicateRemoved;
 	}
 
-	// ログイン中のユーザーが登録したお店の検索
+	// ログイン中のユーザーが登録したいつも買うものの検索
 	public List<AlwaysBuy> findAlwaysBuy(Principal principal) {
 		Authentication authentication = (Authentication) principal;
 		UserInf user = (UserInf) authentication.getPrincipal();
