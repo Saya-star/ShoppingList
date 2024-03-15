@@ -42,7 +42,7 @@ public class ShoppingList {
 	@OneToMany(mappedBy = "shoppingList")
 	private List<ShoppingListAlwaysBuy> shoppingListAlwaysBuys;
 
-	@OneToMany(mappedBy = "shopingList")
+	@OneToMany(mappedBy = "shoppingList")
 	private List<ShoppingListLaterBuy> shoppingListLaterBuys;
 	
 	@Column

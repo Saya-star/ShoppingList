@@ -21,7 +21,7 @@ public class ShoppingListLaterBuy {
 	private long shoppingListLaterBuyId;
 	
 	@ManyToOne
-	@JoinColumn(name = "always_buy_id")
+	@JoinColumn(name = "later_buy_id")
 	private LaterBuy laterBuy;
 	
 	@ManyToOne
