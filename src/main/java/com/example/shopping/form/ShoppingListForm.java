@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.shopping.entity.AlwaysBuy;
 import com.example.shopping.entity.Ingredient;
+import com.example.shopping.entity.LaterBuy;
 import com.example.shopping.entity.Seasoning;
 import com.example.shopping.entity.Shop;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class ShoppingListForm {
 	
 	private List<Seasoning> seasoningList;
 	
-	//TODO AlwaysBuy/LaterBuyもそれぞれ追加
 	private List<AlwaysBuy> alwaysBuyList;
+	
+	private List<LaterBuy> laterBuyList;
 }
