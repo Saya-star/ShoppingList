@@ -51,7 +51,7 @@ public class ShoppingListService {
 
 	@Autowired
 	LaterBuyRepository laterBuyRepository;
-	
+
 	@Autowired
 	IngredientRepository ingredientRepository;
 
@@ -69,7 +69,7 @@ public class ShoppingListService {
 
 	@Autowired
 	ShoppingListAlwaysBuyRepository shoppingListAlwaysBuyRepository;
-	
+
 	@Autowired
 	ShoppingListLaterBuyRepository shoppingListLaterBuyRepository;
 
@@ -80,12 +80,12 @@ public class ShoppingListService {
 			// dishIdで選択された料理を検索
 			Optional<Dish> selectedDish = dishRepository.findById(dishIds[i]);
 			// 選択された料理に必要な材料を検索し、ingredientListに追加
-			if(selectedDish.isPresent()) {
+			if (selectedDish.isPresent()) {
 				List<Ingredient> selectedDishIngredient = selectedDish.get().getIngredient();
-				ingredientList.addAll(selectedDishIngredient);				
+				ingredientList.addAll(selectedDishIngredient);
 			}
 		}
-		//検索された材料の並び替え（材料種類順）
+		// 検索された材料の並び替え（材料種類順）
 		ingredientList.sort(Comparator.comparingInt(i -> i.getIngredientType().getTypeId()));
 		return ingredientList;
 	}
@@ -97,12 +97,12 @@ public class ShoppingListService {
 			// dishIdで選択された料理を検索
 			Optional<Dish> selectedDish = dishRepository.findById(dishIds[i]);
 			// 選択された料理に必要な調味料を検索し、seasoningListに追加
-			if(selectedDish.isPresent()) {
+			if (selectedDish.isPresent()) {
 				List<Seasoning> selectedDishSeasoning = selectedDish.get().getSeasoning();
 				seasoningList.addAll(selectedDishSeasoning);
 			}
 		}
-		//重複する調味料の削除
+		// 重複する調味料の削除
 		List<Seasoning> dupicateRemoved = seasoningList.stream().distinct().collect(Collectors.toList());
 		return dupicateRemoved;
 	}
@@ -113,7 +113,7 @@ public class ShoppingListService {
 		UserInf user = (UserInf) authentication.getPrincipal();
 		return alwaysBuyRepository.findAllByUserId(user.getUserId());
 	}
-	
+
 	// ログイン中のユーザーが登録したあとで買うものの検索
 	public List<LaterBuy> findLaterBuy(Principal principal) {
 		Authentication authentication = (Authentication) principal;
@@ -214,7 +214,7 @@ public class ShoppingListService {
 			shoppingListAlwaysBuyRepository.saveAllAndFlush(shoppingListAlwaysBuys);
 			newList.setShoppingListAlwaysBuys(shoppingListAlwaysBuys);
 		}
-		
+
 		/*
 		 * ShoppingListLaterBuyエンティティにデータを保存
 		 */
