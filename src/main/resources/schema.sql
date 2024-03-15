@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS shopping_list_later_buy CASCADE;
 DROP TABLE IF EXISTS shopping_list_always_buy CASCADE;
 DROP TABLE IF EXISTS shopping_list_seasoning CASCADE;
 DROP TABLE IF EXISTS shopping_list_ingredient CASCADE;
@@ -135,6 +136,17 @@ CREATE TABLE IF NOT EXISTS shopping_list_always_buy (
 
 ALTER TABLE shopping_list_always_buy ADD CONSTRAINT FK_shopping_list_sl_always_buy FOREIGN KEY (shopping_list_id) REFERENCES shopping_list;
 ALTER TABLE shopping_list_always_buy ADD CONSTRAINT FK_always_buy_sl_always_buy FOREIGN KEY (always_buy_id) REFERENCES always_buy;
+
+CREATE TABLE IF NOT EXISTS shopping_list_later_buy (
+ shopping_list_later_buy_id SERIAL NOT NULL,
+ later_buy_id BIGINT,
+ shopping_list_id BIGINT,
+ deleted BOOLEAN,
+ PRIMARY KEY(shopping_list_later_buy_id)
+);
+
+ALTER TABLE shopping_list_later_buy ADD CONSTRAINT FK_shopping_list_sl_later_buy FOREIGN KEY (shopping_list_id) REFERENCES shopping_list;
+ALTER TABLE shopping_list_later_buy ADD CONSTRAINT FK_later_buy_sl_later_buy FOREIGN KEY (later_buy_id) REFERENCES later_buy;
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO shoppinglist;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO shoppinglist;
