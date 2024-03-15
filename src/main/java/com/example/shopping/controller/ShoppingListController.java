@@ -94,6 +94,7 @@ public class ShoppingListController {
 		model.addAttribute("ingredientList", shoppingListService.findIngredient(dishIds)); //材料の検索
 		model.addAttribute("seasoningList", shoppingListService.findSeasoning(dishIds)); //調味料の検索
 		model.addAttribute("alwaysBuy", shoppingListService.findAlwaysBuy(principal)); // いつも買うものの検索
+		model.addAttribute("laterBuy",shoppingListService.findLaterBuy(principal));//あとで買うものの検索
 		return "shoppinglist/select2";
 	}
 
@@ -106,9 +107,8 @@ public class ShoppingListController {
 		model.addAttribute("selectedIngredient", selectForm.getIngredients());
 		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());
 		model.addAttribute("shopList", shoppingListService.findShop(principal));
-		// TODO あとで買うものリストの表示の処理
-		
 		model.addAttribute("selectedAlwaysBuy", selectForm.getAlwaysBuys());
+		model.addAttribute("selectedLaterBuy", selectForm.getLaterBuys());
 		return "shoppinglist/select3";
 	}
 
@@ -121,7 +121,7 @@ public class ShoppingListController {
 		model.addAttribute("selectedSeasoning", selectForm.getSeasonings());
 		model.addAttribute("shopList", shoppingListService.findShop(principal));
 		model.addAttribute("selectedAlwaysBuy", selectForm.getAlwaysBuys());
-		// TODO あとで買うものリストの表示の処理
+		model.addAttribute("selectedLaterBuy", selectForm.getLaterBuys());
 		
 		// 登録した買い物リストを表示する
 		model.addAttribute("shoppingLists", shoppingLists);
