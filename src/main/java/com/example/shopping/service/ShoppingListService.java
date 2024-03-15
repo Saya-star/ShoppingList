@@ -80,8 +80,10 @@ public class ShoppingListService {
 			// dishIdで選択された料理を検索
 			Optional<Dish> selectedDish = dishRepository.findById(dishIds[i]);
 			// 選択された料理に必要な材料を検索し、ingredientListに追加
-			List<Ingredient> selectedDishIngredient = selectedDish.get().getIngredient();
-			ingredientList.addAll(selectedDishIngredient);
+			if(selectedDish.isPresent()) {
+				List<Ingredient> selectedDishIngredient = selectedDish.get().getIngredient();
+				ingredientList.addAll(selectedDishIngredient);				
+			}
 		}
 		//検索された材料の並び替え（材料種類順）
 		ingredientList.sort(Comparator.comparingInt(i -> i.getIngredientType().getTypeId()));
@@ -95,8 +97,10 @@ public class ShoppingListService {
 			// dishIdで選択された料理を検索
 			Optional<Dish> selectedDish = dishRepository.findById(dishIds[i]);
 			// 選択された料理に必要な調味料を検索し、seasoningListに追加
-			List<Seasoning> selectedDishSeasoning = selectedDish.get().getSeasoning();
-			seasoningList.addAll(selectedDishSeasoning);
+			if(selectedDish.isPresent()) {
+				List<Seasoning> selectedDishSeasoning = selectedDish.get().getSeasoning();
+				seasoningList.addAll(selectedDishSeasoning);
+			}
 		}
 		//重複する調味料の削除
 		List<Seasoning> dupicateRemoved = seasoningList.stream().distinct().collect(Collectors.toList());
