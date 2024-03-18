@@ -80,6 +80,10 @@ caption {
 	text-align: left;
 }
 
+.card-text+ .card-text {
+    margin-left: 16px;
+}
+
 .card img {
 	width: 250px;
 	height: 250px;
