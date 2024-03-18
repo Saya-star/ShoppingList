@@ -265,6 +265,17 @@ public class ShoppingListService {
 		// ログイン中のユーザーが登録した料理のみ一覧表示
 		Authentication authentication = (Authentication) principal;
 		UserInf user = (UserInf) authentication.getPrincipal();
-		return shoppingListRepository.findAllByUserIdOrderByShoppingListIdDesc(user.getUserId());
+		//ShoppingListIngredientをTypeId順→IngredientName順に並び替え
+		List<ShoppingList> shoppingLists = shoppingListRepository
+				.findAllByUserIdOrderByShoppingListIdDesc(user.getUserId());
+		shoppingLists.forEach(sl -> {
+			sl.setShoppingListIngredients(
+					sl.getShoppingListIngredients().stream()
+							.sorted(Comparator.comparing(
+									(ShoppingListIngredient sli) -> sli.getIngredient().getIngredientType().getTypeId())
+									.thenComparing(sli -> sli.getIngredient().getIngredientName()))
+							.collect(Collectors.toList()));
+		});
+		return shoppingLists;
 	}
 }
