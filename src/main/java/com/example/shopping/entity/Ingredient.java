@@ -45,5 +45,9 @@ public class Ingredient {
 
 	@Column
 	private boolean ingredientDeleted = false;
+	
+	public int getTypeId() {
+		return ingredientType.getTypeId();
+	}
 
 }

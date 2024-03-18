@@ -3,6 +3,7 @@ package com.example.shopping.service;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,7 @@ import com.example.shopping.entity.ShoppingListIngredient;
 import com.example.shopping.entity.ShoppingListLaterBuy;
 import com.example.shopping.entity.ShoppingListSeasoning;
 import com.example.shopping.entity.UserInf;
+import com.example.shopping.enums.IngredientType;
 import com.example.shopping.form.ShoppingListForm;
 import com.example.shopping.repository.AlwaysBuyRepository;
 import com.example.shopping.repository.DishRepository;
@@ -85,9 +87,11 @@ public class ShoppingListService {
 				ingredientList.addAll(selectedDishIngredient);
 			}
 		}
-		// 検索された材料の並び替え（材料種類順）
-		ingredientList.sort(Comparator.comparingInt(i -> i.getIngredientType().getTypeId()));
-		return ingredientList;
+		// 検索された材料の並び替え（材料種類順→材料名順）
+		List<Ingredient> sortedIngredient = ingredientList.stream().sorted(Comparator.comparingInt(Ingredient::getTypeId)
+				.thenComparing(Ingredient::getIngredientName))
+				.collect(Collectors.toList());
+		return sortedIngredient;
 	}
 
 	// 選択された料理の調味料を検索
