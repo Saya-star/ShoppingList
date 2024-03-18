@@ -88,8 +88,8 @@ public class ShoppingListService {
 			}
 		}
 		// 検索された材料の並び替え（材料種類順→材料名順）
-		List<Ingredient> sortedIngredient = ingredientList.stream().sorted(Comparator.comparingInt(Ingredient::getTypeId)
-				.thenComparing(Ingredient::getIngredientName))
+		List<Ingredient> sortedIngredient = ingredientList.stream()
+				.sorted(Comparator.comparingInt(Ingredient::getTypeId).thenComparing(Ingredient::getIngredientName))
 				.collect(Collectors.toList());
 		return sortedIngredient;
 	}
