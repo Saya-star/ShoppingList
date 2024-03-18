@@ -65,11 +65,10 @@
 			<p>作成した買い物リスト</p>
 			<div id="posts" 　th:if="${shoppingLists} != null" th:each="shoppingList : ${shoppingLists}">
 					<div class="card text-bg-light mb-3 d-flex align-items-center" style="max-width: 20em;">
-						<!--p th:text="${shoppingList.createdDate}"></p-->
 						<h5 class="card-title" th:if="${shoppingList.shop} != null" th:text="${shoppingList.shop.shopName}"></h5>
 						<div class="d-flex" th:each="item:${shoppingList.shoppingListIngredients}">
-							<p class="card-text me-1" th:text="${item.ingredient.ingredientName}"></p>
-							<p class="card-text" th:text="${item.ingredient.quantity}"></p>
+							<span class="card-text me-1" th:text="${item.ingredient.ingredientName}"></span>
+							<span class="card-text" th:text="${item.ingredient.quantity}"></span>
 						</div>
 						<div th:each="item:${shoppingList.shoppingListSeasonings}">
 							<p class="card-text" th:text="${item.seasoning.seasoningName}"></p>
