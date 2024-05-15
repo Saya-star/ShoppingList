@@ -17,15 +17,19 @@
 								<div class="card-body">
 									<h5 class="card-title" th:if="${shoppingList.shop} != null"
 										th:text="${shoppingList.shop.shopName}"></h5>
-									<div class="d-flex" th:each="item:${shoppingList.shoppingListIngredients}">
-										<p class="card-text" th:text="${item.ingredient.ingredientName}"></p>
-										<p class="card-text text-nowrap" th:text="${item.ingredient.quantity}"></p>
+									<div class="d-flex" 　th:each="item:${shoppingList.shoppingListIngredients}">
+										<span class="card-text me-2" th:text="${item.ingredient.ingredientName}"></span>
+										<span class="card-text text-nowrap"
+											th:text="${item.ingredient.quantity}"></span>
 									</div>
 									<div th:each="item:${shoppingList.shoppingListSeasonings}">
 										<p class="card-text" th:text="${item.seasoning.seasoningName}"></p>
 									</div>
 									<div th:each="item:${shoppingList.shoppingListAlwaysBuys}">
 										<p class="card-text" th:text="${item.alwaysBuy.alwaysBuyName}"></p>
+									</div>
+									<div th:each="item:${shoppingList.shoppingListLaterBuys}">
+										<p class="card-text" th:text="${item.laterBuy.laterBuyName}"></p>
 									</div>
 								</div>
 							</div>

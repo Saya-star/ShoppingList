@@ -1,0 +1,36 @@
+<!-- いつも買うものの登録ページ -->
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/common}">
+
+<body>
+	<div class="wrap" layout:fragment="contents">
+		<main>
+			<div class="container">
+				<h1>あとで買うものを登録する</h1>
+				<h2>登録したものは、買い物リストに追加することが出来ます。</h2>
+				<img class="top-img" src="/images/icons/54.png" alt="ティッシュのイラスト">
+				<form class="input-form" method="post" th:action="@{/laterBuy}" th:object="${form}">
+					<p>あとで買うものを入力してください</p>
+					<input type="text" name="laterBuyName" th:value="*{laterBuyName}" />
+					<input class="btn btn-warning" type="submit" value="保存">
+				</form>
+				<table class="table contents-table">
+					<caption align="top" class="table-title">あとで買うものリスト</caption>
+					<tbody>
+						<tr th:each="item: ${data}" th:unless="${item.deleted}">
+							<td th:text="${item.laterBuyName}"></td>
+							<td>
+								<form th:action="@{/laterBuy/delete}" method="post">
+									<input type="hidden" name="id" th:value="${item.laterBuyId}">
+									<input class="btn btn-light" type="submit" value="削除">
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+		</main>
+	</div>
+</body>
+
+</html>

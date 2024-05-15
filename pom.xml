@@ -11,6 +11,7 @@
 	</parent>
 	<groupId>com.example.shopping</groupId>
 	<artifactId>ShoppingList</artifactId>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ShoppingList</name>
 	<description>買い物リスト作成アプリ</description>
@@ -82,6 +83,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
