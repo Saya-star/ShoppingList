@@ -3,7 +3,6 @@ package com.example.shopping.controller;
 import java.security.Principal;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,21 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.shopping.entity.AlwaysBuy;
-import com.example.shopping.repository.AlwaysBuyRepository;
 import com.example.shopping.service.AlwaysBuyService;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 //いつも買うものリストのページのコントローラー
 @Controller
 @RequestMapping(value = "/alwaysBuy")
+@RequiredArgsConstructor
 public class AlwaysBuyController {
 
-	@Autowired
-	AlwaysBuyRepository alwaysBuyRepository;
-
-	@Autowired
-	AlwaysBuyService alwaysBuyService;
+	private final AlwaysBuyService alwaysBuyService;
 
 	// いつも買うものの一覧表示
 	@GetMapping
