@@ -35,7 +35,6 @@ public class AlwaysBuyController {
 
 	// いつも買うものをDBに保存
 	@PostMapping
-	@Transactional
 	public String add(@ModelAttribute("form") AlwaysBuy alwaysBuy, Principal principal) {
 		alwaysBuyService.add(alwaysBuy, principal);
 		return "redirect:/alwaysBuy";
