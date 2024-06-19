@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +12,13 @@ import com.example.shopping.entity.Shop;
 import com.example.shopping.entity.UserInf;
 import com.example.shopping.repository.ShopRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ShopService {
 
-	@Autowired
-	ShopRepository shopRepository;
+	private final ShopRepository shopRepository;
 
 	// Shopのリストを取得
 	public List<Shop> get(Shop shop, Principal principal) {

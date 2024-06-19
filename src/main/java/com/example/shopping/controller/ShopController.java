@@ -15,17 +15,18 @@ import com.example.shopping.repository.ShopRepository;
 import com.example.shopping.service.ShopService;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 //お店リストのページのコントローラー
 @Controller
 @RequestMapping(value = "/shop")
+@RequiredArgsConstructor
 public class ShopController {
 
 	@Autowired
 	ShopRepository shopRepository;
 
-	@Autowired
-	ShopService shopService;
+	private final ShopService shopService;
 
 	// 店名の一覧表示
 	@GetMapping
