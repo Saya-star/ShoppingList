@@ -3,7 +3,6 @@ package com.example.shopping.controller;
 import java.security.Principal;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,19 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.shopping.entity.LaterBuy;
-import com.example.shopping.repository.LaterBuyRepository;
 import com.example.shopping.service.LaterBuyService;
+
+import lombok.RequiredArgsConstructor;
 
 //あとで買うものリストのページのコントローラー
 @Controller
 @RequestMapping(value = "/laterBuy")
+@RequiredArgsConstructor
 public class LaterBuyController {
 
-	@Autowired
-	LaterBuyRepository laterBuyRepository;
-	
-	@Autowired
-	LaterBuyService laterBuyService;
+	private final LaterBuyService laterBuyService;
 	
 	//あとで買うものの一覧表示
 	@GetMapping
