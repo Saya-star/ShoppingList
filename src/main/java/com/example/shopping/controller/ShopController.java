@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.shopping.entity.Shop;
 import com.example.shopping.service.ShopService;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 //お店リストのページのコントローラー
@@ -34,7 +33,6 @@ public class ShopController {
 
 	// 店名を追加
 	@PostMapping
-	@Transactional
 	public String add(@ModelAttribute("form") Shop shop, Model model, Principal principal) {
 		shopService.add(shop, principal);
 		return "redirect:/shop";
