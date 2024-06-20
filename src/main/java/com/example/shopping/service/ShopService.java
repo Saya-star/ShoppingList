@@ -48,7 +48,7 @@ public class ShopService {
 		Optional<Shop> findShop = shopRepository.findById(id);
 		if (findShop.isPresent()) {
 			findShop.get().setDeleted(true);
+			shopRepository.saveAndFlush(findShop.get());
 		}
-		shopRepository.saveAndFlush(findShop.get());
 	}
 }
