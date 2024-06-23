@@ -2,7 +2,6 @@ package com.example.shopping.controller;
 
 import java.security.Principal;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,21 +10,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.example.shopping.entity.Shop;
-import com.example.shopping.repository.ShopRepository;
 import com.example.shopping.service.ShopService;
 
-import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 //お店リストのページのコントローラー
 @Controller
 @RequestMapping(value = "/shop")
+@RequiredArgsConstructor
 public class ShopController {
 
-	@Autowired
-	ShopRepository shopRepository;
-
-	@Autowired
-	ShopService shopService;
+	private final ShopService shopService;
 
 	// 店名の一覧表示
 	@GetMapping
@@ -38,7 +33,6 @@ public class ShopController {
 
 	// 店名を追加
 	@PostMapping
-	@Transactional
 	public String add(@ModelAttribute("form") Shop shop, Model model, Principal principal) {
 		shopService.add(shop, principal);
 		return "redirect:/shop";
